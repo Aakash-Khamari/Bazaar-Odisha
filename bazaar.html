@@ -23,6 +23,7 @@
       body {
         font-family: "Inter", sans-serif;
         background-color: #f3f4f6;
+        overscroll-behavior-y: contain; /* Add this line */
       }
       .nav-btn.active {
         color: #4f46e5;
@@ -155,10 +156,7 @@
     </header>
 
     <!-- Main content area -->
-    <main
-      class="flex-grow p-4 md:p-6 overflow-y-auto"
-      style="padding-bottom: calc(4rem + var(--safe-area-inset-bottom, 0px))"
-    >
+    <main class="flex-grow p-4 md:p-6 pb-24 overflow-y-auto">
       <section class="mb-6">
         <h2 class="text-2xl font-bold text-gray-900 mb-2">Bazaar Products</h2>
         <p class="text-gray-600 mb-6">
@@ -217,10 +215,7 @@
     </main>
 
     <!-- **UPDATED** Bottom Navigation Bar -->
-    <nav
-      class="fixed bottom-0 left-0 right-0 bg-white shadow-lg z-50"
-      style="padding-bottom: var(--safe-area-inset-bottom, 0px)"
-    >
+    <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg z-50 pb-2">
       <div class="grid grid-cols-5 h-16">
         <a
           href="home.html"
