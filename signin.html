@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In - Bazaar Odisha</title>
+    <!-- DYNAMIC BASE TAG -->
+    <script>
+      (function () {
+        const repoName = "Bazaar-Odisha";
+        const isGitHub = window.location.hostname.includes("github.io");
+        const base = document.createElement("base");
+        base.href = isGitHub ? `/${repoName}/` : "/";
+        document.head.prepend(base);
+      })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center h-screen p-4">
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-sm">
+      <div class="text-center mb-6">
+        <img src="images/app_logo.png" alt="Bazaar Odisha Logo" class="h-16 w-auto mx-auto mb-2"/>
+        <h2 class="text-2xl font-bold text-gray-900">Welcome Back!</h2>
+        <p class="text-gray-500">Sign in to continue to Bazaar Odisha.</p>
+      </div>
+
+      <!-- Email and Password Form -->
+      <div>
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+          <input type="email" id="email" placeholder="you@example.com" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"/>
+        </div>
+        <div class="mb-4">
+            <div class="flex justify-between items-baseline">
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <a href="forgot-password.html" class="text-sm text-indigo-600 hover:underline">Forgot password?</a>
+            </div>
+            <input type="password" id="password" placeholder="••••••••" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"/>
+        </div>
+        <button id="signin-btn" class="mt-2 w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-full hover:bg-indigo-700">Sign In</button>
+      </div>
+
+      <!-- Divider -->
+       <div class="my-6 flex items-center">
+        <hr class="flex-grow border-t border-gray-300" />
+        <span class="mx-4 text-sm text-gray-500">OR</span>
+        <hr class="flex-grow border-t border-gray-300" />
+      </div>
+
+      <!-- Google Sign-in Button -->
+      <div>
+         <button id="google-signin-btn" class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-full hover:bg-gray-50">
+          <svg class="h-5 w-5" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></svg>
+          Sign in with Google
+        </button>
+      </div>
+      
+      <p class="text-center text-sm text-gray-600 mt-8">
+        Don't have an account? <a href="signup.html" class="font-medium text-indigo-600 hover:underline">Sign Up</a>
+      </p>
+
+      <p id="error-message" class="text-red-500 text-sm mt-4 text-center"></p>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+    <script>
+      const firebaseConfig = { apiKey: "AIzaSyCtKssk0Ffo0ylSQF4hnhkffQmX-C-vQOE", authDomain: "bazzar-odisha.firebaseapp.com", projectId: "bazzar-odisha", storageBucket: "bazzar-odisha.appspot.com", messagingSenderId: "441459698881", appId: "1:441459698881:web:09f7cfe94ffd5b9f40b840" };
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+
+      const emailField = document.getElementById("email");
+      const passwordField = document.getElementById("password");
+      const signInBtn = document.getElementById("signin-btn");
+      const googleSignInBtn = document.getElementById("google-signin-btn");
+      const errorMessage = document.getElementById("error-message");
+
+      auth.onAuthStateChanged(user => { if (user) window.location.replace("home.html"); });
+
+      function signInWithEmail() {
+        const email = emailField.value;
+        const password = passwordField.value;
+        errorMessage.textContent = "";
+
+        if (!email || !password) {
+            errorMessage.textContent = "Please enter both email and password.";
+            return;
+        }
+
+        auth.signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Success. The onAuthStateChanged listener will redirect.
+            })
+            .catch((error) => {
+                console.error("Error during sign in:", error);
+                if (error.code === 'auth/invalid-credential') {
+                    errorMessage.textContent = "Invalid email or password. Please try again.";
+                } else {
+                    errorMessage.textContent = "An error occurred. Please try again later.";
+                }
+            });
+      }
+      
+      function signInWithGoogle() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        errorMessage.textContent = "";
+        
+        auth.signInWithPopup(provider)
+            .then((result) => {
+                // Success. The onAuthStateChanged listener will redirect.
+            })
+            .catch((error) => {
+                console.error("Error during Google sign-in:", error);
+                if (error.code === 'auth/popup-closed-by-user') {
+                    errorMessage.textContent = "Sign-in window closed. Please try again.";
+                } else if (error.code === 'auth/popup-blocked') {
+                    errorMessage.textContent = "Popup blocked by browser. Please allow popups for this site.";
+                } else {
+                    errorMessage.textContent = "Could not sign in with Google. Please try again.";
+                }
+            });
+      }
+
+      signInBtn.addEventListener("click", signInWithEmail);
+      googleSignInBtn.addEventListener("click", signInWithGoogle);
+    </script>
+  </body>
+</html>

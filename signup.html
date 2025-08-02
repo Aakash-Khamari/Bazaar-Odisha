@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - Bazaar Odisha</title>
+    <!-- DYNAMIC BASE TAG -->
+    <script>
+      (function () {
+        const repoName = "Bazaar-Odisha";
+        const isGitHub = window.location.hostname.includes("github.io");
+        const base = document.createElement("base");
+        base.href = isGitHub ? `/${repoName}/` : "/";
+        document.head.prepend(base);
+      })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center h-screen p-4">
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-sm">
+      <div class="text-center mb-6">
+        <img src="images/app_logo.png" alt="Bazaar Odisha Logo" class="h-16 w-auto mx-auto mb-2"/>
+        <h2 class="text-2xl font-bold text-gray-900">Create an Account</h2>
+        <p class="text-gray-500">Join Bazaar Odisha today!</p>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div>
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+          <input type="email" id="email" placeholder="you@example.com" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"/>
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+          <input type="password" id="password" placeholder="At least 6 characters" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"/>
+        </div>
+        <div class="mb-4">
+          <label for="confirm-password" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+          <input type="password" id="confirm-password" placeholder="Re-enter your password" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"/>
+        </div>
+        <button id="signup-btn" class="mt-2 w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-full hover:bg-indigo-700">Sign Up</button>
+      </div>
+
+      <p class="text-center text-sm text-gray-600 mt-8">
+        Already have an account? <a href="signin.html" class="font-medium text-indigo-600 hover:underline">Sign In</a>
+      </p>
+
+      <p id="error-message" class="text-red-500 text-sm mt-4 text-center"></p>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+    <script>
+      const firebaseConfig = { apiKey: "AIzaSyCtKssk0Ffo0ylSQF4hnhkffQmX-C-vQOE", authDomain: "bazzar-odisha.firebaseapp.com", projectId: "bazzar-odisha", storageBucket: "bazzar-odisha.appspot.com", messagingSenderId: "441459698881", appId: "1:441459698881:web:09f7cfe94ffd5b9f40b840" };
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+
+      const emailField = document.getElementById("email");
+      const passwordField = document.getElementById("password");
+      const confirmPasswordField = document.getElementById("confirm-password");
+      const signUpBtn = document.getElementById("signup-btn");
+      const errorMessage = document.getElementById("error-message");
+
+      function signUpWithEmail() {
+        errorMessage.textContent = "";
+        const email = emailField.value;
+        const password = passwordField.value;
+        const confirmPassword = confirmPasswordField.value;
+
+        if (!email) {
+            errorMessage.textContent = "Please enter an email address.";
+            return;
+        }
+        if (password.length < 6) {
+            errorMessage.textContent = "Password must be at least 6 characters long.";
+            return;
+        }
+        if (password !== confirmPassword) {
+            errorMessage.textContent = "Passwords do not match.";
+            return;
+        }
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .then(() => {
+                // Redirect to let the user create their profile name
+                window.location.replace("create-profile.html");
+            })
+            .catch((error) => {
+                console.error("Error during sign up:", error);
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessage.textContent = "This email is already in use by another account.";
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessage.textContent = "Password is too weak. Please use at least 6 characters.";
+                } else {
+                    errorMessage.textContent = "An error occurred during sign-up. Please try again.";
+                }
+            });
+      }
+
+      signUpBtn.addEventListener("click", signUpWithEmail);
+    </script>
+  </body>
+</html>

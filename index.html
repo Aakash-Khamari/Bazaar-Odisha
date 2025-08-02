@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bazaar Odisha</title>
-
     <!-- Dynamic base tag -->
     <script>
         (function() {
@@ -15,9 +14,7 @@
             document.head.prepend(base);
         })();
     </script>
-     
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <style>
         body { transition: opacity 0.5s ease-in-out; }
         @keyframes spin {
@@ -66,11 +63,11 @@
         // State variables to track completion
         let isAuthCheckComplete = false;
         let isMinTimeElapsed = false;
-        let destinationUrl = 'login.html'; // Default destination
+        // UPDATED: Default destination is now signin.html
+        let destinationUrl = 'signin.html'; 
 
         // Function to attempt navigation
         function tryNavigate() {
-            // Only navigate if both auth check is done AND min time has passed
             if (isAuthCheckComplete && isMinTimeElapsed) {
                 document.body.style.opacity = '0';
                 setTimeout(() => {
@@ -92,8 +89,9 @@
                 // User is logged in, set destination to home
                 destinationUrl = 'home.html';
             } else {
-                // User is not logged in, destination remains login
-                destinationUrl = 'login.html';
+                // User is not logged in, destination is signin.html
+                // UPDATED: No change needed here, the default is already correct
+                destinationUrl = 'signin.html';
             }
             tryNavigate();
         });
