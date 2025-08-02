@@ -53,7 +53,7 @@
       class="fixed top-0 left-0 w-64 h-full bg-white z-[100] transform -translate-x-full transition-transform duration-300 ease-in-out shadow-lg p-6"
     >
       <div class="flex items-center justify-between mb-8">
-        <a href="index.html" class="flex items-center gap-2">
+        <a href="home.html" class="flex items-center gap-2">
           <img
             src="images/app_logo.png"
             alt="Bazaar Odisha Logo"
@@ -126,7 +126,7 @@
       class="bg-white sticky top-0 z-50 shadow-sm p-3 flex items-center justify-between"
     >
       <!-- Left side: Logo and App Name (links to home) -->
-      <a href="index.html" class="flex items-center gap-2">
+      <a href="home.html" class="flex items-center gap-2">
         <img
           src="images/app_logo.png"
           alt="Bazaar Odisha Logo"
@@ -216,7 +216,7 @@
     <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg z-50">
       <div class="grid grid-cols-5 h-16">
         <a
-          href="index.html"
+          href="home.html"
           class="nav-btn flex flex-col items-center justify-center pt-2 pb-1"
         >
           <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
@@ -331,12 +331,12 @@
 
       function toggleWishlist(productId) {
         let wishlist = getWishlist();
-        const itemIndex = wishlist.findIndex(
+        const itemhome = wishlist.findhome(
           (item) => item.id === productId && item.type === "product"
         );
 
-        if (itemIndex > -1) {
-          wishlist.splice(itemIndex, 1); // Remove
+        if (itemhome > -1) {
+          wishlist.splice(itemhome, 1); // Remove
         } else {
           wishlist.push({ id: productId, type: "product" }); // Add
         }

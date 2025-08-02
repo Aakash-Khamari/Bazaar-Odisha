@@ -189,12 +189,12 @@
 
       function toggleWishlist(productId) {
         let wishlist = getWishlist();
-        const itemIndex = wishlist.findIndex(
+        const itemhome = wishlist.findhome(
           (item) => item.id === productId && item.type === "product"
         );
 
-        if (itemIndex > -1) {
-          wishlist.splice(itemIndex, 1); // Remove
+        if (itemhome > -1) {
+          wishlist.splice(itemhome, 1); // Remove
         } else {
           wishlist.push({ id: productId, type: "product" }); // Add
         }
@@ -239,9 +239,9 @@
                     <div class="flex space-x-2 p-2 overflow-x-auto">
                         ${product.images
                           .map(
-                            (img, index) => `
+                            (img, home) => `
                             <img src="${img}" class="thumbnail w-16 h-16 rounded-md object-cover cursor-pointer border-2 ${
-                              index === 0 ? "active" : "border-transparent"
+                              home === 0 ? "active" : "border-transparent"
                             }" onclick="changeImage('${img}', this)">
                         `
                           )

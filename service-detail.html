@@ -186,12 +186,12 @@
 
       function toggleWishlist(serviceId) {
         let wishlist = getWishlist();
-        const itemIndex = wishlist.findIndex(
+        const itemhome = wishlist.findhome(
           (item) => item.id === serviceId && item.type === "service"
         );
 
-        if (itemIndex > -1) {
-          wishlist.splice(itemIndex, 1); // Remove
+        if (itemhome > -1) {
+          wishlist.splice(itemhome, 1); // Remove
         } else {
           wishlist.push({ id: serviceId, type: "service" }); // Add
         }
