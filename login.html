@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bazaar Odisha - Login</title>
+    <!-- ADD THIS LINE TO EVERY HTML FILE -->
+    <base href="/Bazaar-Odisha/">
+    <!-- Tailwind CSS CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Import the Inter font for a clean, modern look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* A light grey background for the app */
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Top Bar (Header) - Simplified for login page -->
+    <header class="bg-white sticky top-0 z-50 shadow-sm p-4 flex items-center justify-center">
+        <span class="text-xl font-bold text-indigo-600">Bazaar Odisha</span>
+    </header>
+
+    <!-- Main content area for Login Page -->
+    <main class="flex-grow flex items-center justify-center p-4 md:p-6">
+        <div class="max-w-md w-full bg-white rounded-xl shadow-xl p-8">
+
+            <!-- Step 1: Enter Phone Number -->
+            <div id="phone-entry-step">
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold text-gray-900">Login or Sign Up</h2>
+                    <p class="mt-2 text-sm text-gray-600">Enter your phone number to receive a verification code.</p>
+                </div>
+                
+                <form id="phone-form" class="mt-8 space-y-6">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span class="text-gray-500">+91</span>
+                        </div>
+                        <input id="phone-number" name="phone" type="tel" autocomplete="tel" required
+                            class="w-full pl-12 pr-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                            placeholder="98765 43210" inputmode="numeric">
+                    </div>
+                    
+                    <div>
+                        <!-- This is where the reCAPTCHA element will be rendered by Firebase -->
+                        <div id="recaptcha-container"></div>
+                        
+                        <button type="submit"
+                            class="w-full mt-4 flex justify-center py-3 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Send OTP
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 2: Enter OTP -->
+            <div id="otp-entry-step" class="hidden">
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold text-gray-900">Verify Your Number</h2>
+                    <p class="mt-2 text-sm text-gray-600">Enter the 6-digit code sent to <strong id="display-phone-number">+91 98765 43210</strong>.</p>
+                </div>
+                
+                <form id="otp-form" class="mt-8 space-y-6">
+                    <div>
+                        <label for="otp" class="sr-only">Verification Code</label>
+                        <input id="otp" name="otp" type="text" autocomplete="one-time-code" required
+                            class="w-full text-center text-2xl tracking-[1em] py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                            placeholder="------" maxlength="6" inputmode="numeric">
+                    </div>
+                    
+                    <div>
+                        <button type="submit"
+                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            Verify & Login
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-4 text-center text-sm">
+                    <button id="resend-otp-button" class="font-medium text-indigo-600 hover:text-indigo-500 disabled:text-gray-400 disabled:cursor-not-allowed" disabled>
+                        Resend OTP
+                    </button>
+                    <span id="resend-timer" class="text-gray-500">in 30s</span>
+                </div>
+                 <div class="mt-2 text-center text-sm">
+                    <button id="change-number-button" class="font-medium text-gray-500 hover:text-gray-700">
+                        Change Number
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    
+    <script>
+        // --- UI Element References ---
+        const phoneEntryStep = document.getElementById('phone-entry-step');
+        const otpEntryStep = document.getElementById('otp-entry-step');
+        
+        const phoneForm = document.getElementById('phone-form');
+        const otpForm = document.getElementById('otp-form');
+        
+        const phoneNumberInput = document.getElementById('phone-number');
+        const displayPhoneNumber = document.getElementById('display-phone-number');
+        
+        const resendOtpButton = document.getElementById('resend-otp-button');
+        const resendTimerDisplay = document.getElementById('resend-timer');
+        const changeNumberButton = document.getElementById('change-number-button');
+
+        // --- Mock Firebase Integration Logic ---
+        
+        // This would be your window.confirmationResult object from Firebase
+        let confirmationResult = null;
+
+        phoneForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // In a real app, you would initialize Firebase reCAPTCHA here.
+            // window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', { 'size': 'invisible' });
+            
+            const phoneNumber = "+91" + phoneNumberInput.value;
+            console.log("Requesting OTP for:", phoneNumber);
+
+            // --- FIREBASE LOGIC ---
+            // firebase.auth().signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier)
+            //     .then((result) => {
+            //         confirmationResult = result;
+            //         console.log("OTP sent successfully!");
+            //         // Switch to OTP entry view after success
+            //         showOtpScreen(phoneNumber);
+            //     }).catch((error) => {
+            //         console.error("Error sending OTP:", error);
+            //         alert("Failed to send OTP. Please try again.");
+            //         // Reset reCAPTCHA
+            //         // window.recaptchaVerifier.render().then(widgetId => grecaptcha.reset(widgetId));
+            //     });
+            
+            // For demonstration purposes, we'll just switch screens
+            showOtpScreen(phoneNumber);
+        });
+
+        otpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const otp = document.getElementById('otp').value;
+            if (!otp || otp.length < 6) {
+                alert("Please enter a valid 6-digit OTP.");
+                return;
+            }
+            console.log("Verifying OTP:", otp);
+
+            // --- FIREBASE LOGIC ---
+            // confirmationResult.confirm(otp).then((result) => {
+            //     // User signed in successfully.
+            //     const user = result.user;
+            //     console.log("User signed in:", user);
+            //     alert("Login Successful!");
+            //     // Redirect to the home page
+            //     window.location.href = 'index.html';
+            // }).catch((error) => {
+            //     console.error("Error verifying OTP:", error);
+            //     alert("Invalid OTP. Please try again.");
+            // });
+            
+            // For demonstration, we'll simulate a successful login
+             alert("Login Successful!");
+             window.location.href = 'index.html';
+        });
+
+        changeNumberButton.addEventListener('click', () => {
+            showPhoneScreen();
+        });
+        
+        // --- UI Control Functions ---
+
+        function showOtpScreen(phoneNumber) {
+            displayPhoneNumber.textContent = phoneNumber;
+            phoneEntryStep.classList.add('hidden');
+            otpEntryStep.classList.remove('hidden');
+            startResendTimer();
+        }
+
+        function showPhoneScreen() {
+            otpEntryStep.classList.add('hidden');
+            phoneEntryStep.classList.remove('hidden');
+        }
+
+        function startResendTimer() {
+            resendOtpButton.disabled = true;
+            let timer = 30;
+            resendTimerDisplay.textContent = `in ${timer}s`;
+            resendTimerDisplay.classList.remove('hidden');
+
+            const interval = setInterval(() => {
+                timer--;
+                resendTimerDisplay.textContent = `in ${timer}s`;
+                if (timer <= 0) {
+                    clearInterval(interval);
+                    resendOtpButton.disabled = false;
+                    resendTimerDisplay.classList.add('hidden');
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

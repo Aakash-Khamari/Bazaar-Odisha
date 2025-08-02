@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bazaar Odisha - About Us</title>
+
+    <!-- ADD THIS LINE TO EVERY HTML FILE -->
+    <base href="/Bazaar-Odisha/">
+    <!-- Tailwind CSS CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .nav-btn.active { color: #4f46e5; border-top: 2px solid #4f46e5; }
+        .nav-btn:not(.active) { color: #6b7280; }
+        .nav-btn:hover:not(.active) { color: #4f46e5; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Hamburger Menu (Off-Canvas Sidebar) -->
+    <nav id="hamburger-menu" class="fixed top-0 left-0 w-64 h-full bg-white z-[100] transform -translate-x-full transition-transform duration-300 ease-in-out shadow-lg p-6">
+        <div class="flex items-center justify-between mb-8">
+             <a href="index.html" class="flex items-center gap-2">
+                <img src="images/app_logo.png" alt="Bazaar Odisha Logo" class="h-8 w-auto">
+                <span class="text-xl font-bold text-indigo-600">Bazaar Odisha</span>
+            </a>
+            <button id="close-menu-btn" class="text-gray-600 hover:text-gray-800"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <ul class="space-y-4">
+            <li><a href="profile.html" class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"><span>Profile</span></a></li>
+            <li><a href="settings.html" class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"><span>Settings</span></a></li>
+            <li><a href="wishlist.html" class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"><span>Wishlist</span></a></li>
+            <li class="border-t my-4"></li>
+            <!-- About Us is now active -->
+            <li><a href="about.html" class="flex items-center space-x-3 text-indigo-600 font-semibold"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span>About Us</span></a></li>
+            <li><a href="contact.html" class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"><span>Contact</span></a></li>
+        </ul>
+    </nav>
+    <div id="overlay" class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-300 z-[90]"></div>
+
+    <!-- **UPDATED** Top Bar (Header) -->
+    <header class="bg-white sticky top-0 z-50 shadow-sm p-3 flex items-center justify-between">
+        <!-- Left side: Logo and App Name (links to home) -->
+        <a href="index.html" class="flex items-center gap-2">
+            <img src="images/app_logo.png" alt="Bazaar Odisha Logo" class="h-8 w-auto">
+            <span class="text-xl font-bold text-indigo-600">Bazaar Odisha</span>
+        </a>
+        
+        <!-- Right side: Hamburger Menu Button -->
+        <button id="open-menu-btn" class="text-gray-600 hover:text-gray-800">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </header>
+
+    <!-- Main content area -->
+    <main class="flex-grow p-4 md:p-6 mb-20 overflow-y-auto">
+        <div class="bg-white rounded-xl shadow p-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Empowering Odisha's Local Economy</h2>
+            
+            <p class="text-gray-600 mb-6">
+                <strong>Bazaar Odisha</strong> is not just an app — it is a digital revolution tailored to Odisha’s grassroots economy[1]. Our mission is to bridge the digital divide by providing a simple, accessible, and powerful platform for local service providers, Self-Help Groups (SHGs), and micro-businesses to connect with consumers across the state[1].
+            </p>
+
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">What We Do</h3>
+                    <p class="text-gray-600">
+                        Thousands of skilled workers, small shopkeepers, and women-led SHGs are the backbone of Odisha's economy, yet they often remain invisible in the digital world[1]. We provide them with the tools to create a digital presence for free, helping them reach more customers and grow their businesses sustainably[1].
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Our Key Features</h3>
+                    <ul class="list-disc list-inside text-gray-600 space-y-2">
+                        <li><strong>Find Local Services:</strong> Easily find and contact skilled professionals like plumbers, electricians, and tailors in your area[1].</li>
+                        <li><strong>Bazaar Cart:</strong> Discover products from local stores and SHGs, and connect with sellers directly via WhatsApp to make a purchase[1].</li>
+                        <li><strong>SHG Hub:</strong> A dedicated section to showcase and promote the incredible handmade, organic, and eco-friendly products made by women's Self-Help Groups[1].</li>
+                        <li><strong>Community Forum:</strong> A place for users to ask questions, share recommendations, and support each other, building a stronger local community[1].</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Our Vision</h3>
+                    <p class="text-gray-600">
+                        We envision a digitally inclusive Odisha where every entrepreneur, no matter how small, has an equal opportunity to thrive. By fostering a self-reliant local ecosystem, we aim to boost the rural economy, promote micro-entrepreneurship, and empower communities to build a better future with dignity and visibility[1].
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-8 border-t pt-6 text-center">
+                <p class="text-gray-700">Join us in supporting local. Together, we can make a difference.</p>
+                <p class="text-sm text-gray-500 mt-2">Bazaar Odisha - A Project by Aakash Khamari</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- **UPDATED** Bottom Navigation Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg z-50">
+        <div class="grid grid-cols-5 h-16">
+            <a href="index.html" class="nav-btn flex flex-col items-center justify-center pt-2 pb-1">
+                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                <span class="text-xs mt-1">Home</span>
+            </a>
+            <a href="services.html" class="nav-btn flex flex-col items-center justify-center pt-2 pb-1">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-1.206-8.255-3.255m16.51 0a23.931 23.931 0 01-16.51 0m16.51 0v-.255a2 2 0 00-2-2h-13a2 2 0 00-2 2v.255m0 0a2 2 0 01-2 2h-1a2 2 0 01-2-2v-.255a23.931 23.931 0 01-16.51 0m0 0v-.255a2 2 0 012-2h13a2 2 0 012 2v.255"></path></svg>
+                <span class="text-xs mt-1">Services</span>
+            </a>
+            <a href="bazaar.html" class="nav-btn flex flex-col items-center justify-center pt-2 pb-1">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.182 1.706.707 1.706H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                <span class="text-xs mt-1">Bazaar Cart</span>
+            </a>
+            <a href="shg.html" class="nav-btn flex flex-col items-center justify-center pt-2 pb-1">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20v-2a2 2 0 00-2-2H9a2 2 0 00-2 2v2M7 14h10M7 10h10M4 7h16M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z"></path></svg>
+                <span class="text-xs mt-1">SHG</span>
+            </a>
+            <a href="community.html" class="nav-btn flex flex-col items-center justify-center pt-2 pb-1">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                <span class="text-xs mt-1">Community</span>
+            </a>
+        </div>
+    </nav>
+    
+    <script>
+        const openMenuBtn = document.getElementById('open-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const hamburgerMenu = document.getElementById('hamburger-menu');
+        const overlay = document.getElementById('overlay');
+
+        // Hamburger Menu Logic
+        function toggleHamburgerMenu() {
+            hamburgerMenu.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('opacity-0');
+            overlay.classList.toggle('pointer-events-none');
+            overlay.classList.toggle('opacity-50');
+        }
+        openMenuBtn.addEventListener('click', toggleHamburgerMenu);
+        closeMenuBtn.addEventListener('click', toggleHamburgerMenu);
+        overlay.addEventListener('click', toggleHamburgerMenu);
+    </script>
+</body>
+</html>

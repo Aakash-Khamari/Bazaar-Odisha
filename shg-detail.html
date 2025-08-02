@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bazaar Odisha - SHG Profile</title>
+    <!-- ADD THIS LINE TO EVERY HTML FILE -->
+    <base href="/Bazaar-Odisha/">
+    <!-- Tailwind CSS CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .nav-btn.active { color: #4f46e5; border-top: 2px solid #4f46e5; }
+        .nav-btn:not(.active) { color: #6b7280; }
+        .nav-btn:hover:not(.active) { color: #4f46e5; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Hamburger Menu (Off-Canvas Sidebar) -->
+    <nav id="hamburger-menu" class="fixed top-0 left-0 w-64 h-full bg-white z-[100] transform -translate-x-full transition-transform duration-300 ease-in-out shadow-lg p-6">
+        <div class="flex items-center justify-between mb-8">
+            <h3 class="text-xl font-bold text-indigo-600">Bazaar Odisha</h3>
+            <button id="close-menu-btn" class="text-gray-600 hover:text-gray-800"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <ul class="space-y-4">
+            <li><a href="profile.html" class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"><span>Profile</span></a></li>
+            <li><a href="settings.html" class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"><span>Settings</span></a></li>
+            <li><a href="wishlist.html" class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"><span>Wishlist</span></a></li>
+            <li class="border-t my-4"></li>
+            <li><a href="about.html" class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"><span>About Us</span></a></li>
+            <li><a href="contact.html" class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"><span>Contact</span></a></li>
+        </ul>
+    </nav>
+    <div id="overlay" class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-300 z-[90]"></div>
+
+    <!-- Top Bar (Header) -->
+    <header class="bg-white sticky top-0 z-50 shadow-sm p-4 flex items-center justify-between">
+        <div class="flex items-center">
+            <a href="shg.html" class="text-gray-600 hover:text-gray-800"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></a>
+            <span id="header-title" class="ml-4 text-xl font-bold text-indigo-600 hidden md:block">SHG Profile</span>
+        </div>
+        <button id="open-menu-btn" class="text-gray-600 hover:text-gray-800"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+    </header>
+
+    <!-- Main content area -->
+    <main id="shg-detail-container" class="flex-grow pb-24 overflow-y-auto">
+        <!-- This area will be populated by JavaScript -->
+        <div class="text-center p-8"><p class="text-gray-500">Loading SHG profile...</p></div>
+    </main>
+    
+    <!-- Bottom Action Bar -->
+    <div id="action-bar" class="fixed bottom-0 left-0 right-0 bg-white shadow-lg z-50 p-4 border-t">
+         <!-- Action buttons will be populated by JavaScript -->
+    </div>
+    
+    <!-- Load the data files BEFORE the main script -->
+    <script src="shg_data.js"></script>
+    <script src="bazaar_data.js"></script>
+    <script>
+        const detailContainer = document.getElementById('shg-detail-container');
+        const actionBar = document.getElementById('action-bar');
+        const headerTitle = document.getElementById('header-title');
+        const openMenuBtn = document.getElementById('open-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const hamburgerMenu = document.getElementById('hamburger-menu');
+        const overlay = document.getElementById('overlay');
+
+        function renderShgDetails(shg, products) {
+            document.title = `${shg.name} - Bazaar Odisha`;
+            headerTitle.textContent = shg.name;
+
+            // Main Content
+            detailContainer.innerHTML = `
+                <div class="bg-white pb-6">
+                    <div class="p-6 flex items-center gap-4">
+                        <img src="${shg.image}" alt="${shg.name}" class="w-24 h-24 rounded-full border-4 border-indigo-100 object-cover flex-shrink-0">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900">${shg.name}</h2>
+                            <p class="text-md text-gray-600">${shg.location}</p>
+                            <p class="text-sm text-gray-500 mt-1">Led by: ${shg.leader_name}</p>
+                        </div>
+                    </div>
+                    <div class="px-6 grid grid-cols-2 gap-4 text-center">
+                        <div class="bg-indigo-50 p-3 rounded-lg">
+                            <p class="text-xl font-bold text-indigo-700">${shg.members_count}</p>
+                            <p class="text-xs text-indigo-600">Members</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded-lg">
+                            <p class="text-xl font-bold text-green-700">${shg.established_year}</p>
+                            <p class="text-xs text-green-600">Established</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Our Story</h3>
+                    <p class="text-gray-700 leading-relaxed">${shg.story}</p>
+                </div>
+
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Our Work</h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        ${shg.gallery.map(url => `<img src="${url}" class="w-full h-24 object-cover rounded-md" alt="Work sample">`).join('')}
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Products from ${shg.name}</h3>
+                    ${products.length > 0 ? `
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        ${products.map(product => `
+                            <a href="product-detail.html?id=${product.id}" class="block bg-white rounded-lg shadow-sm overflow-hidden border">
+                                <img src="${product.images[0]}" alt="${product.name}" class="w-full h-24 object-cover">
+                                <div class="p-2">
+                                    <h4 class="text-sm font-semibold text-gray-800 truncate">${product.name}</h4>
+                                    <p class="text-sm font-bold text-indigo-600">₹${product.price}</p>
+                                </div>
+                            </a>
+                        `).join('')}
+                    </div>
+                    ` : `<div class="bg-white p-4 rounded-lg text-center text-gray-500">No products listed in the bazaar yet.</div>`}
+                </div>
+            `;
+            
+            // Action Bar
+            const whatsappLink = `https://wa.me/${shg.phone}?text=Hello%20${shg.name},%20I%20found%20your%20SHG%20on%20Bazaar%20Odisha.`;
+            const callLink = `tel:${shg.phone}`;
+            actionBar.innerHTML = `
+                <div class="flex gap-4">
+                    <a href="${callLink}" class="flex-1 text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-4 rounded-full transition-colors duration-300">Call Now</a>
+                    <a href="${whatsappLink}" target="_blank" class="flex-1 text-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-full transition-colors duration-300">Contact via WhatsApp</a>
+                </div>
+            `;
+        }
+
+        // DYNAMIC PAGE LOAD LOGIC
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const shgId = parseInt(urlParams.get('id'));
+
+            if (!shgId) {
+                detailContainer.innerHTML = `<div class="p-8 text-center"><h2 class="text-xl font-bold">Invalid SHG ID</h2><a href="shg.html" class="text-indigo-600">Go Back to SHG List</a></div>`;
+                return;
+            }
+
+            const shg = shgData.find(s => s.id === shgId);
+            
+            if (shg) {
+                // Find all products from this SHG
+                const products = bazaarProducts.filter(p => p.vendorId === shgId);
+                renderShgDetails(shg, products);
+            } else {
+                detailContainer.innerHTML = `<div class="p-8 text-center"><h2 class="text-xl font-bold">SHG Not Found</h2><p class="text-gray-500">The requested SHG ID does not exist.</p><a href="shg.html" class="mt-4 inline-block text-indigo-600">Go Back to SHG List</a></div>`;
+                actionBar.style.display = 'none';
+            }
+        });
+
+        // Hamburger Menu Logic
+        function toggleHamburgerMenu() {
+            hamburgerMenu.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('opacity-0');
+            overlay.classList.toggle('pointer-events-none');
+            overlay.classList.toggle('opacity-50');
+        }
+        openMenuBtn.addEventListener('click', toggleHamburgerMenu);
+        closeMenuBtn.addEventListener('click', toggleHamburgerMenu);
+        overlay.addEventListener('click', toggleHamburgerMenu);
+    </script>
+</body>
+</html>
