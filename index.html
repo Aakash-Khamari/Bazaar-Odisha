@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bazaar Odisha</title>
-    <!-- Dynamic base tag for local and live environments -->
+    <!-- Dynamic base tag -->
     <script>
         (function() {
             const repoName = 'Bazaar-Odisha';
@@ -44,36 +44,56 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
     <script>
+        // --- Configuration ---
         const firebaseConfig = {
-          apiKey: "AIzaSyCtKssk0Ffo0ylSQF4hnhkffQmX-C-vQOE",
-          authDomain: "bazzar-odisha.firebaseapp.com",
-          projectId: "bazzar-odisha",
-          storageBucket: "bazzar-odisha.appspot.com",
-          messagingSenderId: "441459698881",
-          appId: "1:441459698881:web:09f7cfe94ffd5b9f40b840"
+            apiKey: "AIzaSyCtKssk0Ffo0ylSQF4hnhkffQmX-C-vQOE",
+            authDomain: "bazzar-odisha.firebaseapp.com",
+            projectId: "bazzar-odisha",
+            storageBucket: "bazzar-odisha.appspot.com",
+            messagingSenderId: "441459698881",
+            appId: "1:441459698881:web:09f7cfe94ffd5b9f40b840"
         };
         firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
 
-        const splashScreenDuration = 2000;
-        const fadeOutTime = 500;
+        // --- Improved Splash Screen Logic ---
+        const minSplashTime = 2000; // 2 seconds minimum
+        const fadeOutTime = 500;   // 0.5 second fade
 
-        function fadeOutAndNavigate(url) {
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-                window.location.replace(url);
-            }, fadeOutTime);
+        // State variables to track completion
+        let isAuthCheckComplete = false;
+        let isMinTimeElapsed = false;
+        let destinationUrl = 'login.html'; // Default destination
+
+        // Function to attempt navigation
+        function tryNavigate() {
+            // Only navigate if both auth check is done AND min time has passed
+            if (isAuthCheckComplete && isMinTimeElapsed) {
+                document.body.style.opacity = '0';
+                setTimeout(() => {
+                    window.location.replace(destinationUrl);
+                }, fadeOutTime);
+            }
         }
 
+        // 1. Start the timer for the minimum splash duration
         setTimeout(() => {
-            firebase.auth().onAuthStateChanged((user) => {
-                if (user) {
-                    // **UPDATED:** Redirect to home.html
-                    fadeOutAndNavigate('home.html');
-                } else {
-                    fadeOutAndNavigate('login.html');
-                }
-            });
-        }, splashScreenDuration);
+            isMinTimeElapsed = true;
+            tryNavigate();
+        }, minSplashTime);
+
+        // 2. Start the authentication check immediately
+        auth.onAuthStateChanged((user) => {
+            isAuthCheckComplete = true;
+            if (user) {
+                // User is logged in, set destination to home
+                destinationUrl = 'home.html';
+            } else {
+                // User is not logged in, destination remains login
+                destinationUrl = 'login.html';
+            }
+            tryNavigate();
+        });
     </script>
 </body>
 </html>

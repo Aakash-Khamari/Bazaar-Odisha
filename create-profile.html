@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Your Profile - Bazaar Odisha</title>
+
+    <!-- DYNAMIC BASE TAG -->
+    <script>
+      (function () {
+        const repoName = "Bazaar-Odisha";
+        const isGitHub = window.location.hostname.includes("github.io");
+        const base = document.createElement("base");
+        base.href = isGitHub ? `/${repoName}/` : "/";
+        document.head.prepend(base);
+      })();
+    </script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen p-4">
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-sm text-center">
+        <h2 class="text-2xl font-bold text-gray-900">One Last Step!</h2>
+        <p class="text-gray-500 mt-2 mb-6">Please tell us your name.</p>
+        
+        <!-- Profile Creation Form -->
+        <div>
+            <label for="full-name" class="block text-sm font-medium text-gray-700 text-left">Full Name</label>
+            <input
+              type="text"
+              id="full-name"
+              placeholder="e.g., Aakash Khamari"
+              class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            />
+        </div>
+        
+        <button
+          id="save-profile-btn"
+          class="mt-6 w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-full hover:bg-indigo-700"
+        >
+          Save & Continue
+        </button>
+
+        <p id="error-message" class="text-red-500 text-sm mt-4"></p>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCtKssk0Ffo0ylSQF4hnhkffQmX-C-vQOE",
+            authDomain: "bazzar-odisha.firebaseapp.com",
+            projectId: "bazzar-odisha",
+            storageBucket: "bazzar-odisha.appspot.com",
+            messagingSenderId: "441459698881",
+            appId: "1:441459698881:web:09f7cfe94ffd5b9f40b840",
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // DOM Elements
+        const fullNameField = document.getElementById('full-name');
+        const saveProfileBtn = document.getElementById('save-profile-btn');
+        const errorMessage = document.getElementById('error-message');
+        
+        let currentUser;
+
+        // Auth Guard: Ensure a user is logged in to be on this page.
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                currentUser = user;
+            } else {
+                // If no one is logged in, they can't create a profile. Go to login.
+                window.location.replace("login.html");
+            }
+        });
+
+        // Function to update the user's profile
+        function updateUserProfile() {
+            const fullName = fullNameField.value.trim();
+            if (!fullName) {
+                errorMessage.textContent = "Please enter your name.";
+                return;
+            }
+
+            if (!currentUser) {
+                 errorMessage.textContent = "No active user. Please log in again.";
+                 return;
+            }
+
+            // Use the updateProfile function
+            currentUser.updateProfile({
+                displayName: fullName
+            }).then(() => {
+                // Profile updated successfully! Now go to the home page.
+                console.log("Profile updated successfully for", fullName);
+                window.location.replace("home.html");
+            }).catch(error => {
+                console.error("Error updating profile:", error);
+                errorMessage.textContent = "Could not save profile. Please try again.";
+            });
+        }
+
+        // Event Listener
+        saveProfileBtn.addEventListener('click', updateUserProfile);
+    </script>
+</body>
+</html>
