@@ -3,44 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- This meta tag handles the redirect to the homepage after 3 seconds -->
-    <meta http-equiv="refresh" content="3;url=index.html">
-    <title>Welcome to Bazaar Odisha</title>
-    <!-- ADD THIS LINE TO EVERY HTML FILE -->
-    <base href="/Bazaar-Odisha/">
-    <!-- Tailwind CSS CDN -->
+    <title>Bazaar Odisha</title>
+    <!-- Dynamic base tag for local and live environments -->
+    <script>
+        (function() {
+            const repoName = 'Bazaar-Odisha';
+            const isGitHub = window.location.hostname.includes('github.io');
+            const base = document.createElement('base');
+            base.href = isGitHub ? `/${repoName}/` : '/';
+            document.head.prepend(base);
+        })();
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Import the Inter font */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        /* **NEW** Add a transition effect to the body's opacity */
         body {
-            font-family: 'Inter', sans-serif;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* CSS for the rotating progress circle */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .progress-circle {
+            border: 4px solid rgba(255, 255, 255, 0.3); /* Light border */
+            border-top: 4px solid #ffffff; /* Solid white for the spinning part */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1.5s linear infinite;
         }
     </style>
 </head>
-<body class="bg-indigo-600 flex items-center justify-center min-h-screen">
+<body class="bg-indigo-600 flex items-center justify-center h-screen">
 
-    <!-- Splash Screen Content -->
-    <div class="text-center text-white animate-pulse">
+    <div class="text-center">
+        <!-- App Logo and Title -->
+        <img src="images/app_logo.png" alt="Bazaar Odisha Logo" class="h-24 w-auto mx-auto mb-4">
+        <h1 class="text-white text-4xl font-bold">Bazaar Odisha</h1>
         
-        <!-- App Logo (Simple SVG representation) -->
-        <svg class="mx-auto w-24 h-24 mb-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3,3H5.4L8.3,13.1C8.5,13.9,9.2,14.5,10,14.5H18.2C19,14.5,19.7,13.9,19.9,13.1L22.8,5.4H7.2" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <circle cx="9" cy="20" r="2" stroke="#FFF" stroke-width="1.5"/>
-            <circle cx="18" cy="20" r="2" stroke="#FFF" stroke-width="1.5"/>
-        </svg>
-
-        <!-- App Name -->
-        <h1 class="text-4xl md:text-5xl font-bold tracking-wider">
-            Bazaar Odisha
-        </h1>
-        
-        <!-- Tagline -->
-        <p class="text-lg md:text-xl mt-2 text-indigo-200">
-            Connecting Local Economies
-        </p>
-
+        <!-- Rotating Progress Circle (Spinner) -->
+        <div class="mt-8 mx-auto progress-circle"></div>
     </div>
+    
+    <!-- Firebase v8 Compatibility SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCtKssk0Ffo0ylSQF4hnhkffQmX-C-vQOE",
+          authDomain: "bazzar-odisha.firebaseapp.com",
+          projectId: "bazzar-odisha",
+          storageBucket: "bazzar-odisha.appspot.com",
+          messagingSenderId: "441459698881",
+          appId: "1:441459698881:web:09f7cfe94ffd5b9f40b840"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // --- **UPDATED** LOGIC WITH FADE-OUT TRANSITION ---
+
+        const splashScreenDuration = 2000; // 2-second splash screen
+        const fadeOutTime = 500; // 0.5-second fade-out duration
+
+        // **NEW:** This function handles the fade-out and redirection
+        function fadeOutAndNavigate(url) {
+            // 1. Start the fade-out by setting the body's opacity to 0
+            document.body.style.opacity = '0';
+            
+            // 2. Wait for the CSS transition to finish, then change the page
+            setTimeout(() => {
+                window.location.replace(url);
+            }, fadeOutTime);
+        }
+
+        // This part remains the same: wait for the splash screen duration
+        setTimeout(() => {
+            firebase.auth().onAuthStateChanged((user) => {
+                // Instead of redirecting instantly, call our new fade-out function
+                if (user) {
+                    fadeOutAndNavigate('index.html');
+                } else {
+                    fadeOutAndNavigate('login.html');
+                }
+            });
+        }, splashScreenDuration);
+    </script>
 </body>
 </html>

@@ -1,175 +1,437 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bazaar Odisha - Your Local Marketplace</title>
 
-    <!-- ADD THIS LINE TO EVERY HTML FILE -->
-    <base href="/Bazaar-Odisha/">
+    <!-- DYNAMIC BASE TAG (Permanent Fix) -->
+    <script>
+      (function () {
+        const repoName = "Bazaar-Odisha"; // Your repository name
+        const isGitHub = window.location.hostname.includes("github.io");
+        const base = document.createElement("base");
+        base.href = isGitHub ? `/${repoName}/` : "/";
+        document.head.prepend(base);
+      })();
+    </script>
+
+    
     <!-- Tailwind CSS CDN for modern styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
-        .nav-btn.active { color: #4f46e5; border-top: 2px solid #4f46e5; }
-        .nav-btn:not(.active) { color: #6b7280; }
-        .nav-btn:hover:not(.active) { color: #4f46e5; }
-        /* Hide scrollbar for horizontal scroll sections */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f3f4f6;
+      }
+      .nav-btn.active {
+        color: #4f46e5;
+        border-top: 2px solid #4f46e5;
+      }
+      .nav-btn:not(.active) {
+        color: #6b7280;
+      }
+      .nav-btn:hover:not(.active) {
+        color: #4f46e5;
+      }
+      /* Hide scrollbar for horizontal scroll sections */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
     </style>
-</head>
-<body class="flex flex-col min-h-screen">
-
+  </head>
+  <body class="flex flex-col min-h-screen">
     <!-- Hamburger Menu (Off-Canvas Sidebar) -->
-    <nav id="hamburger-menu" class="fixed top-0 left-0 w-64 h-full bg-white z-[100] transform -translate-x-full transition-transform duration-300 ease-in-out shadow-lg p-6">
-        <div class="flex items-center justify-between mb-8">
-            <a href="index.html" class="flex items-center gap-2">
-                <img src="images/app_logo.png" alt="Bazaar Odisha Logo" class="h-8 w-auto">
-                <span class="text-xl font-bold text-indigo-600">Bazaar Odisha</span>
-            </a>
-            <button id="close-menu-btn" class="text-gray-600 hover:text-gray-800"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-        </div>
-        <ul class="space-y-4">
-            <li><a href="profile.html" class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"><span>Profile</span></a></li>
-            <li><a href="settings.html" class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"><span>Settings</span></a></li>
-            <li><a href="wishlist.html" class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"><span>Wishlist</span></a></li>
-            <li class="border-t my-4"></li>
-            <li><a href="about.html" class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"><span>About Us</span></a></li>
-            <li><a href="contact.html" class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"><span>Contact</span></a></li>
-        </ul>
+    <nav
+      id="hamburger-menu"
+      class="fixed top-0 left-0 w-64 h-full bg-white z-[100] transform -translate-x-full transition-transform duration-300 ease-in-out shadow-lg p-6"
+    >
+      <div class="flex items-center justify-between mb-8">
+        <a href="index.html" class="flex items-center gap-2">
+          <img
+            src="images/app_logo.png"
+            alt="Bazaar Odisha Logo"
+            class="h-8 w-auto"
+          />
+          <span class="text-xl font-bold text-indigo-600">Bazaar Odisha</span>
+        </a>
+        <button id="close-menu-btn" class="text-gray-600 hover:text-gray-800">
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <ul class="space-y-4">
+        <li>
+          <a
+            href="profile.html"
+            class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"
+            ><span>Profile</span></a
+          >
+        </li>
+        <li>
+          <a
+            href="settings.html"
+            class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"
+            ><span>Settings</span></a
+          >
+        </li>
+        <li>
+          <a
+            href="wishlist.html"
+            class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"
+            ><span>Wishlist</span></a
+          >
+        </li>
+        <li class="border-t my-4"></li>
+        <li>
+          <a
+            href="about.html"
+            class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"
+            ><span>About Us</span></a
+          >
+        </li>
+        <li>
+          <a
+            href="contact.html"
+            class="flex items-center space-x-3 text-gray-700 hover:text-indigo-600"
+            ><span>Contact</span></a
+          >
+        </li>
+      </ul>
     </nav>
-    <div id="overlay" class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-300 z-[90]"></div>
+    <div
+      id="overlay"
+      class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-300 z-[90]"
+    ></div>
 
     <!-- **UPDATED** Top Bar (Header) -->
-    <header class="bg-white sticky top-0 z-50 shadow-sm p-3 flex items-center justify-between">
-        <!-- Left side: Logo and App Name (links to home) -->
-        <a href="index.html" class="flex items-center gap-2">
-            <img src="images/app_logo.png" alt="Bazaar Odisha Logo" class="h-8 w-auto">
-            <span class="text-xl font-bold text-indigo-600">Bazaar Odisha</span>
-        </a>
-        
-        <!-- Right side: Hamburger Menu Button -->
-        <button id="open-menu-btn" class="text-gray-600 hover:text-gray-800">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
+    <header
+      class="bg-white sticky top-0 z-50 shadow-sm p-3 flex items-center justify-between"
+    >
+      <!-- Left side: Logo and App Name (links to home) -->
+      <a href="index.html" class="flex items-center gap-2">
+        <img
+          src="images/app_logo.png"
+          alt="Bazaar Odisha Logo"
+          class="h-8 w-auto"
+        />
+        <span class="text-xl font-bold text-indigo-600">Bazaar Odisha</span>
+      </a>
+
+      <!-- Right side: Hamburger Menu Button -->
+      <button id="open-menu-btn" class="text-gray-600 hover:text-gray-800">
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path>
+        </svg>
+      </button>
     </header>
 
     <!-- Main content area -->
     <main class="flex-grow p-4 md:p-6 mb-20 overflow-y-auto">
-        <!-- Hero Section -->
-        <section class="text-center bg-indigo-600 text-white p-6 rounded-xl shadow-lg mb-6">
-            <h1 class="text-3xl font-bold">Welcome to Bazaar Odisha</h1>
-            <p class="mt-2 opacity-90">Your one-stop platform for local services and products.</p>
-            <div class="mt-4 max-w-lg mx-auto">
-                <input type="text" placeholder="Search for anything..." class="w-full px-4 py-3 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-300">
-            </div>
-        </section>
+      <!-- Hero Section -->
+      <section
+        class="text-center bg-indigo-600 text-white p-6 rounded-xl shadow-lg mb-6"
+      >
+        <h1 class="text-3xl font-bold">Welcome to Bazaar Odisha</h1>
+        <p class="mt-2 opacity-90">
+          Your one-stop platform for local services and products.
+        </p>
+        <div class="mt-4 max-w-lg mx-auto">
+          <input
+            type="text"
+            placeholder="Search for anything..."
+            class="w-full px-4 py-3 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+          />
+        </div>
+      </section>
 
-        <!-- Quick Navigation -->
-        <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <a href="services.html" class="bg-white p-4 rounded-xl shadow text-center hover:scale-105 transition-transform">
-                <div class="bg-blue-100 text-blue-600 w-12 h-12 rounded-full mx-auto flex items-center justify-center"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-1.206-8.255-3.255m16.51 0a23.931 23.931 0 01-16.51 0m16.51 0v-.255a2 2 0 00-2-2h-13a2 2 0 00-2 2v.255m0 0a2 2 0 01-2 2h-1a2 2 0 01-2-2v-.255a23.931 23.931 0 01-16.51 0m0 0v-.255a2 2 0 012-2h13a2 2 0 012 2v.255"></path></svg></div>
-                <p class="mt-2 font-semibold text-gray-800">Find Services</p>
-            </a>
-            <a href="bazaar.html" class="bg-white p-4 rounded-xl shadow text-center hover:scale-105 transition-transform">
-                 <div class="bg-green-100 text-green-600 w-12 h-12 rounded-full mx-auto flex items-center justify-center"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.182 1.706.707 1.706H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div>
-                <p class="mt-2 font-semibold text-gray-800">Shop Products</p>
-            </a>
-            <a href="shg.html" class="bg-white p-4 rounded-xl shadow text-center hover:scale-105 transition-transform">
-                <div class="bg-yellow-100 text-yellow-600 w-12 h-12 rounded-full mx-auto flex items-center justify-center"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20v-2a2 2 0 00-2-2H9a2 2 0 00-2 2v2M7 14h10M7 10h10M4 7h16M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z"></path></svg></div>
-                <p class="mt-2 font-semibold text-gray-800">Support SHGs</p>
-            </a>
-            <a href="community.html" class="bg-white p-4 rounded-xl shadow text-center hover:scale-105 transition-transform">
-                <div class="bg-purple-100 text-purple-600 w-12 h-12 rounded-full mx-auto flex items-center justify-center"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg></div>
-                <p class="mt-2 font-semibold text-gray-800">Community</p>
-            </a>
-        </section>
+      <!-- Quick Navigation -->
+      <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <a
+          href="services.html"
+          class="bg-white p-4 rounded-xl shadow text-center hover:scale-105 transition-transform"
+        >
+          <div
+            class="bg-blue-100 text-blue-600 w-12 h-12 rounded-full mx-auto flex items-center justify-center"
+          >
+            <svg
+              class="w-7 h-7"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-1.206-8.255-3.255m16.51 0a23.931 23.931 0 01-16.51 0m16.51 0v-.255a2 2 0 00-2-2h-13a2 2 0 00-2 2v.255m0 0a2 2 0 01-2 2h-1a2 2 0 01-2-2v-.255a23.931 23.931 0 01-16.51 0m0 0v-.255a2 2 0 012-2h13a2 2 0 012 2v.255"
+              ></path>
+            </svg>
+          </div>
+          <p class="mt-2 font-semibold text-gray-800">Find Services</p>
+        </a>
+        <a
+          href="bazaar.html"
+          class="bg-white p-4 rounded-xl shadow text-center hover:scale-105 transition-transform"
+        >
+          <div
+            class="bg-green-100 text-green-600 w-12 h-12 rounded-full mx-auto flex items-center justify-center"
+          >
+            <svg
+              class="w-7 h-7"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.182 1.706.707 1.706H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
+            </svg>
+          </div>
+          <p class="mt-2 font-semibold text-gray-800">Shop Products</p>
+        </a>
+        <a
+          href="shg.html"
+          class="bg-white p-4 rounded-xl shadow text-center hover:scale-105 transition-transform"
+        >
+          <div
+            class="bg-yellow-100 text-yellow-600 w-12 h-12 rounded-full mx-auto flex items-center justify-center"
+          >
+            <svg
+              class="w-7 h-7"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20v-2a2 2 0 00-2-2H9a2 2 0 00-2 2v2M7 14h10M7 10h10M4 7h16M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z"
+              ></path>
+            </svg>
+          </div>
+          <p class="mt-2 font-semibold text-gray-800">Support SHGs</p>
+        </a>
+        <a
+          href="community.html"
+          class="bg-white p-4 rounded-xl shadow text-center hover:scale-105 transition-transform"
+        >
+          <div
+            class="bg-purple-100 text-purple-600 w-12 h-12 rounded-full mx-auto flex items-center justify-center"
+          >
+            <svg
+              class="w-7 h-7"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+              ></path>
+            </svg>
+          </div>
+          <p class="mt-2 font-semibold text-gray-800">Community</p>
+        </a>
+      </section>
 
-        <!-- Featured Products -->
-        <section class="mb-8">
-            <h2 class="text-xl font-bold text-gray-900 mb-4">Featured Products</h2>
-            <div id="featured-products-container" class="flex overflow-x-auto space-x-4 pb-4 no-scrollbar">
-                <!-- Product cards will be inserted here -->
-            </div>
-        </section>
+      <!-- Featured Products -->
+      <section class="mb-8">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">Featured Products</h2>
+        <div
+          id="featured-products-container"
+          class="flex overflow-x-auto space-x-4 pb-4 no-scrollbar"
+        >
+          <!-- Product cards will be inserted here -->
+        </div>
+      </section>
 
-        <!-- Featured SHGs -->
-        <section class="mb-8">
-            <h2 class="text-xl font-bold text-gray-900 mb-4">Featured SHGs</h2>
-            <div id="featured-shgs-container" class="flex overflow-x-auto space-x-4 pb-4 no-scrollbar">
-                <!-- SHG cards will be inserted here -->
-            </div>
-        </section>
-        
-        <!-- Mission Section -->
-        <section class="bg-white p-6 rounded-xl shadow text-center">
-            <h3 class="text-xl font-bold text-gray-800">Our Mission</h3>
-            <p class="text-gray-600 mt-2 max-w-2xl mx-auto">To bridge the digital divide by empowering local entrepreneurs, skilled workers, and Self-Help Groups across Odisha with a simple, accessible platform.</p>
-            <a href="about.html" class="mt-4 inline-block bg-indigo-100 text-indigo-700 font-semibold py-2 px-5 rounded-full hover:bg-indigo-200">Learn More</a>
-        </section>
+      <!-- Featured SHGs -->
+      <section class="mb-8">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">Featured SHGs</h2>
+        <div
+          id="featured-shgs-container"
+          class="flex overflow-x-auto space-x-4 pb-4 no-scrollbar"
+        >
+          <!-- SHG cards will be inserted here -->
+        </div>
+      </section>
 
+      <!-- Mission Section -->
+      <section class="bg-white p-6 rounded-xl shadow text-center">
+        <h3 class="text-xl font-bold text-gray-800">Our Mission</h3>
+        <p class="text-gray-600 mt-2 max-w-2xl mx-auto">
+          To bridge the digital divide by empowering local entrepreneurs,
+          skilled workers, and Self-Help Groups across Odisha with a simple,
+          accessible platform.
+        </p>
+        <a
+          href="about.html"
+          class="mt-4 inline-block bg-indigo-100 text-indigo-700 font-semibold py-2 px-5 rounded-full hover:bg-indigo-200"
+          >Learn More</a
+        >
+      </section>
     </main>
 
     <!-- **UPDATED** Bottom Navigation Bar -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg z-50">
-        <div class="grid grid-cols-5 h-16">
-            <a href="index.html" class="nav-btn flex flex-col items-center justify-center pt-2 pb-1 active">
-                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                <span class="text-xs mt-1">Home</span>
-            </a>
-            <a href="services.html" class="nav-btn flex flex-col items-center justify-center pt-2 pb-1">
-                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-1.206-8.255-3.255m16.51 0a23.931 23.931 0 01-16.51 0m16.51 0v-.255a2 2 0 00-2-2h-13a2 2 0 00-2 2v.255m0 0a2 2 0 01-2 2h-1a2 2 0 01-2-2v-.255a23.931 23.931 0 01-16.51 0m0 0v-.255a2 2 0 012-2h13a2 2 0 012 2v.255"></path></svg>
-                <span class="text-xs mt-1">Services</span>
-            </a>
-            <a href="bazaar.html" class="nav-btn flex flex-col items-center justify-center pt-2 pb-1">
-                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.182 1.706.707 1.706H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                <span class="text-xs mt-1">Bazaar Cart</span>
-            </a>
-            <a href="shg.html" class="nav-btn flex flex-col items-center justify-center pt-2 pb-1">
-                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20v-2a2 2 0 00-2-2H9a2 2 0 00-2 2v2M7 14h10M7 10h10M4 7h16M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z"></path></svg>
-                <span class="text-xs mt-1">SHG</span>
-            </a>
-            <a href="community.html" class="nav-btn flex flex-col items-center justify-center pt-2 pb-1">
-                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                <span class="text-xs mt-1">Community</span>
-            </a>
-        </div>
+      <div class="grid grid-cols-5 h-16">
+        <a
+          href="index.html"
+          class="nav-btn flex flex-col items-center justify-center pt-2 pb-1 active"
+        >
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+            ></path>
+          </svg>
+          <span class="text-xs mt-1">Home</span>
+        </a>
+        <a
+          href="services.html"
+          class="nav-btn flex flex-col items-center justify-center pt-2 pb-1"
+        >
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-1.206-8.255-3.255m16.51 0a23.931 23.931 0 01-16.51 0m16.51 0v-.255a2 2 0 00-2-2h-13a2 2 0 00-2 2v.255m0 0a2 2 0 01-2 2h-1a2 2 0 01-2-2v-.255a23.931 23.931 0 01-16.51 0m0 0v-.255a2 2 0 012-2h13a2 2 0 012 2v.255"
+            ></path>
+          </svg>
+          <span class="text-xs mt-1">Services</span>
+        </a>
+        <a
+          href="bazaar.html"
+          class="nav-btn flex flex-col items-center justify-center pt-2 pb-1"
+        >
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.182 1.706.707 1.706H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+            ></path>
+          </svg>
+          <span class="text-xs mt-1">Bazaar Cart</span>
+        </a>
+        <a
+          href="shg.html"
+          class="nav-btn flex flex-col items-center justify-center pt-2 pb-1"
+        >
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 20v-2a2 2 0 00-2-2H9a2 2 0 00-2 2v2M7 14h10M7 10h10M4 7h16M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z"
+            ></path>
+          </svg>
+          <span class="text-xs mt-1">SHG</span>
+        </a>
+        <a
+          href="community.html"
+          class="nav-btn flex flex-col items-center justify-center pt-2 pb-1"
+        >
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+            ></path>
+          </svg>
+          <span class="text-xs mt-1">Community</span>
+        </a>
+      </div>
     </nav>
-    
+
     <!-- Load Data Files -->
     <script src="bazaar_data.js"></script>
     <script src="shg_data.js"></script>
-    
+
     <script>
-        const openMenuBtn = document.getElementById('open-menu-btn');
-        const closeMenuBtn = document.getElementById('close-menu-btn');
-        const hamburgerMenu = document.getElementById('hamburger-menu');
-        const overlay = document.getElementById('overlay');
-        const featuredProductsContainer = document.getElementById('featured-products-container');
-        const featuredShgsContainer = document.getElementById('featured-shgs-container');
+      const openMenuBtn = document.getElementById("open-menu-btn");
+      const closeMenuBtn = document.getElementById("close-menu-btn");
+      const hamburgerMenu = document.getElementById("hamburger-menu");
+      const overlay = document.getElementById("overlay");
+      const featuredProductsContainer = document.getElementById(
+        "featured-products-container"
+      );
+      const featuredShgsContainer = document.getElementById(
+        "featured-shgs-container"
+      );
 
-        // --- HAMBURGER MENU LOGIC ---
-        function toggleHamburgerMenu() {
-            hamburgerMenu.classList.toggle('-translate-x-full');
-            overlay.classList.toggle('opacity-0');
-            overlay.classList.toggle('pointer-events-none');
-            overlay.classList.toggle('opacity-50');
-        }
-        openMenuBtn.addEventListener('click', toggleHamburgerMenu);
-        closeMenuBtn.addEventListener('click', toggleHamburgerMenu);
-        overlay.addEventListener('click', toggleHamburgerMenu);
+      // --- HAMBURGER MENU LOGIC ---
+      function toggleHamburgerMenu() {
+        hamburgerMenu.classList.toggle("-translate-x-full");
+        overlay.classList.toggle("opacity-0");
+        overlay.classList.toggle("pointer-events-none");
+        overlay.classList.toggle("opacity-50");
+      }
+      openMenuBtn.addEventListener("click", toggleHamburgerMenu);
+      closeMenuBtn.addEventListener("click", toggleHamburgerMenu);
+      overlay.addEventListener("click", toggleHamburgerMenu);
 
-        // --- RENDER DYNAMIC CONTENT ---
-        function renderFeaturedProducts() {
-            // Get first 6 products to feature
-            const featured = bazaarProducts.slice(0, 6);
-            featuredProductsContainer.innerHTML = '';
-            featured.forEach(product => {
-                const card = `
+      // --- RENDER DYNAMIC CONTENT ---
+      function renderFeaturedProducts() {
+        // Get first 6 products to feature
+        const featured = bazaarProducts.slice(0, 6);
+        featuredProductsContainer.innerHTML = "";
+        featured.forEach((product) => {
+          const card = `
                     <a href="product-detail.html?id=${product.id}" class="flex-shrink-0 w-36 bg-white rounded-xl shadow-md overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
                         <img src="${product.images[0]}" alt="${product.name}" class="w-full h-24 object-cover">
                         <div class="p-2">
@@ -178,31 +440,31 @@
                         </div>
                     </a>
                 `;
-                featuredProductsContainer.innerHTML += card;
-            });
-        }
-        
-        function renderFeaturedSHGs() {
-            // Get first 6 SHGs to feature
-            const featured = shgData.slice(0, 6);
-            featuredShgsContainer.innerHTML = '';
-            featured.forEach(shg => {
-                const card = `
+          featuredProductsContainer.innerHTML += card;
+        });
+      }
+
+      function renderFeaturedSHGs() {
+        // Get first 6 SHGs to feature
+        const featured = shgData.slice(0, 6);
+        featuredShgsContainer.innerHTML = "";
+        featured.forEach((shg) => {
+          const card = `
                     <a href="shg-detail.html?id=${shg.id}" class="flex-shrink-0 w-48 bg-white rounded-xl shadow-md overflow-hidden p-3 text-center transition-transform duration-300 hover:scale-[1.03]">
                         <img src="${shg.image}" alt="${shg.name}" class="w-16 h-16 rounded-full mx-auto object-cover border-2 border-indigo-100">
                         <h4 class="mt-2 text-sm font-semibold text-gray-900 truncate">${shg.name}</h4>
                         <p class="text-xs text-gray-500">${shg.location}</p>
                     </a>
                 `;
-                featuredShgsContainer.innerHTML += card;
-            });
-        }
-        
-        // --- INITIAL PAGE LOAD ---
-        document.addEventListener('DOMContentLoaded', () => {
-            renderFeaturedProducts();
-            renderFeaturedSHGs();
+          featuredShgsContainer.innerHTML += card;
         });
+      }
+
+      // --- INITIAL PAGE LOAD ---
+      document.addEventListener("DOMContentLoaded", () => {
+        renderFeaturedProducts();
+        renderFeaturedSHGs();
+      });
     </script>
-</body>
+  </body>
 </html>
