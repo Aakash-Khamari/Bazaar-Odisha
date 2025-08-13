@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAQ - Bazaar Odisha</title>
+    <link rel="icon" type="image/webp" href="images/favicon.webp" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary-color: #0f766e;
+        --primary-hover: #115e59;
+        --success-color: #16a34a;
+        --dark-text: #1f2937;
+        --light-text: #f9fafb;
+        --body-bg: #f9fafb;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--body-bg);
+        color: var(--dark-text);
+      }
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: var(--light-text);
+        transition: background-color 0.3s;
+      }
+      .btn-primary:hover {
+        background-color: var(--primary-hover);
+      }
+      .cart-badge {
+        position: absolute;
+        top: -8px;
+        right: -12px;
+        height: 20px;
+        width: 20px;
+        background-color: var(--success-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 600;
+        transform: scale(0);
+        transition: transform 0.2s ease-in-out;
+      }
+      .cart-badge.active {
+        transform: scale(1);
+      }
+      /* Accordion Styles */
+      .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-out, padding-top 0.4s ease-out,
+          padding-bottom 0.4s ease-out;
+      }
+      .accordion-item.open .accordion-content {
+        max-height: 500px;
+        padding-top: 0.5rem;
+        padding-bottom: 1rem;
+      }
+      .accordion-item.open .plus-icon {
+        display: none;
+      }
+      .accordion-item:not(.open) .minus-icon {
+        display: none;
+      }
+      /* Chatbot Styles */
+      #chat-widget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+      <nav
+        class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3"
+      >
+        <a href="index.html" class="flex items-center gap-3"
+          ><img
+            src="images/logo.webp"
+            alt="Bazaar Odisha Logo"
+            class="h-10"
+          /><span
+            class="font-bold text-2xl text-gray-800 tracking-tight hidden sm:block"
+            >Bazaar Odisha</span
+          ></a
+        >
+        <div class="hidden lg:flex items-center space-x-8">
+          <a
+            href="index.html"
+            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
+            >Home</a
+          ><a
+            href="shg-marketplace.html"
+            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
+            >SHG Marketplace</a
+          ><a
+            href="hire-local-help.html"
+            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
+            >Hire Local Help</a
+          ><a
+            href="community-hub.html"
+            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
+            >Community</a
+          >
+        </div>
+        <div class="hidden lg:flex items-center space-x-4">
+          <a href="cart.html" class="relative"
+            ><img src="images/cart-icon.webp" alt="Cart" class="h-6 w-6" /><span
+              id="cart-badge"
+              class="cart-badge"
+              >0</span
+            ></a
+          ><a
+            href="add-listing.html"
+            class="btn-primary font-semibold px-5 py-2 rounded-full text-sm"
+            >Add Your Business</a
+          >
+        </div>
+        <div class="lg:hidden">
+          <button
+            id="mobile-menu-button"
+            class="text-gray-600 focus:outline-none"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </nav>
+      <div id="mobile-menu" class="hidden lg:hidden px-4 pb-4"></div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="bg-white">
+      <!-- Page Header -->
+      <section class="py-20 text-center">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 class="text-4xl md:text-5xl font-bold">
+            Frequently Asked Questions
+          </h1>
+          <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+            Find answers to the most common questions about Bazaar Odisha. If
+            you can't find your answer here, please don't hesitate to contact
+            us.
+          </p>
+        </div>
+      </section>
+
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Category Navigation -->
+          <aside class="md:col-span-1">
+            <div class="sticky top-28 bg-gray-50 rounded-lg p-6">
+              <h3 class="font-bold text-lg mb-4">Categories</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a
+                    href="#general"
+                    class="block p-2 rounded-md font-semibold text-teal-700 bg-teal-100"
+                    >General</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#buyers"
+                    class="block p-2 rounded-md text-gray-600 hover:bg-gray-200"
+                    >For Buyers & Hirers</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#sellers"
+                    class="block p-2 rounded-md text-gray-600 hover:bg-gray-200"
+                    >For Sellers & Providers</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </aside>
+
+          <!-- FAQ Accordion -->
+          <div class="md:col-span-2 space-y-12">
+            <section id="general">
+              <h2 class="text-2xl font-bold mb-6">General Questions</h2>
+              <div class="space-y-4">
+                <div class="accordion-item border rounded-lg">
+                  <button
+                    class="accordion-button flex justify-between items-center w-full p-5 text-left font-semibold"
+                  >
+                    <span class="text-lg">What is Bazaar Odisha?</span
+                    ><span class="text-teal-600"
+                      ><svg
+                        class="w-6 h-6 plus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        /></svg
+                      ><svg
+                        class="w-6 h-6 minus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M18 12H6"
+                        /></svg
+                    ></span>
+                  </button>
+                  <div class="accordion-content px-5 text-gray-600">
+                    <p>
+                      Bazaar Odisha is a digital platform designed to connect
+                      the people of Odisha with local service providers, skilled
+                      workers, and products from Self-Help Groups (SHGs). Our
+                      mission is to empower the local economy and make it easier
+                      to find trusted services and authentic goods.
+                    </p>
+                  </div>
+                </div>
+                <div class="accordion-item border rounded-lg">
+                  <button
+                    class="accordion-button flex justify-between items-center w-full p-5 text-left font-semibold"
+                  >
+                    <span class="text-lg">Is it free to use?</span
+                    ><span class="text-teal-600"
+                      ><svg
+                        class="w-6 h-6 plus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        /></svg
+                      ><svg
+                        class="w-6 h-6 minus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M18 12H6"
+                        /></svg
+                    ></span>
+                  </button>
+                  <div class="accordion-content px-5 text-gray-600">
+                    <p>
+                      Yes, browsing for services, products, and workers on
+                      Bazaar Odisha is completely free for users. Businesses and
+                      SHGs can also create a basic listing for free.
+                    </p>
+                  </div>
+                </div>
+                <div class="accordion-item border rounded-lg">
+                  <button
+                    class="accordion-button flex justify-between items-center w-full p-5 text-left font-semibold"
+                  >
+                    <span class="text-lg"
+                      >How is Bazaar Odisha different from other
+                      platforms?</span
+                    ><span class="text-teal-600"
+                      ><svg
+                        class="w-6 h-6 plus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        /></svg
+                      ><svg
+                        class="w-6 h-6 minus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M18 12H6"
+                        /></svg
+                    ></span>
+                  </button>
+                  <div class="accordion-content px-5 text-gray-600">
+                    <p>
+                      Our platform is hyper-focused on Odisha. We are not just a
+                      marketplace; we are a community-building tool designed to
+                      strengthen the local economy by promoting local talent and
+                      entrepreneurship, especially women-led Self-Help Groups.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section id="buyers">
+              <h2 class="text-2xl font-bold mb-6">For Buyers & Hirers</h2>
+              <div class="space-y-4">
+                <div class="accordion-item border rounded-lg">
+                  <button
+                    class="accordion-button flex justify-between items-center w-full p-5 text-left font-semibold"
+                  >
+                    <span class="text-lg"
+                      >How do I contact a service provider?</span
+                    ><span class="text-teal-600"
+                      ><svg
+                        class="w-6 h-6 plus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        /></svg
+                      ><svg
+                        class="w-6 h-6 minus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M18 12H6"
+                        /></svg
+                    ></span>
+                  </button>
+                  <div class="accordion-content px-5 text-gray-600">
+                    <p>
+                      Each business and worker profile has a "Contact Now" or
+                      "Call Now" button. Clicking this will allow you to call
+                      them directly using their listed phone number.
+                    </p>
+                  </div>
+                </div>
+                <div class="accordion-item border rounded-lg">
+                  <button
+                    class="accordion-button flex justify-between items-center w-full p-5 text-left font-semibold"
+                  >
+                    <span class="text-lg"
+                      >How do I purchase an SHG product?</span
+                    ><span class="text-teal-600"
+                      ><svg
+                        class="w-6 h-6 plus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        /></svg
+                      ><svg
+                        class="w-6 h-6 minus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M18 12H6"
+                        /></svg
+                    ></span>
+                  </button>
+                  <div class="accordion-content px-5 text-gray-600">
+                    <p>
+                      You can add products to your cart from the SHG Marketplace
+                      and proceed to checkout. We handle the payment securely,
+                      and the SHG is notified to prepare your order for
+                      delivery.
+                    </p>
+                  </div>
+                </div>
+                <div class="accordion-item border rounded-lg">
+                  <button
+                    class="accordion-button flex justify-between items-center w-full p-5 text-left font-semibold"
+                  >
+                    <span class="text-lg"
+                      >What if I have an issue with a service?</span
+                    ><span class="text-teal-600"
+                      ><svg
+                        class="w-6 h-6 plus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        /></svg
+                      ><svg
+                        class="w-6 h-6 minus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M18 12H6"
+                        /></svg
+                    ></span>
+                  </button>
+                  <div class="accordion-content px-5 text-gray-600">
+                    <p>
+                      Bazaar Odisha is a discovery platform that connects you
+                      with providers. Your service agreement is directly with
+                      the provider. However, we encourage you to leave an honest
+                      review on their profile to help future customers. For any
+                      serious issues, please contact our support team.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section id="sellers">
+              <h2 class="text-2xl font-bold mb-6">
+                For Sellers & Service Providers
+              </h2>
+              <div class="space-y-4">
+                <div class="accordion-item border rounded-lg">
+                  <button
+                    class="accordion-button flex justify-between items-center w-full p-5 text-left font-semibold"
+                  >
+                    <span class="text-lg">How do I list my business?</span
+                    ><span class="text-teal-600"
+                      ><svg
+                        class="w-6 h-6 plus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        /></svg
+                      ><svg
+                        class="w-6 h-6 minus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M18 12H6"
+                        /></svg
+                    ></span>
+                  </button>
+                  <div class="accordion-content px-5 text-gray-600">
+                    <p>
+                      Click the "Add Your Business" button in the header. You'll
+                      be guided through a simple form to create your profile.
+                      Our team will review it, and once approved, it will be
+                      live on the platform.
+                    </p>
+                  </div>
+                </div>
+                <div class="accordion-item border rounded-lg">
+                  <button
+                    class="accordion-button flex justify-between items-center w-full p-5 text-left font-semibold"
+                  >
+                    <span class="text-lg">What do I need to get started?</span
+                    ><span class="text-teal-600"
+                      ><svg
+                        class="w-6 h-6 plus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        /></svg
+                      ><svg
+                        class="w-6 h-6 minus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M18 12H6"
+                        /></svg
+                    ></span>
+                  </button>
+                  <div class="accordion-content px-5 text-gray-600">
+                    <p>
+                      You will need basic information about your business, such
+                      as your name, contact number, location, and a description
+                      of your services. Adding clear photos of your work or
+                      products is highly recommended to attract more customers.
+                    </p>
+                  </div>
+                </div>
+                <div class="accordion-item border rounded-lg">
+                  <button
+                    class="accordion-button flex justify-between items-center w-full p-5 text-left font-semibold"
+                  >
+                    <span class="text-lg"
+                      >How do I receive payments for product sales?</span
+                    ><span class="text-teal-600"
+                      ><svg
+                        class="w-6 h-6 plus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        /></svg
+                      ><svg
+                        class="w-6 h-6 minus-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M18 12H6"
+                        /></svg
+                    ></span>
+                  </button>
+                  <div class="accordion-content px-5 text-gray-600">
+                    <p>
+                      For SHG products sold through the marketplace, we process
+                      customer payments and transfer the funds directly to the
+                      SHG's registered bank account after deducting a small
+                      service fee. For direct services, you handle the payment
+                      directly with the customer.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div
+          class="text-center mt-16 p-8 bg-teal-600 text-white rounded-lg shadow-lg"
+        >
+          <h3 class="text-3xl font-bold">Still have questions?</h3>
+          <p class="opacity-80 mt-2">
+            If you can't find the answer you're looking for, feel free to reach
+            out to our support team.
+          </p>
+          <a
+            href="contact.html"
+            class="bg-white text-teal-700 inline-block mt-6 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors"
+            >Contact Us</a
+          >
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Branding Section -->
+          <div class="lg:col-span-1">
+            <a href="index.html" class="flex items-center gap-3 mb-4">
+              <img
+                src="images/logo-white.webp"
+                alt="Bazaar Odisha Logo"
+                class="h-10"
+              />
+              <span class="font-bold text-xl text-white tracking-tight"
+                >Bazaar Odisha</span
+              >
+            </a>
+            <p class="text-sm text-gray-400 mt-2">
+              Empowering Odisha's local economy, one click at a time.
+            </p>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h4 class="font-semibold text-white tracking-wider uppercase">
+              Quick Links
+            </h4>
+            <ul class="mt-4 space-y-2">
+              <li>
+                <a href="about.html" class="hover:text-white transition-colors"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="shg-marketplace.html"
+                  class="hover:text-white transition-colors"
+                  >SHG Marketplace</a
+                >
+              </li>
+              <li>
+                <a
+                  href="hire-local-help.html"
+                  class="hover:text-white transition-colors"
+                  >Hire Local Help</a
+                >
+              </li>
+              <li>
+                <a
+                  href="community-hub.html"
+                  class="hover:text-white transition-colors"
+                  >Community Hub</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Support Links -->
+          <div>
+            <h4 class="font-semibold text-white tracking-wider uppercase">
+              Support
+            </h4>
+            <ul class="mt-4 space-y-2">
+              <li>
+                <a href="faq.html" class="hover:text-white transition-colors"
+                  >FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="contact.html"
+                  class="hover:text-white transition-colors"
+                  >Contact Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="privacy-policy.html"
+                  class="hover:text-white transition-colors"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="terms-of-service.html"
+                  class="hover:text-white transition-colors"
+                  >Terms of Service</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- For Partners -->
+          <div>
+            <h4 class="font-semibold text-white tracking-wider uppercase">
+              For Partners
+            </h4>
+            <ul class="mt-4 space-y-2">
+              <li>
+                <a
+                  href="add-listing.html"
+                  class="hover:text-white transition-colors"
+                  >List Your Business</a
+                >
+              </li>
+              <li>
+                <a
+                  href="admin-login.html"
+                  class="hover:text-white transition-colors"
+                  >Admin Dashboard</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div
+          class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400"
+        >
+          <p>&copy; 2025 Bazaar Odisha. A Project by Aakash Khamari.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Chatbot Widget UI -->
+    <style>
+      /* New, more reliable CSS for chatbot visibility */
+      #chat-window {
+        transform: scale(0.95) translateY(10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+      }
+      #chat-window.is-open {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+    </style>
+    <div id="chat-widget">
+      <!-- Chat Window -->
+      <div
+        id="chat-window"
+        class="fixed bottom-24 right-5 w-[350px] max-w-[90vw] h-[500px] max-h-[70vh] bg-white rounded-xl shadow-2xl flex flex-col"
+      >
+        <header
+          class="bg-gray-800 text-white p-4 rounded-t-xl flex items-center justify-between shadow-md flex-shrink-0"
+        >
+          <div class="flex items-center gap-3">
+            <img
+              src="images/logo-white.webp"
+              class="h-8 w-8"
+              alt="Mo Sahayak"
+            />
+            <div>
+              <h3 class="font-bold text-lg">Mo Sahayak</h3>
+              <p
+                class="font-odia text-xs opacity-80"
+                style="font-family: 'Noto Sans Oriya', sans-serif"
+              >
+                ମୋ ସହାୟକ
+              </p>
+            </div>
+          </div>
+          <button
+            id="chat-close-button"
+            class="text-gray-300 hover:text-white text-3xl leading-none"
+          >
+            &times;
+          </button>
+        </header>
+        <main
+          id="chat-body"
+          class="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4"
+        >
+          <div class="flex justify-start">
+            <div
+              class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xs text-sm"
+            >
+              Namaskar! I am Mo Sahayak, your AI assistant for Bazaar Odisha.
+              How can I help you today?
+            </div>
+          </div>
+        </main>
+        <footer class="p-3 border-t bg-white flex-shrink-0">
+          <form id="chat-form" class="flex items-center gap-2">
+            <input
+              type="text"
+              id="chat-input"
+              placeholder="Ask me anything..."
+              class="w-full p-2 border rounded-md focus:ring-2 focus:ring-teal-600 focus:outline-none text-sm"
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="bg-[#0f766e] hover:bg-[#115e59] text-white p-2 rounded-md"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </form>
+        </footer>
+      </div>
+      <!-- Chat Button -->
+      <button
+        id="chat-button"
+        class="bg-[#0f766e] hover:bg-[#115e59] text-white rounded-full flex items-center justify-center w-16 h-16 fixed bottom-5 right-5 shadow-lg transform hover:scale-110 transition-transform"
+      >
+        <img src="images/chat-icon.webp" alt="Chat" class="w-8 h-8" />
+      </button>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const updateCartBadge = () => {
+          /* ... cart logic ... */
+        };
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+        if (mobileMenuButton && mobileMenu) {
+          mobileMenuButton.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+          });
+        }
+        updateCartBadge();
+
+        // Accordion functionality
+        document.querySelectorAll(".accordion-button").forEach((button) => {
+          button.addEventListener("click", () => {
+            const item = button.closest(".accordion-item");
+            item.classList.toggle("open");
+          });
+        });
+      });
+    </script>
+    <script src="chatbot.js" defer></script>
+  </body>
+</html>

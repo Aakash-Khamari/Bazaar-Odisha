@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details - Bazaar Odisha</title>
+    <link rel="icon" type="image/webp" href="images/favicon.webp" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary-color: #0f766e;
+        --primary-hover: #115e59;
+        --success-color: #16a34a;
+        --dark-text: #1f2937;
+        --light-text: #f9fafb;
+        --body-bg: #f9fafb;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--body-bg);
+        color: var(--dark-text);
+      }
+      .font-odia {
+        font-family: "Noto Sans Oriya", sans-serif;
+      }
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: var(--light-text);
+        transition: background-color 0.3s;
+      }
+      .btn-primary:hover {
+        background-color: var(--primary-hover);
+      }
+      .cart-badge {
+        position: absolute;
+        top: -8px;
+        right: -12px;
+        height: 20px;
+        width: 20px;
+        background-color: var(--success-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 600;
+        transform: scale(0);
+        transition: transform 0.2s ease-in-out;
+      }
+      .cart-badge.active {
+        transform: scale(1);
+      }
+      /* Chatbot Styles */
+      #chat-widget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+      }
+      #chat-button {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s;
+        cursor: pointer;
+      }
+      #chat-button:hover {
+        transform: scale(1.1);
+      }
+      #chat-window {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 350px;
+        max-width: 90vw;
+        height: 500px;
+        max-height: 70vh;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        transform: translateY(20px) scale(0.95);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        pointer-events: none;
+      }
+      #chat-window.open {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      #chat-close-button {
+        font-size: 24px;
+        line-height: 1;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+      <nav
+        class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3"
+      >
+        <!-- Logo and Brand Name -->
+        <a href="index.html" class="flex items-center gap-3">
+          <img src="images/logo.webp" alt="Bazaar Odisha Logo" class="h-10" />
+          <span
+            class="font-bold text-2xl text-gray-800 tracking-tight hidden sm:block"
+            >Bazaar Odisha</span
+          >
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden lg:flex items-center space-x-8">
+          <!-- NOTE: Move the active classes to the link that matches the current page -->
+          <a
+            href="index.html"
+            class="text-[var(--primary-color)] font-semibold border-b-2 border-[var(--primary-color)] pb-1"
+            >Home</a
+          >
+          <a
+            href="shg-marketplace.html"
+            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
+            >SHG Marketplace</a
+          >
+          <a
+            href="hire-local-help.html"
+            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
+            >Hire Local Help</a
+          >
+          <a
+            href="community-hub.html"
+            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
+            >Community</a
+          >
+        </div>
+
+        <!-- Right Side Actions -->
+        <div class="hidden lg:flex items-center space-x-4">
+          <a href="cart.html" class="relative">
+            <img src="images/cart-icon.webp" alt="Cart" class="h-6 w-6" />
+            <span id="cart-badge" class="cart-badge">0</span>
+          </a>
+          <a
+            href="add-listing.html"
+            class="btn-primary font-semibold px-5 py-2 rounded-full text-sm"
+            >Add Your Business</a
+          >
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="lg:hidden">
+          <button
+            id="mobile-menu-button"
+            class="text-gray-600 focus:outline-none"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile Menu Panel (Hidden by default) -->
+      <div id="mobile-menu" class="hidden lg:hidden px-4 pb-4">
+        <a
+          href="index.html"
+          class="block py-2 px-2 rounded-md hover:bg-gray-100 font-semibold text-[var(--primary-color)]"
+          >Home</a
+        >
+        <a
+          href="shg-marketplace.html"
+          class="block py-2 px-2 rounded-md hover:bg-gray-100"
+          >SHG Marketplace</a
+        >
+        <a
+          href="hire-local-help.html"
+          class="block py-2 px-2 rounded-md hover:bg-gray-100"
+          >Hire Local Help</a
+        >
+        <a
+          href="community-hub.html"
+          class="block py-2 px-2 rounded-md hover:bg-gray-100"
+          >Community</a
+        >
+        <a href="cart.html" class="block py-2 px-2 rounded-md hover:bg-gray-100"
+          >My Cart</a
+        >
+        <a
+          href="add-listing.html"
+          class="block mt-2 text-center w-full btn-primary font-semibold px-5 py-2 rounded-full text-sm"
+          >Add Business</a
+        >
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <div id="product-container" class="hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+          <!-- Product Image -->
+          <div
+            class="bg-white p-4 rounded-2xl shadow-lg flex items-center justify-center"
+          >
+            <img
+              id="product-image"
+              src=""
+              alt="Product Image"
+              class="max-w-full h-auto max-h-96 object-contain"
+            />
+          </div>
+          <!-- Product Details -->
+          <div class="flex flex-col">
+            <h1 id="product-name" class="text-4xl font-bold"></h1>
+            <p id="product-shg" class="text-lg text-gray-500 mt-2"></p>
+            <p
+              id="product-price"
+              class="text-4xl font-bold text-teal-600 my-6"
+            ></p>
+            <p
+              id="product-description"
+              class="text-gray-700 leading-relaxed"
+            ></p>
+            <div class="mt-8 flex items-center gap-4">
+              <div class="flex items-center border rounded-full">
+                <button id="qty-minus" class="p-3">-</button>
+                <input
+                  id="quantity"
+                  type="number"
+                  value="1"
+                  min="1"
+                  class="w-12 text-center border-none focus:ring-0"
+                />
+                <button id="qty-plus" class="p-3">+</button>
+              </div>
+              <button
+                id="add-to-cart-btn"
+                class="btn-primary flex-1 font-bold py-3 rounded-full text-lg"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Related Products -->
+        <div id="related-products-section" class="mt-20">
+          <h2 class="text-3xl font-bold mb-8">Related Products</h2>
+          <div
+            id="related-products-grid"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Product Not Found Message -->
+      <div
+        id="not-found-container"
+        class="hidden text-center py-16 bg-white rounded-2xl shadow-lg"
+      >
+        <h2 class="text-3xl font-bold">Product Not Found</h2>
+        <p class="text-gray-600 mt-2">
+          Sorry, we couldn't find the product you're looking for.
+        </p>
+        <a
+          href="shg-marketplace.html"
+          class="btn-primary inline-block mt-6 px-8 py-3 rounded-full text-lg font-bold"
+          >Back to Marketplace</a
+        >
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Branding Section -->
+          <div class="lg:col-span-1">
+            <a href="index.html" class="flex items-center gap-3 mb-4">
+              <img
+                src="images/logo-white.webp"
+                alt="Bazaar Odisha Logo"
+                class="h-10"
+              />
+              <span class="font-bold text-xl text-white tracking-tight"
+                >Bazaar Odisha</span
+              >
+            </a>
+            <p class="text-sm text-gray-400 mt-2">
+              Empowering Odisha's local economy, one click at a time.
+            </p>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h4 class="font-semibold text-white tracking-wider uppercase">
+              Quick Links
+            </h4>
+            <ul class="mt-4 space-y-2">
+              <li>
+                <a href="about.html" class="hover:text-white transition-colors"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="shg-marketplace.html"
+                  class="hover:text-white transition-colors"
+                  >SHG Marketplace</a
+                >
+              </li>
+              <li>
+                <a
+                  href="hire-local-help.html"
+                  class="hover:text-white transition-colors"
+                  >Hire Local Help</a
+                >
+              </li>
+              <li>
+                <a
+                  href="community-hub.html"
+                  class="hover:text-white transition-colors"
+                  >Community Hub</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Support Links -->
+          <div>
+            <h4 class="font-semibold text-white tracking-wider uppercase">
+              Support
+            </h4>
+            <ul class="mt-4 space-y-2">
+              <li>
+                <a href="faq.html" class="hover:text-white transition-colors"
+                  >FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="contact.html"
+                  class="hover:text-white transition-colors"
+                  >Contact Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="privacy-policy.html"
+                  class="hover:text-white transition-colors"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="terms-of-service.html"
+                  class="hover:text-white transition-colors"
+                  >Terms of Service</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- For Partners -->
+          <div>
+            <h4 class="font-semibold text-white tracking-wider uppercase">
+              For Partners
+            </h4>
+            <ul class="mt-4 space-y-2">
+              <li>
+                <a
+                  href="add-listing.html"
+                  class="hover:text-white transition-colors"
+                  >List Your Business</a
+                >
+              </li>
+              <li>
+                <a
+                  href="admin-login.html"
+                  class="hover:text-white transition-colors"
+                  >Admin Dashboard</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div
+          class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400"
+        >
+          <p>&copy; 2025 Bazaar Odisha. A Project by Aakash Khamari.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Chatbot Widget UI -->
+    <style>
+      /* New, more reliable CSS for chatbot visibility */
+      #chat-window {
+        transform: scale(0.95) translateY(10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+      }
+      #chat-window.is-open {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+    </style>
+    <div id="chat-widget">
+      <!-- Chat Window -->
+      <div
+        id="chat-window"
+        class="fixed bottom-24 right-5 w-[350px] max-w-[90vw] h-[500px] max-h-[70vh] bg-white rounded-xl shadow-2xl flex flex-col"
+      >
+        <header
+          class="bg-gray-800 text-white p-4 rounded-t-xl flex items-center justify-between shadow-md flex-shrink-0"
+        >
+          <div class="flex items-center gap-3">
+            <img
+              src="images/logo-white.webp"
+              class="h-8 w-8"
+              alt="Mo Sahayak"
+            />
+            <div>
+              <h3 class="font-bold text-lg">Mo Sahayak</h3>
+              <p
+                class="font-odia text-xs opacity-80"
+                style="font-family: 'Noto Sans Oriya', sans-serif"
+              >
+                ମୋ ସହାୟକ
+              </p>
+            </div>
+          </div>
+          <button
+            id="chat-close-button"
+            class="text-gray-300 hover:text-white text-3xl leading-none"
+          >
+            &times;
+          </button>
+        </header>
+        <main
+          id="chat-body"
+          class="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4"
+        >
+          <div class="flex justify-start">
+            <div
+              class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xs text-sm"
+            >
+              Namaskar! I am Mo Sahayak, your AI assistant for Bazaar Odisha.
+              How can I help you today?
+            </div>
+          </div>
+        </main>
+        <footer class="p-3 border-t bg-white flex-shrink-0">
+          <form id="chat-form" class="flex items-center gap-2">
+            <input
+              type="text"
+              id="chat-input"
+              placeholder="Ask me anything..."
+              class="w-full p-2 border rounded-md focus:ring-2 focus:ring-teal-600 focus:outline-none text-sm"
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="bg-[#0f766e] hover:bg-[#115e59] text-white p-2 rounded-md"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </form>
+        </footer>
+      </div>
+      <!-- Chat Button -->
+      <button
+        id="chat-button"
+        class="bg-[#0f766e] hover:bg-[#115e59] text-white rounded-full flex items-center justify-center w-16 h-16 fixed bottom-5 right-5 shadow-lg transform hover:scale-110 transition-transform"
+      >
+        <img src="images/chat-icon.webp" alt="Chat" class="w-8 h-8" />
+      </button>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const allProducts = [
+          {
+            id: 101,
+            name: "Handmade Pattachitra Art",
+            category: "handicrafts",
+            price: 1200,
+            image: "images/product_pattachitra_art.webp",
+            shg: "Maa Durga SHG, Puri",
+            description:
+              "A beautiful, intricate Pattachitra painting depicting a scene from the Ramayana. Made with natural colors on a specially prepared cotton canvas. A timeless piece of Odia heritage.",
+          },
+          {
+            id: 102,
+            name: "Organic Turmeric Powder",
+            category: "food",
+            price: 150,
+            image: "images/product_turmeric_powder.webp",
+            shg: "Annapurna SHG, Kandhamal",
+            description:
+              "Pure, aromatic, and potent turmeric powder sourced directly from the famed fields of Kandhamal. Free from pesticides and artificial colors. Adds flavor and health to your meals.",
+          },
+          {
+            id: 103,
+            name: "Sambalpuri Handloom Scarf",
+            category: "textiles",
+            price: 850,
+            image: "images/product_sambalpuri_scarf.webp",
+            shg: "Boyanika Weavers SHG, Sambalpur",
+            description:
+              "A soft, vibrant Sambalpuri Ikat scarf woven from pure cotton. Features the traditional Bandha tie-and-dye technique, perfect for any occasion.",
+          },
+          {
+            id: 104,
+            name: "Dhokra Metal Figurine",
+            category: "handicrafts",
+            price: 2500,
+            image: "images/product_dhokra_figurine.webp",
+            shg: "Adibasi Crafts SHG, Rayagada",
+            description:
+              "An exquisite Dhokra metal figurine of a tribal musician, crafted using the ancient lost-wax casting method. A unique and rustic home decor item.",
+          },
+          {
+            id: 105,
+            name: "Sun-dried Mango Pickles",
+            category: "food",
+            price: 220,
+            image: "images/product_mango_pickle.webp",
+            shg: "Maa Tarini SHG, Ganjam",
+            description:
+              "Spicy and tangy mango pickles made with a traditional family recipe. Prepared with high-quality spices and sun-dried to perfection for a rich, authentic taste.",
+          },
+          {
+            id: 106,
+            name: "Berhampuri Silk Saree",
+            category: "textiles",
+            price: 4500,
+            image: "images/product_berhampuri_saree.webp",
+            shg: "Resham Silpi SHG, Berhampur",
+            description:
+              "A gorgeous Berhampuri Patta Saree, known for its unique temple (phoda kumbha) borders and pallu. A symbol of elegance and Odia weaving tradition.",
+          },
+          {
+            id: 107,
+            name: "Terracotta Wall Hanging",
+            category: "handicrafts",
+            price: 700,
+            image: "images/product_terracotta_hanging.webp",
+            shg: "Kumbhar Shakti SHG, Balangir",
+            description:
+              "A set of three hand-painted terracotta wall hangings featuring traditional Odia motifs. Adds a touch of ethnic charm to any wall.",
+          },
+          {
+            id: 108,
+            name: "Ragi & Millet Cookies",
+            category: "food",
+            price: 180,
+            image: "images/product_ragi_cookies.webp",
+            shg: "Koraput Organics SHG, Koraput",
+            description:
+              "Healthy and delicious cookies made from organic ragi and other millets sourced from Koraput. A nutritious snack for all ages.",
+          },
+          {
+            id: 109,
+            name: "Silver Filigree (Tarakasi) Earrings",
+            category: "handicrafts",
+            price: 1800,
+            image: "images/product_silver_filigree_earrings.webp",
+            shg: "Rupa Tarakasi SHG, Cuttack",
+            description:
+              "Delicate and stunning silver filigree earrings handcrafted by Cuttack artisans. The intricate Tarakasi work is a testament to their skill.",
+          },
+          {
+            id: 110,
+            name: "Kotpad Handloom Stole",
+            category: "textiles",
+            price: 1500,
+            image: "images/product_kotpad_stole.webp",
+            shg: "Mirgan Weavers SHG, Koraput",
+            description:
+              "An authentic Kotpad stole dyed with natural colors extracted from the Aal tree. This tribal textile is a GI-tagged product of Odisha.",
+          },
+          {
+            id: 111,
+            name: "Golden Grass Coasters",
+            category: "handicrafts",
+            price: 450,
+            image: "images/product_golden_grass_coasters.webp",
+            shg: "Kaincha SHG, Kendrapara",
+            description:
+              "A set of six beautiful coasters woven from Golden Grass (Kaincha). Durable, eco-friendly, and perfect for your dining table.",
+          },
+          {
+            id: 112,
+            name: "Spicy Lemon Pickle",
+            category: "food",
+            price: 190,
+            image: "images/product_lemon_pickle.webp",
+            shg: "Maa Mangala SHG, Khurda",
+            description:
+              "A zesty and spicy lemon pickle that will tingle your taste buds. Made with fresh lemons and a secret blend of spices.",
+          },
+          {
+            id: 113,
+            name: "Bomkai Cotton Dupatta",
+            category: "textiles",
+            price: 1100,
+            image: "images/product_bomkai_dupatta.webp",
+            shg: "Sonepur Weavers SHG, Sonepur",
+            description:
+              "A beautiful Bomkai cotton dupatta featuring intricate threadwork on the pallu. A perfect blend of tradition and contemporary style.",
+          },
+          {
+            id: 114,
+            name: "Handwoven Sabai Grass Basket",
+            category: "handicrafts",
+            price: 600,
+            image: "images/product_sabai_basket.webp",
+            shg: "Mayurbhanj Tribal Crafts SHG, Baripada",
+            description:
+              "A sturdy and stylish multi-purpose basket woven from Sabai grass. Ideal for storage or as a decorative piece.",
+          },
+          {
+            id: 115,
+            name: "Gajapati Ladoo",
+            category: "food",
+            price: 250,
+            image: "images/product_gajapati_ladoo.webp",
+            shg: "Paralakhemundi Sweets SHG, Gajapati",
+            description:
+              "Traditional ladoos made from pure ghee, besan, and nuts, following a recipe from the royal kitchens of Gajapati. A delectable treat.",
+          },
+          {
+            id: 116,
+            name: "Pattachitra Silk Scarf",
+            category: "textiles",
+            price: 2200,
+            image: "images/product_pattachitra_scarf.webp",
+            shg: "Raghurajpur Kalakruti SHG, Puri",
+            description:
+              "An elegant silk scarf hand-painted with Pattachitra motifs. A wearable piece of art that showcases the fine skills of Odia painters.",
+          },
+        ];
+
+        const productContainer = document.getElementById("product-container");
+        const notFoundContainer = document.getElementById(
+          "not-found-container"
+        );
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get("id"));
+        const product = allProducts.find((p) => p.id === productId);
+
+        if (!product) {
+          notFoundContainer.classList.remove("hidden");
+          return;
+        }
+
+        productContainer.classList.remove("hidden");
+        document.title = `${product.name} - Bazaar Odisha`;
+        document.getElementById("product-image").src = product.image;
+        document.getElementById("product-name").textContent = product.name;
+        document.getElementById(
+          "product-shg"
+        ).textContent = `by ${product.shg}`;
+        document.getElementById(
+          "product-price"
+        ).textContent = `₹${product.price.toLocaleString("en-IN")}`;
+        document.getElementById("product-description").textContent =
+          product.description;
+
+        const quantityInput = document.getElementById("quantity");
+        document.getElementById("qty-minus").addEventListener("click", () => {
+          if (quantityInput.value > 1) quantityInput.value--;
+        });
+        document.getElementById("qty-plus").addEventListener("click", () => {
+          quantityInput.value++;
+        });
+
+        const addToCartBtn = document.getElementById("add-to-cart-btn");
+        addToCartBtn.addEventListener("click", () => {
+          let cart = JSON.parse(sessionStorage.getItem("bazaarCart")) || [];
+          const existingItem = cart.find((item) => item.id === product.id);
+          const quantity = parseInt(quantityInput.value);
+          if (existingItem) {
+            existingItem.quantity += quantity;
+          } else {
+            cart.push({ ...product, quantity: quantity });
+          }
+          sessionStorage.setItem("bazaarCart", JSON.stringify(cart));
+          updateCartBadge();
+          addToCartBtn.textContent = "Added!";
+          addToCartBtn.style.backgroundColor = "var(--success-color)";
+          setTimeout(() => {
+            addToCartBtn.textContent = "Add to Cart";
+            addToCartBtn.style.backgroundColor = "var(--primary-color)";
+          }, 2000);
+        });
+
+        const relatedGrid = document.getElementById("related-products-grid");
+        allProducts
+          .filter((p) => p.category === product.category && p.id !== product.id)
+          .slice(0, 4)
+          .forEach((p) => {
+            const card = `<a href="product-details.html?id=${
+              p.id
+            }" class="bg-white rounded-lg shadow-sm overflow-hidden block hover:-translate-y-1 transition-transform"><img src="${
+              p.image
+            }" class="w-full h-40 object-cover"><div class="p-4"><h3 class="font-semibold">${
+              p.name
+            }</h3><p class="text-gray-500">₹${p.price.toLocaleString(
+              "en-IN"
+            )}</p></div></a>`;
+            relatedGrid.insertAdjacentHTML("beforeend", card);
+          });
+        if (relatedGrid.innerHTML === "")
+          document
+            .getElementById("related-products-section")
+            .classList.add("hidden");
+
+        const updateCartBadge = () => {
+          const badge = document.getElementById("cart-badge");
+          if (!badge) return;
+          const cart = JSON.parse(sessionStorage.getItem("bazaarCart")) || [];
+          const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+          badge.textContent = count;
+          badge.classList.toggle("active", count > 0);
+        };
+        updateCartBadge();
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+        if (mobileMenuButton)
+          mobileMenuButton.addEventListener("click", () =>
+            mobileMenu.classList.toggle("hidden")
+          );
+      });
+    </script>
+    <script src="chatbot.js" defer></script>
+  </body>
+</html>

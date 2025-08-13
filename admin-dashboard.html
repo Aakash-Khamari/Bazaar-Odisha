@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Bazaar Odisha</title>
+    <link rel="icon" type="image/webp" href="images/favicon.webp">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #0f766e; --primary-hover: #115e59; --success-color: #16A34A;
+            --dark-text: #1F2937; --light-text: #F9FAFB; --body-bg: #f3f4f6;
+        }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--body-bg); color: var(--dark-text); }
+        .btn-primary { background-color: var(--primary-color); color: var(--light-text); transition: background-color 0.3s; }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+        .btn-primary:disabled { background-color: #52525b; cursor: not-allowed; }
+        .form-input { width: 100%; border: 1px solid #D1D5DB; border-radius: 0.5rem; padding: 0.5rem 1rem; transition: border-color 0.2s, box-shadow 0.2s; }
+        .form-input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2); }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-40">
+       <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="images/logo.webp" alt="Bazaar Odisha Logo" class="h-10">
+                <span class="font-bold text-2xl text-gray-800 tracking-tight hidden sm:block">Bazaar Odisha</span>
+            </a>
+            <div class="flex items-center space-x-4">
+                <span class="font-semibold text-gray-700 hidden sm:block">Admin Panel</span>
+                <a href="index.html" class="text-gray-700 hover:text-[var(--primary-color)] font-medium text-sm">View Site</a>
+                <button id="logout-button" class="btn-primary font-semibold px-4 py-2 rounded-full text-sm">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h1 class="text-3xl font-bold mb-8">Admin Dashboard</h1>
+
+        <!-- Stats Section -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow-sm flex items-center gap-4"><div class="bg-teal-100 text-teal-600 rounded-full p-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg></div><div><p class="text-sm text-gray-500">Total Businesses</p><p id="total-businesses" class="text-2xl font-bold">0</p></div></div>
+            <div class="bg-white p-6 rounded-lg shadow-sm flex items-center gap-4"><div class="bg-sky-100 text-sky-600 rounded-full p-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4z" /></svg></div><div><p class="text-sm text-gray-500">Total Products</p><p id="total-products" class="text-2xl font-bold">0</p></div></div>
+            <div class="bg-white p-6 rounded-lg shadow-sm flex items-center gap-4"><div class="bg-amber-100 text-amber-600 rounded-full p-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg></div><div><p class="text-sm text-gray-500">Total Workers</p><p id="total-workers" class="text-2xl font-bold">0</p></div></div>
+            <div class="bg-white p-6 rounded-lg shadow-sm flex items-center gap-4"><div class="bg-pink-100 text-pink-600 rounded-full p-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg></div><div><p class="text-sm text-gray-500">Community Posts</p><p id="total-posts" class="text-2xl font-bold">8</p></div></div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8">
+            <div class="lg:col-span-3 bg-white p-6 rounded-lg shadow-sm"><h2 class="text-xl font-bold mb-4">New Listings Overview</h2><div class="h-80"><canvas id="new-listings-chart"></canvas></div></div>
+            <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-sm"><h2 class="text-xl font-bold mb-4">Listings by Category</h2><div class="h-80"><canvas id="category-chart"></canvas></div></div>
+        </section>
+        
+        <!-- Business Listings Table -->
+        <section class="bg-white p-6 rounded-lg shadow-sm">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">Manage Business Listings</h2>
+                <div class="w-full sm:w-1/3 mt-4 sm:mt-0"><input type="text" id="business-search" placeholder="Search businesses..." class="form-input"></div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50"><tr><th scope="col" class="px-6 py-3">Business Name</th><th scope="col" class="px-6 py-3">Category</th><th scope="col" class="px-6 py-3">Location</th><th scope="col" class="px-6 py-3">Status</th><th scope="col" class="px-6 py-3">Actions</th></tr></thead>
+                    <tbody id="business-table-body"></tbody>
+                </table>
+            </div>
+            <!-- Pagination Controls -->
+            <div id="pagination-controls" class="flex justify-between items-center mt-4">
+                <button id="prev-page" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">Previous</button>
+                <span id="page-info" class="text-sm font-semibold"></span>
+                <button id="next-page" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">Next</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 mt-16">
+        <div class="container mx-auto py-4 text-center text-sm"><p>&copy; 2025 Bazaar Odisha Admin Panel</p></div>
+    </footer>
+
+    <!-- Edit Business Modal -->
+    <div id="edit-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-xl p-8 w-full max-w-lg">
+            <h2 class="text-2xl font-bold mb-6">Edit Business</h2>
+            <form id="edit-form">
+                <input type="hidden" id="edit-id">
+                <div class="mb-4">
+                    <label for="edit-name" class="block text-sm font-medium text-gray-700 mb-1">Business Name</label>
+                    <input type="text" id="edit-name" class="form-input" required>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-location" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                    <input type="text" id="edit-location" class="form-input" required>
+                </div>
+                <div class="mb-6">
+                    <label for="edit-category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                    <input type="text" id="edit-category" class="form-input" required>
+                </div>
+                <div class="flex justify-end gap-4 mt-6">
+                    <button type="button" id="cancel-edit" class="bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-gray-300">Cancel</button>
+                    <button type="submit" class="btn-primary font-bold py-2 px-4 rounded-lg">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="hidden fixed top-5 right-5 text-white py-3 px-5 rounded-lg shadow-lg text-sm font-semibold">
+        <p id="toast-message"></p>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- SECURITY & LOGOUT ---
+        if (sessionStorage.getItem('isAdminAuthenticated') !== 'true') {
+            window.location.href = 'admin-login.html';
+            return;
+        }
+        document.getElementById('logout-button').addEventListener('click', () => {
+            sessionStorage.removeItem('isAdminAuthenticated');
+            window.location.href = 'admin-login.html';
+        });
+
+        // --- DATA CHECK ---
+        if (typeof allBusinesses === 'undefined' || typeof allProducts === 'undefined' || typeof localWorkers === 'undefined') {
+            console.error("Data files (data.js) not loaded.");
+            showToast("Failed to load data. Please check console.", "error");
+            return;
+        }
+        let currentBusinessData = [...allBusinesses]; // Create a mutable copy
+
+        // --- GLOBAL DOM ELEMENTS ---
+        const businessTableBody = document.getElementById('business-table-body');
+        const businessSearchInput = document.getElementById('business-search');
+        const editModal = document.getElementById('edit-modal');
+        const editForm = document.getElementById('edit-form');
+        const cancelEditBtn = document.getElementById('cancel-edit');
+
+        // --- PAGINATION STATE ---
+        let currentPage = 1;
+        const rowsPerPage = 5;
+
+        // --- TOAST NOTIFICATION ---
+        const showToast = (message, type = 'success') => {
+            const toast = document.getElementById('toast-notification');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.className = `fixed top-5 right-5 text-white py-3 px-5 rounded-lg shadow-lg text-sm font-semibold ${type === 'success' ? 'bg-green-600' : 'bg-red-600'}`;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 3000);
+        };
+        
+        // --- TABLE RENDERING ---
+        const renderBusinessTable = () => {
+            businessTableBody.innerHTML = '';
+            const filteredData = currentBusinessData.filter(b => {
+                const searchTerm = businessSearchInput.value.toLowerCase();
+                return b.name.toLowerCase().includes(searchTerm) || 
+                       b.category.toLowerCase().includes(searchTerm) ||
+                       b.location.toLowerCase().includes(searchTerm);
+            });
+
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedData = filteredData.slice(start, end);
+
+            if (paginatedData.length === 0 && filteredData.length > 0) {
+                 currentPage = 1;
+                 renderBusinessTable();
+                 return;
+            }
+
+            paginatedData.forEach(business => {
+                const statusClass = business.id % 3 === 0 ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800';
+                const statusText = business.id % 3 === 0 ? 'Pending' : 'Approved';
+                const row = `
+                    <tr class="bg-white border-b hover:bg-gray-50">
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${business.name}</td>
+                        <td class="px-6 py-4 capitalize">${business.category.replace(/-/g, ' ')}</td>
+                        <td class="px-6 py-4">${business.location}</td>
+                        <td class="px-6 py-4"><span class="px-2 py-1 text-xs font-medium rounded-full ${statusClass}">${statusText}</span></td>
+                        <td class="px-6 py-4 flex gap-3">
+                           <button data-id="${business.id}" class="edit-btn font-medium text-blue-600 hover:underline">Edit</button>
+                           <button data-id="${business.id}" class="delete-btn font-medium text-red-600 hover:underline">Delete</button>
+                        </td>
+                    </tr>`;
+                businessTableBody.insertAdjacentHTML('beforeend', row);
+            });
+            updatePaginationControls(filteredData.length);
+        };
+
+        const updatePaginationControls = (totalItems) => {
+            const pageInfo = document.getElementById('page-info');
+            const prevPageBtn = document.getElementById('prev-page');
+            const nextPageBtn = document.getElementById('next-page');
+            const totalPages = Math.ceil(totalItems / rowsPerPage);
+
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages > 0 ? totalPages : 1}`;
+            prevPageBtn.disabled = currentPage === 1;
+            nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
+        };
+
+        // --- MODAL & ACTIONS LOGIC ---
+        const openEditModal = (business) => {
+            document.getElementById('edit-id').value = business.id;
+            document.getElementById('edit-name').value = business.name;
+            document.getElementById('edit-location').value = business.location;
+            document.getElementById('edit-category').value = business.category;
+            editModal.classList.remove('hidden');
+        };
+        const closeEditModal = () => editModal.classList.add('hidden');
+
+        businessTableBody.addEventListener('click', (e) => {
+            const target = e.target;
+            const businessId = parseInt(target.dataset.id);
+            if (!businessId) return;
+
+            if (target.classList.contains('edit-btn')) {
+                const businessToEdit = currentBusinessData.find(b => b.id === businessId);
+                openEditModal(businessToEdit);
+            }
+            if (target.classList.contains('delete-btn')) {
+                if (confirm('Are you sure you want to delete this business? This action cannot be undone.')) {
+                    currentBusinessData = currentBusinessData.filter(b => b.id !== businessId);
+                    renderBusinessTable();
+                    showToast('Business deleted successfully!', 'success');
+                }
+            }
+        });
+
+        editForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const saveButton = e.target.querySelector('button[type="submit"]');
+            saveButton.disabled = true;
+            saveButton.textContent = 'Saving...';
+            
+            const id = parseInt(document.getElementById('edit-id').value);
+            const name = document.getElementById('edit-name').value;
+            const location = document.getElementById('edit-location').value;
+            const category = document.getElementById('edit-category').value;
+            
+            setTimeout(() => { // Simulate API call
+                const businessIndex = currentBusinessData.findIndex(b => b.id === id);
+                if (businessIndex > -1) {
+                    currentBusinessData[businessIndex] = { ...currentBusinessData[businessIndex], name, location, category };
+                }
+                renderBusinessTable();
+                saveButton.disabled = false;
+                saveButton.textContent = 'Save Changes';
+                closeEditModal();
+                showToast('Business updated successfully!');
+            }, 1000);
+        });
+        cancelEditBtn.addEventListener('click', closeEditModal);
+
+        // --- EVENT LISTENERS ---
+        businessSearchInput.addEventListener('input', () => {
+            currentPage = 1;
+            renderBusinessTable();
+        });
+        document.getElementById('prev-page').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderBusinessTable();
+            }
+        });
+        document.getElementById('next-page').addEventListener('click', () => {
+            currentPage++;
+            renderBusinessTable();
+        });
+        
+        // --- INITIALIZATION ---
+        const initializeDashboard = () => {
+            // Populate Stats
+            document.getElementById('total-businesses').textContent = currentBusinessData.length;
+            document.getElementById('total-products').textContent = allProducts.length;
+            document.getElementById('total-workers').textContent = localWorkers.length;
+            
+            // Charts
+            const listingsChartCtx = document.getElementById('new-listings-chart');
+            if (listingsChartCtx) {
+                new Chart(listingsChartCtx.getContext('2d'), {
+                    type: 'line', data: { labels: ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], datasets: [{ label: 'New Businesses', data: [5, 9, 12, 15, 22, 18], borderColor: 'rgba(15, 118, 110, 1)', backgroundColor: 'rgba(15, 118, 110, 0.1)', fill: true, tension: 0.3 }] },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+            const categoryChartCtx = document.getElementById('category-chart');
+            if (categoryChartCtx) {
+                const categoryCounts = currentBusinessData.reduce((acc, b) => ({ ...acc, [b.category]: (acc[b.category] || 0) + 1 }), {});
+                new Chart(categoryChartCtx.getContext('2d'), {
+                    type: 'doughnut', data: { labels: Object.keys(categoryCounts), datasets: [{ label: 'Listings', data: Object.values(categoryCounts), backgroundColor: ['#14b8a6', '#0ea5e9', '#f97316', '#84cc16', '#ec4899'], hoverOffset: 4 }] },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            // Initial Table Render
+            renderBusinessTable();
+        };
+
+        initializeDashboard();
+    });
+    </script>
+</body>
+</html>
