@@ -8,14 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;700&display=swap" rel="stylesheet" />
     <style>
       :root {
         --primary-color: #0f766e;
@@ -65,46 +59,61 @@
       .cart-badge.active {
         transform: scale(1); /* Show when active */
       }
+      /* === Desktop Navigation Active State (Animated Underline) === */
+      #desktop-nav-links a {
+        position: relative;
+        padding-bottom: 8px;
+        transition: color 0.3s ease;
+      }
+
+      #desktop-nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary-color);
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.35s ease-out;
+      }
+
+      #desktop-nav-links a.active {
+        color: var(--primary-color);
+        font-weight: 600; /* font-semibold */
+      }
+
+      #desktop-nav-links a.active::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+
+      /* === Mobile Navigation Active State === */
+      #mobile-menu a.active {
+        color: var(--primary-color);
+        font-weight: 600; /* font-semibold */
+        background-color: #e5e7eb; /* A light gray background like 'hover:bg-gray-200' */
+      }
     </style>
   </head>
   <body class="bg-gray-100">
     <!-- Correct Header -->
     <header class="bg-white shadow-md sticky top-0 z-50">
-      <nav
-        class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3"
-      >
+      <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
         <!-- Logo and Brand Name -->
         <a href="index.html" class="flex items-center gap-3">
           <img src="images/logo.webp" alt="Bazaar Odisha Logo" class="h-10" />
-          <span
-            class="font-bold text-2xl text-gray-800 tracking-tight hidden sm:block"
-            >Bazaar Odisha</span
-          >
+          <span class="font-bold text-2xl text-gray-800 tracking-tight hidden sm:block">Bazaar Odisha</span>
         </a>
 
         <!-- Desktop Navigation Links -->
-        <div class="hidden lg:flex items-center space-x-8">
-          <!-- NOTE: Move the active classes to the link that matches the current page -->
-          <a
-            href="index.html"
-            class="text-[var(--primary-color)] font-semibold border-b-2 border-[var(--primary-color)] pb-1"
-            >Home</a
-          >
-          <a
-            href="shg-marketplace.html"
-            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
-            >SHG Marketplace</a
-          >
-          <a
-            href="hire-local-help.html"
-            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
-            >Hire Local Help</a
-          >
-          <a
-            href="community-hub.html"
-            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
-            >Community</a
-          >
+        <div class="hidden lg:flex items-center space-x-8" id="desktop-nav-links">
+          <a href="index.html" class="font-medium">Home</a>
+          <a href="search-results.html" class="font-medium">Services</a>
+          <a href="shg-marketplace.html" class="font-medium">SHG Marketplace</a>
+          <a href="hire-local-help.html" class="font-medium">Hire Local Help</a>
+          <a href="community-hub.html" class="font-medium">Community</a>
         </div>
 
         <!-- Right Side Actions -->
@@ -113,32 +122,14 @@
             <img src="images/cart-icon.webp" alt="Cart" class="h-6 w-6" />
             <span id="cart-badge" class="cart-badge">0</span>
           </a>
-          <a
-            href="add-listing.html"
-            class="btn-primary font-semibold px-5 py-2 rounded-full text-sm"
-            >Add Your Business</a
-          >
+          <a href="add-listing.html" class="btn-primary font-semibold px-5 py-2 rounded-full text-sm">Add Your Business</a>
         </div>
 
         <!-- Mobile Menu Button -->
         <div class="lg:hidden">
-          <button
-            id="mobile-menu-button"
-            class="text-gray-600 focus:outline-none"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
+          <button id="mobile-menu-button" class="text-gray-600 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
         </div>
@@ -146,100 +137,42 @@
 
       <!-- Mobile Menu Panel (Hidden by default) -->
       <div id="mobile-menu" class="hidden lg:hidden px-4 pb-4">
-        <a
-          href="index.html"
-          class="block py-2 px-2 rounded-md hover:bg-gray-100 font-semibold text-[var(--primary-color)]"
-          >Home</a
-        >
-        <a
-          href="shg-marketplace.html"
-          class="block py-2 px-2 rounded-md hover:bg-gray-100"
-          >SHG Marketplace</a
-        >
-        <a
-          href="hire-local-help.html"
-          class="block py-2 px-2 rounded-md hover:bg-gray-100"
-          >Hire Local Help</a
-        >
-        <a
-          href="community-hub.html"
-          class="block py-2 px-2 rounded-md hover:bg-gray-100"
-          >Community</a
-        >
-        <a href="cart.html" class="block py-2 px-2 rounded-md hover:bg-gray-100"
-          >My Cart</a
-        >
-        <a
-          href="add-listing.html"
-          class="block mt-2 text-center w-full btn-primary font-semibold px-5 py-2 rounded-full text-sm"
-          >Add Business</a
-        >
+        <a href="index.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Home</a>
+        <a href="search-results.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Services</a>
+        <a href="shg-marketplace.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">SHG Marketplace</a>
+        <a href="hire-local-help.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Hire Local Help</a>
+        <a href="community-hub.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Community</a>
+        <a href="cart.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">My Cart</a>
+        <a href="add-listing.html" class="block mt-2 text-center w-full btn-primary font-semibold px-5 py-2 rounded-full text-sm">Add Business</a>
       </div>
     </header>
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
       <div class="text-center">
-        <h1 class="text-4xl md:text-5xl font-bold">
-          Hire Skilled Local Workers
-        </h1>
-        <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-          Find reliable electricians, masons, tutors, and other professionals
-          for any job, big or small.
-        </p>
+        <h1 class="text-4xl md:text-5xl font-bold">Hire Skilled Local Workers</h1>
+        <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Find reliable electricians, masons, tutors, and other professionals for any job, big or small.</p>
       </div>
       <div class="lg:hidden mt-8 mb-6">
-        <button
-          id="show-filters-btn"
-          class="w-full flex items-center justify-center gap-2 btn-primary font-semibold py-3 px-4 rounded-lg"
-        >
-          Show Filters
-        </button>
+        <button id="show-filters-btn" class="w-full flex items-center justify-center gap-2 btn-primary font-semibold py-3 px-4 rounded-lg">Show Filters</button>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start mt-12">
-        <aside
-          id="filters-sidebar"
-          class="hidden lg:block lg:col-span-1 bg-white p-6 rounded-2xl shadow-lg lg:sticky lg:top-28"
-        >
+        <aside id="filters-sidebar" class="hidden lg:block lg:col-span-1 bg-white p-6 rounded-2xl shadow-lg lg:sticky lg:top-28">
           <div class="flex justify-between items-center mb-4 border-b pb-2">
             <h2 class="text-2xl font-bold">Filters</h2>
-            <button class="lg:hidden text-2xl font-bold" id="close-filters-btn">
-              &times;
-            </button>
+            <button class="lg:hidden text-2xl font-bold" id="close-filters-btn">&times;</button>
           </div>
           <form id="filters-form" class="space-y-6">
-            <div>
-              <label for="location-search" class="font-semibold block mb-2"
-                >Location</label
-              ><input
-                type="text"
-                id="location-search"
-                placeholder="e.g., Balangir"
-                class="form-input"
-              />
-            </div>
+            <div><label for="location-search" class="font-semibold block mb-2">Location</label><input type="text" id="location-search" placeholder="e.g., Balangir" class="form-input" /></div>
             <div id="skill-filters" class="max-h-80 overflow-y-auto"></div>
             <div class="flex flex-col gap-3 pt-4 border-t">
-              <button
-                type="submit"
-                class="btn-primary font-semibold py-2 px-4 rounded-lg w-full"
-              >
-                Apply</button
-              ><button
-                type="button"
-                id="clear-filters-btn"
-                class="bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg"
-              >
-                Clear
-              </button>
+              <button type="submit" class="btn-primary font-semibold py-2 px-4 rounded-lg w-full">Apply</button
+              ><button type="button" id="clear-filters-btn" class="bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg">Clear</button>
             </div>
           </form>
         </aside>
         <div id="results-container" class="lg:col-span-3">
-          <div
-            id="workers-grid"
-            class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
-          ></div>
+          <div id="workers-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"></div>
           <div id="no-results-message" class="hidden text-center py-16">
             <h2 class="text-3xl font-bold">No Workers Found</h2>
           </div>
@@ -254,118 +187,66 @@
           <!-- Branding Section -->
           <div class="lg:col-span-1">
             <a href="index.html" class="flex items-center gap-3 mb-4">
-              <img
-                src="images/logo-white.webp"
-                alt="Bazaar Odisha Logo"
-                class="h-10"
-              />
-              <span class="font-bold text-xl text-white tracking-tight"
-                >Bazaar Odisha</span
-              >
+              <img src="images/logo-white.webp" alt="Bazaar Odisha Logo" class="h-10" />
+              <span class="font-bold text-xl text-white tracking-tight">Bazaar Odisha</span>
             </a>
-            <p class="text-sm text-gray-400 mt-2">
-              Empowering Odisha's local economy, one click at a time.
-            </p>
+            <p class="text-sm text-gray-400 mt-2">Empowering Odisha's local economy, one click at a time.</p>
           </div>
 
           <!-- Quick Links -->
           <div>
-            <h4 class="font-semibold text-white tracking-wider uppercase">
-              Quick Links
-            </h4>
+            <h4 class="font-semibold text-white tracking-wider uppercase">Quick Links</h4>
             <ul class="mt-4 space-y-2">
               <li>
-                <a href="about.html" class="hover:text-white transition-colors"
-                  >About Us</a
-                >
+                <a href="about.html" class="hover:text-white transition-colors">About Us</a>
               </li>
               <li>
-                <a
-                  href="shg-marketplace.html"
-                  class="hover:text-white transition-colors"
-                  >SHG Marketplace</a
-                >
+                <a href="shg-marketplace.html" class="hover:text-white transition-colors">SHG Marketplace</a>
               </li>
               <li>
-                <a
-                  href="hire-local-help.html"
-                  class="hover:text-white transition-colors"
-                  >Hire Local Help</a
-                >
+                <a href="hire-local-help.html" class="hover:text-white transition-colors">Hire Local Help</a>
               </li>
               <li>
-                <a
-                  href="community-hub.html"
-                  class="hover:text-white transition-colors"
-                  >Community Hub</a
-                >
+                <a href="community-hub.html" class="hover:text-white transition-colors">Community Hub</a>
               </li>
             </ul>
           </div>
 
           <!-- Support Links -->
           <div>
-            <h4 class="font-semibold text-white tracking-wider uppercase">
-              Support
-            </h4>
+            <h4 class="font-semibold text-white tracking-wider uppercase">Support</h4>
             <ul class="mt-4 space-y-2">
               <li>
-                <a href="faq.html" class="hover:text-white transition-colors"
-                  >FAQ</a
-                >
+                <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
               </li>
               <li>
-                <a
-                  href="contact.html"
-                  class="hover:text-white transition-colors"
-                  >Contact Us</a
-                >
+                <a href="contact.html" class="hover:text-white transition-colors">Contact Us</a>
               </li>
               <li>
-                <a
-                  href="privacy-policy.html"
-                  class="hover:text-white transition-colors"
-                  >Privacy Policy</a
-                >
+                <a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a>
               </li>
               <li>
-                <a
-                  href="terms-of-service.html"
-                  class="hover:text-white transition-colors"
-                  >Terms of Service</a
-                >
+                <a href="terms-of-service.html" class="hover:text-white transition-colors">Terms of Service</a>
               </li>
             </ul>
           </div>
 
           <!-- For Partners -->
           <div>
-            <h4 class="font-semibold text-white tracking-wider uppercase">
-              For Partners
-            </h4>
+            <h4 class="font-semibold text-white tracking-wider uppercase">For Partners</h4>
             <ul class="mt-4 space-y-2">
               <li>
-                <a
-                  href="add-listing.html"
-                  class="hover:text-white transition-colors"
-                  >List Your Business</a
-                >
+                <a href="add-listing.html" class="hover:text-white transition-colors">List Your Business</a>
               </li>
               <li>
-                <a
-                  href="admin-dashboard.html"
-                  class="hover:text-white transition-colors"
-                  >Admin Dashboard</a
-                >
+                <a href="admin-dashboard.html" class="hover:text-white transition-colors">Admin Dashboard</a>
               </li>
             </ul>
           </div>
         </div>
 
         <!-- Copyright -->
-        <div
-          class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400"
-        >
+        <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
           <p>&copy; 2025 Bazaar Odisha. A Project by Aakash Khamari.</p>
         </div>
       </div>
@@ -388,68 +269,27 @@
     </style>
     <div id="chat-widget">
       <!-- Chat Window -->
-      <div
-        id="chat-window"
-        class="fixed bottom-24 right-5 w-[350px] max-w-[90vw] h-[500px] max-h-[70vh] bg-white rounded-xl shadow-2xl flex flex-col"
-      >
-        <header
-          class="bg-gray-800 text-white p-4 rounded-t-xl flex items-center justify-between shadow-md flex-shrink-0"
-        >
+      <div id="chat-window" class="fixed bottom-24 right-5 w-[350px] max-w-[90vw] h-[500px] max-h-[70vh] bg-white rounded-xl shadow-2xl flex flex-col">
+        <header class="bg-gray-800 text-white p-4 rounded-t-xl flex items-center justify-between shadow-md flex-shrink-0">
           <div class="flex items-center gap-3">
-            <img
-              src="images/logo-white.webp"
-              class="h-8 w-8"
-              alt="Mo Sahayak"
-            />
+            <img src="images/logo-white.webp" class="h-8 w-8" alt="Mo Sahayak" />
             <div>
               <h3 class="font-bold text-lg">Mo Sahayak</h3>
-              <p
-                class="font-odia text-xs opacity-80"
-                style="font-family: 'Noto Sans Oriya', sans-serif"
-              >
-                ମୋ ସହାୟକ
-              </p>
+              <p class="font-odia text-xs opacity-80" style="font-family: 'Noto Sans Oriya', sans-serif">ମୋ ସହାୟକ</p>
             </div>
           </div>
-          <button
-            id="chat-close-button"
-            class="text-gray-300 hover:text-white text-3xl leading-none"
-          >
-            &times;
-          </button>
+          <button id="chat-close-button" class="text-gray-300 hover:text-white text-3xl leading-none">&times;</button>
         </header>
-        <main
-          id="chat-body"
-          class="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4"
-        >
+        <main id="chat-body" class="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4">
           <div class="flex justify-start">
-            <div
-              class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xs text-sm"
-            >
-              Namaskar! I am Mo Sahayak, your AI assistant for Bazaar Odisha.
-              How can I help you today?
-            </div>
+            <div class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xs text-sm">Namaskar! I am Mo Sahayak, your AI assistant for Bazaar Odisha. How can I help you today?</div>
           </div>
         </main>
         <footer class="p-3 border-t bg-white flex-shrink-0">
           <form id="chat-form" class="flex items-center gap-2">
-            <input
-              type="text"
-              id="chat-input"
-              placeholder="Ask me anything..."
-              class="w-full p-2 border rounded-md focus:ring-2 focus:ring-teal-600 focus:outline-none text-sm"
-              autocomplete="off"
-            />
-            <button
-              type="submit"
-              class="bg-[#0f766e] hover:bg-[#115e59] text-white p-2 rounded-md"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
+            <input type="text" id="chat-input" placeholder="Ask me anything..." class="w-full p-2 border rounded-md focus:ring-2 focus:ring-teal-600 focus:outline-none text-sm" autocomplete="off" />
+            <button type="submit" class="bg-[#0f766e] hover:bg-[#115e59] text-white p-2 rounded-md">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                 <path
                   fill-rule="evenodd"
                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z"
@@ -473,28 +313,13 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const generateAvatar = (name) => {
-          const colors = [
-            "#ef4444",
-            "#f97316",
-            "#84cc16",
-            "#22c55e",
-            "#10b981",
-            "#3b82f6",
-            "#6366f1",
-            "#a855f7",
-            "#ec4899",
-          ];
+          const colors = ["#ef4444", "#f97316", "#84cc16", "#22c55e", "#10b981", "#3b82f6", "#6366f1", "#a855f7", "#ec4899"];
           const getInitials = (n) => {
             const p = n.split(" ");
-            return p.length > 1
-              ? (p[0][0] + p[p.length - 1][0]).toUpperCase()
-              : n.substring(0, 2).toUpperCase();
+            return p.length > 1 ? (p[0][0] + p[p.length - 1][0]).toUpperCase() : n.substring(0, 2).toUpperCase();
           };
           const initials = getInitials(name);
-          const charCodeSum = Array.from(initials).reduce(
-            (sum, char) => sum + char.charCodeAt(0),
-            0
-          );
+          const charCodeSum = Array.from(initials).reduce((sum, char) => sum + char.charCodeAt(0), 0);
           const color = colors[charCodeSum % colors.length];
           const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="${color}" /><text x="50" y="55" font-family="Poppins" font-size="40" fill="white" text-anchor="middle" dy=".1em">${initials}</text></svg>`;
           return `data:image/svg+xml;base64,${btoa(svg)}`;
@@ -520,9 +345,7 @@
 
         const populateFilters = () => {
           const skills = [...new Set(localWorkers.map((w) => w.skill))].sort();
-          document.getElementById(
-            "skill-filters"
-          ).innerHTML = `<label class="font-semibold block mb-2">Filter by Skill</label><div class="space-y-1">${skills
+          document.getElementById("skill-filters").innerHTML = `<label class="font-semibold block mb-2">Filter by Skill</label><div class="space-y-1">${skills
             .map(
               (skill) =>
                 `<label class="flex items-center"><input type="checkbox" name="skill" value="${skill}" class="h-4 w-4 rounded border-gray-300 text-[var(--primary-color)] focus:ring-[var(--primary-color)]"><span class="ml-2 text-gray-700 capitalize">${skill.replace(
@@ -540,38 +363,24 @@
           workers.forEach((worker) => {
             const card = `<div class="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col"><div class="p-6 flex-grow"><div class="flex items-start gap-4"><img src="${generateAvatar(
               worker.name
-            )}" alt="${
+            )}" alt="${worker.name}" class="w-20 h-20 rounded-full object-cover border-2 border-[var(--primary-color)]"><div class="flex-1"><h3 class="text-xl font-bold">${
               worker.name
-            }" class="w-20 h-20 rounded-full object-cover border-2 border-[var(--primary-color)]"><div class="flex-1"><h3 class="text-xl font-bold">${
-              worker.name
-            }</h3><p class="text-[var(--primary-color)] font-semibold">${
-              worker.skill
-            }</p><div class="flex items-center gap-1 mt-1">${renderStars(
+            }</h3><p class="text-[var(--primary-color)] font-semibold">${worker.skill}</p><div class="flex items-center gap-1 mt-1">${renderStars(
               worker.rating
-            )}<span class="text-xs text-gray-500 ml-1">(${
-              worker.reviewsCount
-            } reviews)</span></div></div></div><p class="text-gray-600 mt-4 text-sm">${worker.bio.substring(
+            )}<span class="text-xs text-gray-500 ml-1">(${worker.reviewsCount} reviews)</span></div></div></div><p class="text-gray-600 mt-4 text-sm">${worker.bio.substring(
               0,
               100
             )}...</p></div><div class="p-6 bg-gray-50 border-t flex justify-between items-center"><span class="text-sm font-semibold text-gray-500 flex items-center gap-1">${
               worker.location
-            }</span><a href="worker-profile.html?id=${
-              worker.id
-            }" class="btn-primary text-sm font-semibold px-4 py-2 rounded-full">View Profile</a></div></div>`;
+            }</span><a href="worker-profile.html?id=${worker.id}" class="btn-primary text-sm font-semibold px-4 py-2 rounded-full">View Profile</a></div></div>`;
             workersGrid.insertAdjacentHTML("beforeend", card);
           });
         };
 
         const applyFilters = () => {
           const locationQuery = locationSearch.value.trim().toLowerCase();
-          const selectedSkills = Array.from(
-            document.querySelectorAll('input[name="skill"]:checked')
-          ).map((cb) => cb.value);
-          const filteredWorkers = localWorkers.filter(
-            (w) =>
-              w.location.toLowerCase().includes(locationQuery) &&
-              (selectedSkills.length === 0 || selectedSkills.includes(w.skill))
-          );
+          const selectedSkills = Array.from(document.querySelectorAll('input[name="skill"]:checked')).map((cb) => cb.value);
+          const filteredWorkers = localWorkers.filter((w) => w.location.toLowerCase().includes(locationQuery) && (selectedSkills.length === 0 || selectedSkills.includes(w.skill)));
           renderWorkers(filteredWorkers);
           if (window.innerWidth < 1024) toggleFilters(false);
         };
@@ -579,22 +388,10 @@
         const toggleFilters = (show) => {
           if (show) {
             filtersSidebar.classList.remove("hidden");
-            filtersSidebar.classList.add(
-              "fixed",
-              "inset-0",
-              "bg-white",
-              "z-50",
-              "overflow-y-auto"
-            );
+            filtersSidebar.classList.add("fixed", "inset-0", "bg-white", "z-50", "overflow-y-auto");
           } else {
             filtersSidebar.classList.add("hidden");
-            filtersSidebar.classList.remove(
-              "fixed",
-              "inset-0",
-              "bg-white",
-              "z-50",
-              "overflow-y-auto"
-            );
+            filtersSidebar.classList.remove("fixed", "inset-0", "bg-white", "z-50", "overflow-y-auto");
           }
         };
 
@@ -611,11 +408,7 @@
         });
         showFiltersBtn.addEventListener("click", () => toggleFilters(true));
         closeFiltersBtn.addEventListener("click", () => toggleFilters(false));
-        document
-          .getElementById("mobile-menu-button")
-          .addEventListener("click", () =>
-            document.getElementById("mobile-menu").classList.toggle("hidden")
-          );
+        document.getElementById("mobile-menu-button").addEventListener("click", () => document.getElementById("mobile-menu").classList.toggle("hidden"));
         const updateCartBadge = () => {
           const badge = document.getElementById("cart-badge");
           if (!badge) return;
@@ -624,7 +417,28 @@
           badge.textContent = count;
           badge.classList.toggle("active", count > 0);
         };
+        const setActiveNavLink = () => {
+          // Use "index.html" as a fallback for the root path
+          const currentPage = window.location.pathname.split("/").pop() || "index.html";
+
+          // Select links from BOTH desktop and mobile menus using a single query
+          const navLinks = document.querySelectorAll("#desktop-nav-links a, #mobile-menu a");
+
+          navLinks.forEach((link) => {
+            // Get the destination page from the link's href attribute
+            const linkPage = link.getAttribute("href").split("/").pop();
+
+            // Always remove the active class first to reset the state
+            link.classList.remove("active");
+
+            // Add the active class if the link's page matches the current page
+            if (linkPage === currentPage) {
+              link.classList.add("active");
+            }
+          });
+        };
         updateCartBadge();
+        setActiveNavLink();
       });
     </script>
     <script src="chatbot.js" defer></script>

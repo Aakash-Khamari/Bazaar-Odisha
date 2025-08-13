@@ -129,6 +129,42 @@
         line-height: 1;
         font-weight: bold;
       }
+      /* === Desktop Navigation Active State (Animated Underline) === */
+      #desktop-nav-links a {
+        position: relative;
+        padding-bottom: 8px;
+        transition: color 0.3s ease;
+      }
+
+      #desktop-nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary-color);
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.35s ease-out;
+      }
+
+      #desktop-nav-links a.active {
+        color: var(--primary-color);
+        font-weight: 600; /* font-semibold */
+      }
+
+      #desktop-nav-links a.active::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+
+      /* === Mobile Navigation Active State === */
+      #mobile-menu a.active {
+        color: var(--primary-color);
+        font-weight: 600; /* font-semibold */
+        background-color: #e5e7eb; /* A light gray background like 'hover:bg-gray-200' */
+      }
     </style>
   </head>
   <body class="bg-gray-100">
@@ -142,12 +178,12 @@
         </a>
 
         <!-- Desktop Navigation Links -->
-        <div class="hidden lg:flex items-center space-x-8">
-          <!-- NOTE: Move the active classes to the link that matches the current page -->
-          <a href="index.html" class="text-[var(--primary-color)] font-semibold border-b-2 border-[var(--primary-color)] pb-1">Home</a>
-          <a href="shg-marketplace.html" class="text-gray-700 hover:text-[var(--primary-color)] font-medium">SHG Marketplace</a>
-          <a href="hire-local-help.html" class="text-gray-700 hover:text-[var(--primary-color)] font-medium">Hire Local Help</a>
-          <a href="community-hub.html" class="text-gray-700 hover:text-[var(--primary-color)] font-medium">Community</a>
+        <div class="hidden lg:flex items-center space-x-8" id="desktop-nav-links">
+          <a href="index.html" class="font-medium">Home</a>
+          <a href="search-results.html" class="font-medium">Services</a>
+          <a href="shg-marketplace.html" class="font-medium">SHG Marketplace</a>
+          <a href="hire-local-help.html" class="font-medium">Hire Local Help</a>
+          <a href="community-hub.html" class="font-medium">Community</a>
         </div>
 
         <!-- Right Side Actions -->
@@ -171,7 +207,8 @@
 
       <!-- Mobile Menu Panel (Hidden by default) -->
       <div id="mobile-menu" class="hidden lg:hidden px-4 pb-4">
-        <a href="index.html" class="block py-2 px-2 rounded-md hover:bg-gray-100 font-semibold text-[var(--primary-color)]">Home</a>
+        <a href="index.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Home</a>
+        <a href="search-results.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Services</a>
         <a href="shg-marketplace.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">SHG Marketplace</a>
         <a href="hire-local-help.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Hire Local Help</a>
         <a href="community-hub.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Community</a>
@@ -362,6 +399,7 @@
     <script src="data.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
+        // Page-specific elements
         const resultsGrid = document.getElementById("results-grid");
         const noResultsMessage = document.getElementById("no-results-message");
         const filtersForm = document.getElementById("filters-form");
@@ -372,7 +410,39 @@
         const closeFiltersBtn = document.getElementById("close-filters-btn");
         const filtersSidebar = document.getElementById("filters-sidebar");
         const resultsContainer = document.getElementById("results-container");
+
+        // Shared elements
         const header = document.querySelector("header");
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        /**
+         * Sets the 'active' class on the correct navigation link for both
+         * desktop and mobile menus based on the current page URL.
+         */
+        const setActiveNavLink = () => {
+          const currentPage = window.location.pathname.split("/").pop() || "index.html";
+          const navLinks = document.querySelectorAll("#desktop-nav-links a, #mobile-menu a");
+          navLinks.forEach((link) => {
+            const linkPage = link.getAttribute("href").split("/").pop();
+            link.classList.remove("active");
+            if (linkPage === currentPage) {
+              link.classList.add("active");
+            }
+          });
+        };
+
+        /**
+         * Updates the cart badge count based on session storage.
+         */
+        const updateCartBadge = () => {
+          const badge = document.getElementById("cart-badge");
+          if (!badge) return;
+          const cart = JSON.parse(sessionStorage.getItem("bazaarCart")) || [];
+          const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+          badge.textContent = count;
+          badge.classList.toggle("active", count > 0);
+        };
 
         const populateFilters = () => {
           const categories = [...new Set(allBusinesses.map((b) => b.category))].sort();
@@ -439,7 +509,7 @@
               (selectedTags.length === 0 || selectedTags.every((tag) => b.tags.includes(tag)))
           );
           renderResults(filtered);
-          if (window.innerWidth < 1024) toggleFilters(false); // Hide filters after applying on mobile
+          if (window.innerWidth < 1024) toggleFilters(false);
         };
 
         const toggleFilters = (show) => {
@@ -457,14 +527,19 @@
         };
 
         const init = () => {
+          // Set up shared UI components
+          mobileMenuButton.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+          updateCartBadge();
+          setActiveNavLink();
+
+          // Set up page-specific logic
           const urlParams = new URLSearchParams(window.location.search);
           const initialQuery = urlParams.get("query") || "";
           const initialLocation = urlParams.get("location") || "";
-
           refineQueryInput.value = initialQuery;
           refineLocationInput.value = initialLocation;
-
           populateFilters();
+
           const categoryCheckboxes = document.querySelectorAll('input[name="category"]');
           categoryCheckboxes.forEach((cb) => {
             if (cb.value.toLowerCase() === initialQuery.toLowerCase()) {
@@ -484,23 +559,12 @@
           });
           showFiltersBtn.addEventListener("click", () => toggleFilters(true));
           closeFiltersBtn.addEventListener("click", () => toggleFilters(false));
-
-          // Corrected: Shared UI logic
-          header.innerHTML = `<nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3"><a href="index.html" class="flex items-center gap-3"><img src="images/logo.webp" alt="Bazaar Odisha Logo" class="h-10"><span class="font-bold text-2xl text-gray-800 tracking-tight hidden sm:block">Bazaar Odisha</span></a>...`;
-          document.getElementById("mobile-menu-button").addEventListener("click", () => document.getElementById("mobile-menu").classList.toggle("hidden"));
-          const updateCartBadge = () => {
-            const badge = document.getElementById("cart-badge");
-            if (!badge) return;
-            const cart = JSON.parse(sessionStorage.getItem("bazaarCart")) || [];
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            badge.textContent = count;
-            badge.classList.toggle("active", count > 0);
-          };
-          updateCartBadge();
         };
+
         init();
       });
     </script>
+
     <script src="chatbot.js" defer></script>
   </body>
 </html>

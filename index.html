@@ -9,14 +9,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;700&display=swap" rel="stylesheet" />
 
     <style>
       :root {
@@ -36,11 +30,7 @@
         font-family: "Noto Sans Oriya", sans-serif;
       }
       .hero-section {
-        background-image: linear-gradient(
-            rgba(0, 0, 0, 0.6),
-            rgba(0, 0, 0, 0.6)
-          ),
-          url("images/hero-background.webp");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("images/hero-background.webp");
         background-size: cover;
         background-position: center;
       }
@@ -149,46 +139,61 @@
         line-height: 1;
         font-weight: bold;
       }
+      /* === Desktop Navigation Active State (Animated Underline) === */
+      #desktop-nav-links a {
+        position: relative;
+        padding-bottom: 8px;
+        transition: color 0.3s ease;
+      }
+
+      #desktop-nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary-color);
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.35s ease-out;
+      }
+
+      #desktop-nav-links a.active {
+        color: var(--primary-color);
+        font-weight: 600; /* font-semibold */
+      }
+
+      #desktop-nav-links a.active::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+
+      /* === Mobile Navigation Active State === */
+      #mobile-menu a.active {
+        color: var(--primary-color);
+        font-weight: 600; /* font-semibold */
+        background-color: #e5e7eb; /* A light gray background like 'hover:bg-gray-200' */
+      }
     </style>
   </head>
   <body>
     <!-- Header Section -->
     <header class="bg-white shadow-md sticky top-0 z-50">
-      <nav
-        class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3"
-      >
+      <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
         <!-- Logo and Brand Name -->
         <a href="index.html" class="flex items-center gap-3">
           <img src="images/logo.webp" alt="Bazaar Odisha Logo" class="h-10" />
-          <span
-            class="font-bold text-2xl text-gray-800 tracking-tight hidden sm:block"
-            >Bazaar Odisha</span
-          >
+          <span class="font-bold text-2xl text-gray-800 tracking-tight hidden sm:block">Bazaar Odisha</span>
         </a>
 
         <!-- Desktop Navigation Links -->
-        <div class="hidden lg:flex items-center space-x-8">
-          <!-- NOTE: Move the active classes to the link that matches the current page -->
-          <a
-            href="index.html"
-            class="text-[var(--primary-color)] font-semibold border-b-2 border-[var(--primary-color)] pb-1"
-            >Home</a
-          >
-          <a
-            href="shg-marketplace.html"
-            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
-            >SHG Marketplace</a
-          >
-          <a
-            href="hire-local-help.html"
-            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
-            >Hire Local Help</a
-          >
-          <a
-            href="community-hub.html"
-            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
-            >Community</a
-          >
+        <div class="hidden lg:flex items-center space-x-8" id="desktop-nav-links">
+          <a href="index.html" class="font-medium">Home</a>
+          <a href="search-results.html" class="font-medium">Services</a>
+          <a href="shg-marketplace.html" class="font-medium">SHG Marketplace</a>
+          <a href="hire-local-help.html" class="font-medium">Hire Local Help</a>
+          <a href="community-hub.html" class="font-medium">Community</a>
         </div>
 
         <!-- Right Side Actions -->
@@ -197,32 +202,14 @@
             <img src="images/cart-icon.webp" alt="Cart" class="h-6 w-6" />
             <span id="cart-badge" class="cart-badge">0</span>
           </a>
-          <a
-            href="add-listing.html"
-            class="btn-primary font-semibold px-5 py-2 rounded-full text-sm"
-            >Add Your Business</a
-          >
+          <a href="add-listing.html" class="btn-primary font-semibold px-5 py-2 rounded-full text-sm">Add Your Business</a>
         </div>
 
         <!-- Mobile Menu Button -->
         <div class="lg:hidden">
-          <button
-            id="mobile-menu-button"
-            class="text-gray-600 focus:outline-none"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
+          <button id="mobile-menu-button" class="text-gray-600 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
         </div>
@@ -230,56 +217,24 @@
 
       <!-- Mobile Menu Panel (Hidden by default) -->
       <div id="mobile-menu" class="hidden lg:hidden px-4 pb-4">
-        <a
-          href="index.html"
-          class="block py-2 px-2 rounded-md hover:bg-gray-100 font-semibold text-[var(--primary-color)]"
-          >Home</a
-        >
-        <a
-          href="shg-marketplace.html"
-          class="block py-2 px-2 rounded-md hover:bg-gray-100"
-          >SHG Marketplace</a
-        >
-        <a
-          href="hire-local-help.html"
-          class="block py-2 px-2 rounded-md hover:bg-gray-100"
-          >Hire Local Help</a
-        >
-        <a
-          href="community-hub.html"
-          class="block py-2 px-2 rounded-md hover:bg-gray-100"
-          >Community</a
-        >
-        <a href="cart.html" class="block py-2 px-2 rounded-md hover:bg-gray-100"
-          >My Cart</a
-        >
-        <a
-          href="add-listing.html"
-          class="block mt-2 text-center w-full btn-primary font-semibold px-5 py-2 rounded-full text-sm"
-          >Add Business</a
-        >
+        <a href="index.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Home</a>
+        <a href="search-results.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Services</a>
+        <a href="shg-marketplace.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">SHG Marketplace</a>
+        <a href="hire-local-help.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Hire Local Help</a>
+        <a href="community-hub.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Community</a>
+        <a href="cart.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">My Cart</a>
+        <a href="add-listing.html" class="block mt-2 text-center w-full btn-primary font-semibold px-5 py-2 rounded-full text-sm">Add Business</a>
       </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero-section text-white">
-      <div
-        class="container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 text-center"
-      >
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 text-center">
         <h1 class="text-4xl md:text-6xl font-bold leading-tight">
-          Discover & Support Local Odisha<span
-            class="block text-2xl md:text-4xl mt-2 font-odia"
-            >ଓଡିଶାର ସ୍ଥାନୀୟ ବ୍ୟବସାୟକୁ ସମର୍ଥନ କରନ୍ତୁ</span
-          >
+          Discover & Support Local Odisha<span class="block text-2xl md:text-4xl mt-2 font-odia">ଓଡିଶାର ସ୍ଥାନୀୟ ବ୍ୟବସାୟକୁ ସମର୍ଥନ କରନ୍ତୁ</span>
         </h1>
-        <p class="mt-6 text-lg md:text-xl max-w-3xl mx-auto">
-          Find trusted local services, skilled workers, and unique handmade
-          products from Self-Help Groups right in your neighborhood.
-        </p>
-        <form
-          id="search-form"
-          class="mt-10 max-w-3xl mx-auto bg-white rounded-full p-2 flex items-center shadow-lg"
-        >
+        <p class="mt-6 text-lg md:text-xl max-w-3xl mx-auto">Find trusted local services, skilled workers, and unique handmade products from Self-Help Groups right in your neighborhood.</p>
+        <form id="search-form" class="mt-10 max-w-3xl mx-auto bg-white rounded-full p-2 flex items-center shadow-lg">
           <div class="relative flex-grow">
             <input
               type="text"
@@ -295,12 +250,7 @@
             placeholder="Your Location"
             class="hidden sm:block flex-grow bg-transparent p-3 border-none focus:ring-0 focus:outline-none text-gray-700 placeholder-gray-500"
           />
-          <button
-            type="submit"
-            class="btn-primary rounded-full px-6 py-3 font-bold flex-shrink-0"
-          >
-            Search
-          </button>
+          <button type="submit" class="btn-primary rounded-full px-6 py-3 font-bold flex-shrink-0">Search</button>
         </form>
       </div>
     </section>
@@ -308,100 +258,44 @@
     <!-- Popular Categories -->
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-center">
-          Explore Popular Categories
-        </h2>
-        <p class="text-center text-gray-600 mt-2 max-w-2xl mx-auto">
-          Get started by browsing some of our most sought-after local services.
-        </p>
+        <h2 class="text-3xl font-bold text-center">Explore Popular Categories</h2>
+        <p class="text-center text-gray-600 mt-2 max-w-2xl mx-auto">Get started by browsing some of our most sought-after local services.</p>
         <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-6 md:gap-8">
-          <a
-            href="search-results.html?query=electrician"
-            class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-            ><img
-              src="images/category-electrician.webp"
-              alt="Electrician"
-              class="w-20 h-20 mx-auto object-cover rounded-full"
-            />
+          <a href="search-results.html?query=electrician" class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+            ><img src="images/category-electrician.webp" alt="Electrician" class="w-20 h-20 mx-auto object-cover rounded-full" />
             <h3 class="mt-4 font-semibold text-lg">Electricians</h3></a
           >
-          <a
-            href="search-results.html?query=plumber"
-            class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-            ><img
-              src="images/category-plumber.webp"
-              alt="Plumber"
-              class="w-20 h-20 mx-auto object-cover rounded-full"
-            />
+          <a href="search-results.html?query=plumber" class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+            ><img src="images/category-plumber.webp" alt="Plumber" class="w-20 h-20 mx-auto object-cover rounded-full" />
             <h3 class="mt-4 font-semibold text-lg">Plumbers</h3></a
           >
-          <a
-            href="search-results.html?query=carpenter"
-            class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-            ><img
-              src="images/category-carpenter.webp"
-              alt="Carpenter"
-              class="w-20 h-20 mx-auto object-cover rounded-full"
-            />
+          <a href="search-results.html?query=carpenter" class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+            ><img src="images/category-carpenter.webp" alt="Carpenter" class="w-20 h-20 mx-auto object-cover rounded-full" />
             <h3 class="mt-4 font-semibold text-lg">Carpenters</h3></a
           >
-          <a
-            href="search-results.html?query=painter"
-            class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-            ><img
-              src="images/category-painter.webp"
-              alt="Painter"
-              class="w-20 h-20 mx-auto object-cover rounded-full"
-            />
+          <a href="search-results.html?query=painter" class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+            ><img src="images/category-painter.webp" alt="Painter" class="w-20 h-20 mx-auto object-cover rounded-full" />
             <h3 class="mt-4 font-semibold text-lg">Painters</h3></a
           >
-          <a
-            href="search-results.html?query=tiffin-service"
-            class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-            ><img
-              src="images/category-tiffin.webp"
-              alt="Tiffin Service"
-              class="w-20 h-20 mx-auto object-cover rounded-full"
-            />
+          <a href="search-results.html?query=tiffin-service" class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+            ><img src="images/category-tiffin.webp" alt="Tiffin Service" class="w-20 h-20 mx-auto object-cover rounded-full" />
             <h3 class="mt-4 font-semibold text-lg">Tiffin Services</h3></a
           >
-          <a
-            href="search-results.html?query=computer-repair"
-            class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-            ><img
-              src="images/category-computer.webp"
-              alt="Computer Repair"
-              class="w-20 h-20 mx-auto object-cover rounded-full"
-            />
+          <a href="search-results.html?query=computer-repair" class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+            ><img src="images/category-computer.webp" alt="Computer Repair" class="w-20 h-20 mx-auto object-cover rounded-full" />
             <h3 class="mt-4 font-semibold text-lg">Computer Repair</h3></a
           >
-          <a
-            href="search-results.html?query=ac-repair"
-            class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-            ><img
-              src="images/category-ac.webp"
-              alt="AC Repair"
-              class="w-20 h-20 mx-auto object-cover rounded-full"
-            />
+          <a href="search-results.html?query=ac-repair" class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+            ><img src="images/category-ac.webp" alt="AC Repair" class="w-20 h-20 mx-auto object-cover rounded-full" />
             <h3 class="mt-4 font-semibold text-lg">AC Repair</h3></a
           >
-          <a
-            href="search-results.html?query=laundry-service"
-            class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-            ><img
-              src="images/category-laundry.webp"
-              alt="Laundry Service"
-              class="w-20 h-20 mx-auto object-cover rounded-full"
-            />
+          <a href="search-results.html?query=laundry-service" class="block text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+            ><img src="images/category-laundry.webp" alt="Laundry Service" class="w-20 h-20 mx-auto object-cover rounded-full" />
             <h3 class="mt-4 font-semibold text-lg">Laundry</h3></a
           >
         </div>
         <div class="text-center mt-12">
-          <a
-            href="search-results.html"
-            class="inline-block bg-teal-100 text-[var(--primary-color)] font-bold px-8 py-3 rounded-full hover:bg-teal-200 transition-colors"
-            >View All Services</a
-          >
+          <a href="search-results.html" class="inline-block bg-teal-100 text-[var(--primary-color)] font-bold px-8 py-3 rounded-full hover:bg-teal-200 transition-colors">View All Services</a>
         </div>
       </div>
     </section>
@@ -410,19 +304,10 @@
     <section class="py-16">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center">From Our SHG Marketplace</h2>
-        <p class="text-center text-gray-600 mt-2 max-w-2xl mx-auto font-odia">
-          ଆମ ସ୍ୱୟଂ ସହାୟକ ଗୋଷ୍ଠୀ ଦ୍ୱାରା ପ୍ରସ୍ତୁତ ସାମଗ୍ରୀ
-        </p>
-        <div
-          id="featured-products-grid"
-          class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-        ></div>
+        <p class="text-center text-gray-600 mt-2 max-w-2xl mx-auto font-odia">ଆମ ସ୍ୱୟଂ ସହାୟକ ଗୋଷ୍ଠୀ ଦ୍ୱାରା ପ୍ରସ୍ତୁତ ସାମଗ୍ରୀ</p>
+        <div id="featured-products-grid" class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         <div class="text-center mt-12">
-          <a
-            href="shg-marketplace.html"
-            class="btn-primary font-semibold px-8 py-3 rounded-full text-lg"
-            >Explore More SHG Products</a
-          >
+          <a href="shg-marketplace.html" class="btn-primary font-semibold px-8 py-3 rounded-full text-lg">Explore More SHG Products</a>
         </div>
       </div>
     </section>
@@ -430,22 +315,13 @@
     <!-- Call to Action for Businesses -->
     <section class="py-16">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          class="bg-gradient-to-r from-teal-700 to-sky-700 text-white rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6"
-        >
+        <div class="bg-gradient-to-r from-teal-700 to-sky-700 text-white rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div class="text-center md:text-left">
-            <h2 class="text-3xl font-bold">
-              Are you a local business owner or SHG?
-            </h2>
-            <p class="mt-4 text-lg text-gray-200 max-w-2xl">
-              Reach thousands of new customers in your area. Create your free
-              business page on Bazaar Odisha today and grow with us.
-            </p>
+            <h2 class="text-3xl font-bold">Are you a local business owner or SHG?</h2>
+            <p class="mt-4 text-lg text-gray-200 max-w-2xl">Reach thousands of new customers in your area. Create your free business page on Bazaar Odisha today and grow with us.</p>
           </div>
           <div class="flex-shrink-0 mt-6 md:mt-0">
-            <a
-              href="add-listing.html"
-              class="inline-block bg-white text-[var(--primary-hover)] font-bold text-xl px-10 py-4 rounded-full shadow-lg hover:bg-gray-100 transition-colors"
+            <a href="add-listing.html" class="inline-block bg-white text-[var(--primary-hover)] font-bold text-xl px-10 py-4 rounded-full shadow-lg hover:bg-gray-100 transition-colors"
               >List Your Business for FREE</a
             >
           </div>
@@ -460,118 +336,66 @@
           <!-- Branding Section -->
           <div class="lg:col-span-1">
             <a href="index.html" class="flex items-center gap-3 mb-4">
-              <img
-                src="images/logo-white.webp"
-                alt="Bazaar Odisha Logo"
-                class="h-10"
-              />
-              <span class="font-bold text-xl text-white tracking-tight"
-                >Bazaar Odisha</span
-              >
+              <img src="images/logo-white.webp" alt="Bazaar Odisha Logo" class="h-10" />
+              <span class="font-bold text-xl text-white tracking-tight">Bazaar Odisha</span>
             </a>
-            <p class="text-sm text-gray-400 mt-2">
-              Empowering Odisha's local economy, one click at a time.
-            </p>
+            <p class="text-sm text-gray-400 mt-2">Empowering Odisha's local economy, one click at a time.</p>
           </div>
 
           <!-- Quick Links -->
           <div>
-            <h4 class="font-semibold text-white tracking-wider uppercase">
-              Quick Links
-            </h4>
+            <h4 class="font-semibold text-white tracking-wider uppercase">Quick Links</h4>
             <ul class="mt-4 space-y-2">
               <li>
-                <a href="about.html" class="hover:text-white transition-colors"
-                  >About Us</a
-                >
+                <a href="about.html" class="hover:text-white transition-colors">About Us</a>
               </li>
               <li>
-                <a
-                  href="shg-marketplace.html"
-                  class="hover:text-white transition-colors"
-                  >SHG Marketplace</a
-                >
+                <a href="shg-marketplace.html" class="hover:text-white transition-colors">SHG Marketplace</a>
               </li>
               <li>
-                <a
-                  href="hire-local-help.html"
-                  class="hover:text-white transition-colors"
-                  >Hire Local Help</a
-                >
+                <a href="hire-local-help.html" class="hover:text-white transition-colors">Hire Local Help</a>
               </li>
               <li>
-                <a
-                  href="community-hub.html"
-                  class="hover:text-white transition-colors"
-                  >Community Hub</a
-                >
+                <a href="community-hub.html" class="hover:text-white transition-colors">Community Hub</a>
               </li>
             </ul>
           </div>
 
           <!-- Support Links -->
           <div>
-            <h4 class="font-semibold text-white tracking-wider uppercase">
-              Support
-            </h4>
+            <h4 class="font-semibold text-white tracking-wider uppercase">Support</h4>
             <ul class="mt-4 space-y-2">
               <li>
-                <a href="faq.html" class="hover:text-white transition-colors"
-                  >FAQ</a
-                >
+                <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
               </li>
               <li>
-                <a
-                  href="contact.html"
-                  class="hover:text-white transition-colors"
-                  >Contact Us</a
-                >
+                <a href="contact.html" class="hover:text-white transition-colors">Contact Us</a>
               </li>
               <li>
-                <a
-                  href="privacy-policy.html"
-                  class="hover:text-white transition-colors"
-                  >Privacy Policy</a
-                >
+                <a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a>
               </li>
               <li>
-                <a
-                  href="terms-of-service.html"
-                  class="hover:text-white transition-colors"
-                  >Terms of Service</a
-                >
+                <a href="terms-of-service.html" class="hover:text-white transition-colors">Terms of Service</a>
               </li>
             </ul>
           </div>
 
           <!-- For Partners -->
           <div>
-            <h4 class="font-semibold text-white tracking-wider uppercase">
-              For Partners
-            </h4>
+            <h4 class="font-semibold text-white tracking-wider uppercase">For Partners</h4>
             <ul class="mt-4 space-y-2">
               <li>
-                <a
-                  href="add-listing.html"
-                  class="hover:text-white transition-colors"
-                  >List Your Business</a
-                >
+                <a href="add-listing.html" class="hover:text-white transition-colors">List Your Business</a>
               </li>
               <li>
-                <a
-                  href="admin-login.html"
-                  class="hover:text-white transition-colors"
-                  >Admin Dashboard</a
-                >
+                <a href="admin-login.html" class="hover:text-white transition-colors">Admin Dashboard</a>
               </li>
             </ul>
           </div>
         </div>
 
         <!-- Copyright -->
-        <div
-          class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400"
-        >
+        <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
           <p>&copy; 2025 Bazaar Odisha. A Project by Aakash Khamari.</p>
         </div>
       </div>
@@ -594,68 +418,27 @@
     </style>
     <div id="chat-widget">
       <!-- Chat Window -->
-      <div
-        id="chat-window"
-        class="fixed bottom-24 right-5 w-[350px] max-w-[90vw] h-[500px] max-h-[70vh] bg-white rounded-xl shadow-2xl flex flex-col"
-      >
-        <header
-          class="bg-gray-800 text-white p-4 rounded-t-xl flex items-center justify-between shadow-md flex-shrink-0"
-        >
+      <div id="chat-window" class="fixed bottom-24 right-5 w-[350px] max-w-[90vw] h-[500px] max-h-[70vh] bg-white rounded-xl shadow-2xl flex flex-col">
+        <header class="bg-gray-800 text-white p-4 rounded-t-xl flex items-center justify-between shadow-md flex-shrink-0">
           <div class="flex items-center gap-3">
-            <img
-              src="images/logo-white.webp"
-              class="h-8 w-8"
-              alt="Mo Sahayak"
-            />
+            <img src="images/logo-white.webp" class="h-8 w-8" alt="Mo Sahayak" />
             <div>
               <h3 class="font-bold text-lg">Mo Sahayak</h3>
-              <p
-                class="font-odia text-xs opacity-80"
-                style="font-family: 'Noto Sans Oriya', sans-serif"
-              >
-                ମୋ ସହାୟକ
-              </p>
+              <p class="font-odia text-xs opacity-80" style="font-family: 'Noto Sans Oriya', sans-serif">ମୋ ସହାୟକ</p>
             </div>
           </div>
-          <button
-            id="chat-close-button"
-            class="text-gray-300 hover:text-white text-3xl leading-none"
-          >
-            &times;
-          </button>
+          <button id="chat-close-button" class="text-gray-300 hover:text-white text-3xl leading-none">&times;</button>
         </header>
-        <main
-          id="chat-body"
-          class="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4"
-        >
+        <main id="chat-body" class="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4">
           <div class="flex justify-start">
-            <div
-              class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xs text-sm"
-            >
-              Namaskar! I am Mo Sahayak, your AI assistant for Bazaar Odisha.
-              How can I help you today?
-            </div>
+            <div class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xs text-sm">Namaskar! I am Mo Sahayak, your AI assistant for Bazaar Odisha. How can I help you today?</div>
           </div>
         </main>
         <footer class="p-3 border-t bg-white flex-shrink-0">
           <form id="chat-form" class="flex items-center gap-2">
-            <input
-              type="text"
-              id="chat-input"
-              placeholder="Ask me anything..."
-              class="w-full p-2 border rounded-md focus:ring-2 focus:ring-teal-600 focus:outline-none text-sm"
-              autocomplete="off"
-            />
-            <button
-              type="submit"
-              class="bg-[#0f766e] hover:bg-[#115e59] text-white p-2 rounded-md"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
+            <input type="text" id="chat-input" placeholder="Ask me anything..." class="w-full p-2 border rounded-md focus:ring-2 focus:ring-teal-600 focus:outline-none text-sm" autocomplete="off" />
+            <button type="submit" class="bg-[#0f766e] hover:bg-[#115e59] text-white p-2 rounded-md">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                 <path
                   fill-rule="evenodd"
                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z"
@@ -679,9 +462,7 @@
     <script src="data.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const featuredProductsGrid = document.getElementById(
-          "featured-products-grid"
-        );
+        const featuredProductsGrid = document.getElementById("featured-products-grid");
         const mobileMenuButton = document.getElementById("mobile-menu-button");
         const mobileMenu = document.getElementById("mobile-menu");
         const searchForm = document.getElementById("search-form");
@@ -692,16 +473,12 @@
           featured.forEach((product) => {
             const productCard = `<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col"><a href="product-details.html?id=${
               product.id
-            }" class="block product-image-container"><img src="${
-              product.image
-            }" alt="${
+            }" class="block product-image-container"><img src="${product.image}" alt="${
               product.name
             }" class="product-image w-full h-56 object-cover"><div class="description-overlay"><p class="font-medium">${product.description.substring(
               0,
               100
-            )}...</p></div></a><div class="p-6 flex flex-col flex-grow"><h3 class="text-xl font-semibold">${
-              product.name
-            }</h3><p class="text-gray-500 mt-1">by ${
+            )}...</p></div></a><div class="p-6 flex flex-col flex-grow"><h3 class="text-xl font-semibold">${product.name}</h3><p class="text-gray-500 mt-1">by ${
               product.shg
             }</p><div class="flex-grow"></div><div class="flex justify-between items-center mt-4"><span class="text-xl font-bold text-gray-800">₹${product.price.toLocaleString()}</span><button class="add-to-cart-btn btn-primary text-sm font-semibold px-4 py-2 rounded-full" data-product-id="${
               product.id
@@ -749,25 +526,36 @@
         if (searchForm) {
           searchForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            const service = document
-              .getElementById("search-service")
-              .value.trim();
-            const location = document
-              .getElementById("search-location")
-              .value.trim();
-            window.location.href = `search-results.html?query=${encodeURIComponent(
-              service
-            )}&location=${encodeURIComponent(location)}`;
+            const service = document.getElementById("search-service").value.trim();
+            const location = document.getElementById("search-location").value.trim();
+            window.location.href = `search-results.html?query=${encodeURIComponent(service)}&location=${encodeURIComponent(location)}`;
           });
         }
 
-        if (mobileMenuButton)
-          mobileMenuButton.addEventListener("click", () =>
-            mobileMenu.classList.toggle("hidden")
-          );
+        if (mobileMenuButton) mobileMenuButton.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+        const setActiveNavLink = () => {
+          // Use "index.html" as a fallback for the root path
+          const currentPage = window.location.pathname.split("/").pop() || "index.html";
 
+          // Select links from BOTH desktop and mobile menus using a single query
+          const navLinks = document.querySelectorAll("#desktop-nav-links a, #mobile-menu a");
+
+          navLinks.forEach((link) => {
+            // Get the destination page from the link's href attribute
+            const linkPage = link.getAttribute("href").split("/").pop();
+
+            // Always remove the active class first to reset the state
+            link.classList.remove("active");
+
+            // Add the active class if the link's page matches the current page
+            if (linkPage === currentPage) {
+              link.classList.add("active");
+            }
+          });
+        };
         renderFeaturedProducts();
         updateCartBadge();
+        setActiveNavLink();
       });
     </script>
 

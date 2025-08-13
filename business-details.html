@@ -9,14 +9,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <style>
       :root {
@@ -87,41 +81,20 @@
   <body class="bg-gray-100">
     <!-- Header -->
     <header class="bg-white shadow-md sticky top-0 z-50">
-      <nav
-        class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3"
-      >
+      <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
         <!-- Logo and Brand Name -->
         <a href="index.html" class="flex items-center gap-3">
           <img src="images/logo.webp" alt="Bazaar Odisha Logo" class="h-10" />
-          <span
-            class="font-bold text-2xl text-gray-800 tracking-tight hidden sm:block"
-            >Bazaar Odisha</span
-          >
+          <span class="font-bold text-2xl text-gray-800 tracking-tight hidden sm:block">Bazaar Odisha</span>
         </a>
 
         <!-- Desktop Navigation Links -->
-        <div class="hidden lg:flex items-center space-x-8">
-          <!-- NOTE: Move the active classes to the link that matches the current page -->
-          <a
-            href="index.html"
-            class="text-[var(--primary-color)] font-semibold border-b-2 border-[var(--primary-color)] pb-1"
-            >Home</a
-          >
-          <a
-            href="shg-marketplace.html"
-            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
-            >SHG Marketplace</a
-          >
-          <a
-            href="hire-local-help.html"
-            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
-            >Hire Local Help</a
-          >
-          <a
-            href="community-hub.html"
-            class="text-gray-700 hover:text-[var(--primary-color)] font-medium"
-            >Community</a
-          >
+        <div class="hidden lg:flex items-center space-x-8" id="desktop-nav-links">
+          <a href="index.html" class="font-medium">Home</a>
+          <a href="search-results.html" class="font-medium">Services</a>
+          <a href="shg-marketplace.html" class="font-medium">SHG Marketplace</a>
+          <a href="hire-local-help.html" class="font-medium">Hire Local Help</a>
+          <a href="community-hub.html" class="font-medium">Community</a>
         </div>
 
         <!-- Right Side Actions -->
@@ -130,32 +103,14 @@
             <img src="images/cart-icon.webp" alt="Cart" class="h-6 w-6" />
             <span id="cart-badge" class="cart-badge">0</span>
           </a>
-          <a
-            href="add-listing.html"
-            class="btn-primary font-semibold px-5 py-2 rounded-full text-sm"
-            >Add Your Business</a
-          >
+          <a href="add-listing.html" class="btn-primary font-semibold px-5 py-2 rounded-full text-sm">Add Your Business</a>
         </div>
 
         <!-- Mobile Menu Button -->
         <div class="lg:hidden">
-          <button
-            id="mobile-menu-button"
-            class="text-gray-600 focus:outline-none"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
+          <button id="mobile-menu-button" class="text-gray-600 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
         </div>
@@ -163,34 +118,13 @@
 
       <!-- Mobile Menu Panel (Hidden by default) -->
       <div id="mobile-menu" class="hidden lg:hidden px-4 pb-4">
-        <a
-          href="index.html"
-          class="block py-2 px-2 rounded-md hover:bg-gray-100 font-semibold text-[var(--primary-color)]"
-          >Home</a
-        >
-        <a
-          href="shg-marketplace.html"
-          class="block py-2 px-2 rounded-md hover:bg-gray-100"
-          >SHG Marketplace</a
-        >
-        <a
-          href="hire-local-help.html"
-          class="block py-2 px-2 rounded-md hover:bg-gray-100"
-          >Hire Local Help</a
-        >
-        <a
-          href="community-hub.html"
-          class="block py-2 px-2 rounded-md hover:bg-gray-100"
-          >Community</a
-        >
-        <a href="cart.html" class="block py-2 px-2 rounded-md hover:bg-gray-100"
-          >My Cart</a
-        >
-        <a
-          href="add-listing.html"
-          class="block mt-2 text-center w-full btn-primary font-semibold px-5 py-2 rounded-full text-sm"
-          >Add Business</a
-        >
+        <a href="index.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Home</a>
+        <a href="search-results.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Services</a>
+        <a href="shg-marketplace.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">SHG Marketplace</a>
+        <a href="hire-local-help.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Hire Local Help</a>
+        <a href="community-hub.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Community</a>
+        <a href="cart.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">My Cart</a>
+        <a href="add-listing.html" class="block mt-2 text-center w-full btn-primary font-semibold px-5 py-2 rounded-full text-sm">Add Business</a>
       </div>
     </header>
 
@@ -201,46 +135,17 @@
       </div>
       <div id="not-found" class="hidden text-center py-20">
         <h1 class="text-4xl font-bold">Business Not Found</h1>
-        <p class="text-gray-600 mt-4">
-          The business you are looking for does not exist or has been removed.
-        </p>
-        <a
-          href="index.html"
-          class="mt-8 inline-block btn-primary font-semibold px-6 py-3 rounded-lg"
-          >Return Home</a
-        >
+        <p class="text-gray-600 mt-4">The business you are looking for does not exist or has been removed.</p>
+        <a href="index.html" class="mt-8 inline-block btn-primary font-semibold px-6 py-3 rounded-lg">Return Home</a>
       </div>
     </main>
 
     <!-- Lightbox Modal -->
-    <div
-      id="lightbox"
-      class="fixed inset-0 flex items-center justify-center p-4 z-[100] hidden opacity-0"
-    >
-      <img
-        id="lightbox-image"
-        src=""
-        alt="Gallery Image"
-        class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg"
-      />
-      <button
-        id="lightbox-close"
-        class="absolute top-5 right-8 text-white text-5xl opacity-80 hover:opacity-100"
-      >
-        &times;
-      </button>
-      <button
-        id="lightbox-prev"
-        class="absolute left-8 top-1/2 -translate-y-1/2 text-white text-5xl opacity-80 hover:opacity-100"
-      >
-        &#10094;
-      </button>
-      <button
-        id="lightbox-next"
-        class="absolute right-8 top-1/2 -translate-y-1/2 text-white text-5xl opacity-80 hover:opacity-100"
-      >
-        &#10095;
-      </button>
+    <div id="lightbox" class="fixed inset-0 flex items-center justify-center p-4 z-[100] hidden opacity-0">
+      <img id="lightbox-image" src="" alt="Gallery Image" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg" />
+      <button id="lightbox-close" class="absolute top-5 right-8 text-white text-5xl opacity-80 hover:opacity-100">&times;</button>
+      <button id="lightbox-prev" class="absolute left-8 top-1/2 -translate-y-1/2 text-white text-5xl opacity-80 hover:opacity-100">&#10094;</button>
+      <button id="lightbox-next" class="absolute right-8 top-1/2 -translate-y-1/2 text-white text-5xl opacity-80 hover:opacity-100">&#10095;</button>
     </div>
 
     <!-- Footer -->
@@ -250,118 +155,66 @@
           <!-- Branding Section -->
           <div class="lg:col-span-1">
             <a href="index.html" class="flex items-center gap-3 mb-4">
-              <img
-                src="images/logo-white.webp"
-                alt="Bazaar Odisha Logo"
-                class="h-10"
-              />
-              <span class="font-bold text-xl text-white tracking-tight"
-                >Bazaar Odisha</span
-              >
+              <img src="images/logo-white.webp" alt="Bazaar Odisha Logo" class="h-10" />
+              <span class="font-bold text-xl text-white tracking-tight">Bazaar Odisha</span>
             </a>
-            <p class="text-sm text-gray-400 mt-2">
-              Empowering Odisha's local economy, one click at a time.
-            </p>
+            <p class="text-sm text-gray-400 mt-2">Empowering Odisha's local economy, one click at a time.</p>
           </div>
 
           <!-- Quick Links -->
           <div>
-            <h4 class="font-semibold text-white tracking-wider uppercase">
-              Quick Links
-            </h4>
+            <h4 class="font-semibold text-white tracking-wider uppercase">Quick Links</h4>
             <ul class="mt-4 space-y-2">
               <li>
-                <a href="about.html" class="hover:text-white transition-colors"
-                  >About Us</a
-                >
+                <a href="about.html" class="hover:text-white transition-colors">About Us</a>
               </li>
               <li>
-                <a
-                  href="shg-marketplace.html"
-                  class="hover:text-white transition-colors"
-                  >SHG Marketplace</a
-                >
+                <a href="shg-marketplace.html" class="hover:text-white transition-colors">SHG Marketplace</a>
               </li>
               <li>
-                <a
-                  href="hire-local-help.html"
-                  class="hover:text-white transition-colors"
-                  >Hire Local Help</a
-                >
+                <a href="hire-local-help.html" class="hover:text-white transition-colors">Hire Local Help</a>
               </li>
               <li>
-                <a
-                  href="community-hub.html"
-                  class="hover:text-white transition-colors"
-                  >Community Hub</a
-                >
+                <a href="community-hub.html" class="hover:text-white transition-colors">Community Hub</a>
               </li>
             </ul>
           </div>
 
           <!-- Support Links -->
           <div>
-            <h4 class="font-semibold text-white tracking-wider uppercase">
-              Support
-            </h4>
+            <h4 class="font-semibold text-white tracking-wider uppercase">Support</h4>
             <ul class="mt-4 space-y-2">
               <li>
-                <a href="faq.html" class="hover:text-white transition-colors"
-                  >FAQ</a
-                >
+                <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
               </li>
               <li>
-                <a
-                  href="contact.html"
-                  class="hover:text-white transition-colors"
-                  >Contact Us</a
-                >
+                <a href="contact.html" class="hover:text-white transition-colors">Contact Us</a>
               </li>
               <li>
-                <a
-                  href="privacy-policy.html"
-                  class="hover:text-white transition-colors"
-                  >Privacy Policy</a
-                >
+                <a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a>
               </li>
               <li>
-                <a
-                  href="terms-of-service.html"
-                  class="hover:text-white transition-colors"
-                  >Terms of Service</a
-                >
+                <a href="terms-of-service.html" class="hover:text-white transition-colors">Terms of Service</a>
               </li>
             </ul>
           </div>
 
           <!-- For Partners -->
           <div>
-            <h4 class="font-semibold text-white tracking-wider uppercase">
-              For Partners
-            </h4>
+            <h4 class="font-semibold text-white tracking-wider uppercase">For Partners</h4>
             <ul class="mt-4 space-y-2">
               <li>
-                <a
-                  href="add-listing.html"
-                  class="hover:text-white transition-colors"
-                  >List Your Business</a
-                >
+                <a href="add-listing.html" class="hover:text-white transition-colors">List Your Business</a>
               </li>
               <li>
-                <a
-                  href="admin-dashboard.html"
-                  class="hover:text-white transition-colors"
-                  >Admin Dashboard</a
-                >
+                <a href="admin-dashboard.html" class="hover:text-white transition-colors">Admin Dashboard</a>
               </li>
             </ul>
           </div>
         </div>
 
         <!-- Copyright -->
-        <div
-          class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400"
-        >
+        <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
           <p>&copy; 2025 Bazaar Odisha. A Project by Aakash Khamari.</p>
         </div>
       </div>
@@ -384,68 +237,27 @@
     </style>
     <div id="chat-widget">
       <!-- Chat Window -->
-      <div
-        id="chat-window"
-        class="fixed bottom-24 right-5 w-[350px] max-w-[90vw] h-[500px] max-h-[70vh] bg-white rounded-xl shadow-2xl flex flex-col"
-      >
-        <header
-          class="bg-gray-800 text-white p-4 rounded-t-xl flex items-center justify-between shadow-md flex-shrink-0"
-        >
+      <div id="chat-window" class="fixed bottom-24 right-5 w-[350px] max-w-[90vw] h-[500px] max-h-[70vh] bg-white rounded-xl shadow-2xl flex flex-col">
+        <header class="bg-gray-800 text-white p-4 rounded-t-xl flex items-center justify-between shadow-md flex-shrink-0">
           <div class="flex items-center gap-3">
-            <img
-              src="images/logo-white.webp"
-              class="h-8 w-8"
-              alt="Mo Sahayak"
-            />
+            <img src="images/logo-white.webp" class="h-8 w-8" alt="Mo Sahayak" />
             <div>
               <h3 class="font-bold text-lg">Mo Sahayak</h3>
-              <p
-                class="font-odia text-xs opacity-80"
-                style="font-family: 'Noto Sans Oriya', sans-serif"
-              >
-                ମୋ ସହାୟକ
-              </p>
+              <p class="font-odia text-xs opacity-80" style="font-family: 'Noto Sans Oriya', sans-serif">ମୋ ସହାୟକ</p>
             </div>
           </div>
-          <button
-            id="chat-close-button"
-            class="text-gray-300 hover:text-white text-3xl leading-none"
-          >
-            &times;
-          </button>
+          <button id="chat-close-button" class="text-gray-300 hover:text-white text-3xl leading-none">&times;</button>
         </header>
-        <main
-          id="chat-body"
-          class="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4"
-        >
+        <main id="chat-body" class="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4">
           <div class="flex justify-start">
-            <div
-              class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xs text-sm"
-            >
-              Namaskar! I am Mo Sahayak, your AI assistant for Bazaar Odisha.
-              How can I help you today?
-            </div>
+            <div class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xs text-sm">Namaskar! I am Mo Sahayak, your AI assistant for Bazaar Odisha. How can I help you today?</div>
           </div>
         </main>
         <footer class="p-3 border-t bg-white flex-shrink-0">
           <form id="chat-form" class="flex items-center gap-2">
-            <input
-              type="text"
-              id="chat-input"
-              placeholder="Ask me anything..."
-              class="w-full p-2 border rounded-md focus:ring-2 focus:ring-teal-600 focus:outline-none text-sm"
-              autocomplete="off"
-            />
-            <button
-              type="submit"
-              class="bg-[#0f766e] hover:bg-[#115e59] text-white p-2 rounded-md"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
+            <input type="text" id="chat-input" placeholder="Ask me anything..." class="w-full p-2 border rounded-md focus:ring-2 focus:ring-teal-600 focus:outline-none text-sm" autocomplete="off" />
+            <button type="submit" class="bg-[#0f766e] hover:bg-[#115e59] text-white p-2 rounded-md">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                 <path
                   fill-rule="evenodd"
                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z"
@@ -486,26 +298,13 @@
 
         const detailsHTML = `
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden md:grid md:grid-cols-2 md:gap-8">
-                    <div class="h-64 md:h-auto"><img src="${
-                      business.image
-                    }" alt="${
-          business.name
-        }" class="w-full h-full object-cover"></div>
+                    <div class="h-64 md:h-auto"><img src="${business.image}" alt="${business.name}" class="w-full h-full object-cover"></div>
                     <div class="p-8 flex flex-col justify-center">
-                        <p class="text-sm font-bold text-teal-600 uppercase tracking-wider">${business.category.replace(
-                          /-/g,
-                          " "
-                        )} • ${business.location}</p>
-                        <h1 class="text-4xl font-bold mt-2">${
-                          business.name
-                        }</h1>
-                        <p class="text-gray-600 mt-4 text-lg">${
-                          business.description
-                        }</p>
+                        <p class="text-sm font-bold text-teal-600 uppercase tracking-wider">${business.category.replace(/-/g, " ")} • ${business.location}</p>
+                        <h1 class="text-4xl font-bold mt-2">${business.name}</h1>
+                        <p class="text-gray-600 mt-4 text-lg">${business.description}</p>
                         <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <a href="tel:${
-                              business.phone
-                            }" class="btn-primary w-full text-center font-bold py-3 px-4 rounded-lg text-lg transition-transform hover:scale-105">Call Now</a>
+                            <a href="tel:${business.phone}" class="btn-primary w-full text-center font-bold py-3 px-4 rounded-lg text-lg transition-transform hover:scale-105">Call Now</a>
                             <a href="https://wa.me/91${
                               business.phone
                             }" target="_blank" class="btn-success w-full text-center font-bold py-3 px-4 rounded-lg text-lg transition-transform hover:scale-105">WhatsApp</a>
@@ -520,9 +319,7 @@
                               .map(
                                 (imgSrc, index) => `
                                 <a href="${imgSrc}" class="gallery-item block rounded-lg overflow-hidden aspect-w-1 aspect-h-1" data-index="${index}">
-                                    <img src="${imgSrc}" alt="Gallery image ${
-                                  index + 1
-                                }" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300">
+                                    <img src="${imgSrc}" alt="Gallery image ${index + 1}" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300">
                                 </a>
                             `
                               )
@@ -545,10 +342,7 @@
             L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
               attribution: "&copy; OpenStreetMap contributors",
             }).addTo(map);
-            L.marker([business.lat, business.lng])
-              .addTo(map)
-              .bindPopup(`<b>${business.name}</b><br>${business.location}`)
-              .openPopup();
+            L.marker([business.lat, business.lng]).addTo(map).bindPopup(`<b>${business.name}</b><br>${business.location}`).openPopup();
 
             // Force Leaflet to re-check its size and redraw.
             map.invalidateSize();
@@ -578,12 +372,8 @@
           setTimeout(() => lightbox.classList.add("hidden"), 300);
           document.body.classList.remove("lightbox-open");
         };
-        const showNext = () =>
-          openLightbox((currentIndex + 1) % galleryImages.length);
-        const showPrev = () =>
-          openLightbox(
-            (currentIndex - 1 + galleryImages.length) % galleryImages.length
-          );
+        const showNext = () => openLightbox((currentIndex + 1) % galleryImages.length);
+        const showPrev = () => openLightbox((currentIndex - 1 + galleryImages.length) % galleryImages.length);
 
         document.querySelectorAll(".gallery-item").forEach((item) => {
           item.addEventListener("click", (e) => {
@@ -605,6 +395,27 @@
             if (e.key === "ArrowLeft") showPrev();
           }
         });
+        const setActiveNavLink = () => {
+          // Use "index.html" as a fallback for the root path
+          const currentPage = window.location.pathname.split("/").pop() || "index.html";
+
+          // Select links from BOTH desktop and mobile menus using a single query
+          const navLinks = document.querySelectorAll("#desktop-nav-links a, #mobile-menu a");
+
+          navLinks.forEach((link) => {
+            // Get the destination page from the link's href attribute
+            const linkPage = link.getAttribute("href").split("/").pop();
+
+            // Always remove the active class first to reset the state
+            link.classList.remove("active");
+
+            // Add the active class if the link's page matches the current page
+            if (linkPage === currentPage) {
+              link.classList.add("active");
+            }
+          });
+        };
+        setActiveNavLink();
       });
     </script>
     <script src="chatbot.js" defer></script>
