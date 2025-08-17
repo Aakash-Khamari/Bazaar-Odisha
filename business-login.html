@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Business Login - Bazaar Odisha</title>
+    <link rel="icon" type="image/webp" href="images/favicon.webp" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #0f766e;
+        --primary-hover: #115e59;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        transition: background-color 0.3s;
+    }
+      .btn-primary:hover {
+        background-color: var(--primary-hover);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-100 flex items-center justify-center min-h-screen"
+  >
+    <main
+      class="w-full max-w-md mx-auto p-8 bg-white rounded-2xl shadow-lg"
+    >
+      <div class="text-center mb-8">
+        <a href="index.html" class="inline-block">
+          <img
+            src="images/logo.webp"
+            alt="Bazaar Odisha Logo"
+            class="h-16 mx-auto"
+          />
+        </a>
+        <h1 class="text-3xl font-bold text-gray-900 mt-4">
+          Business Partner Login
+        </h1>
+        <p class="text-gray-500">Access your incoming orders.</p>
+      </div>
+
+      <form id="business-login-form">
+        <div class="space-y-6">
+          <div>
+            <label
+              for="username"
+              class="block text-sm font-medium text-gray-700"
+              >Business ID</label
+            >
+            <input
+              type="text"
+              id="username"
+              name="username"
+              required
+              class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
+            />
+          </div>
+          <div>
+            <label
+              for="password"
+              class="block text-sm font-medium text-gray-700"
+              >Password</label
+            >
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
+            />
+          </div>
+          <div id="error-message" class="hidden text-sm text-red-600 text-center">
+            Invalid credentials. Please try again.
+          </div>
+          <div>
+            <button
+              type="submit"
+              class="w-full btn-primary font-bold py-3 px-4 rounded-full text-lg"
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      </form>
+    </main>
+
+    <script>
+      document
+        .getElementById("business-login-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const usernameInput = document.getElementById("username").value;
+          const passwordInput = document.getElementById("password").value;
+          const errorMessage = document.getElementById("error-message");
+
+          // Hardcoded credentials check
+          if (usernameInput === "business1" && passwordInput === "business123") {
+            // On success, set a session flag and redirect to the orders page
+            sessionStorage.setItem("isBusinessLoggedIn", "true");
+            window.location.href = "orders.html";
+          } else {
+            // On failure, show an error message
+            errorMessage.classList.remove("hidden");
+          }
+        });
+    </script>
+  </body>
+</html>

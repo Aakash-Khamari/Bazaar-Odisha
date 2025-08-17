@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Incoming Orders - Bazaar Odisha</title>
+    <link rel="icon" type="image/webp" href="images/favicon.webp" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    
+    <!-- === UPDATED STYLES FOR STICKY FOOTER === -->
+    <style>
+      :root {
+        --primary-color: #0f766e;
+        --body-bg: #f3f4f6;
+      }
+      
+      /* New styles to make the footer stick to the bottom */
+      html {
+        height: 100%;
+      }
+      body {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column; /* Stack elements vertically */
+        font-family: "Poppins", sans-serif;
+        background-color: var(--body-bg);
+      }
+      main {
+        flex-grow: 1; /* This is the key: it makes the main content expand */
+      }
+      
+      /* Styles for action buttons from previous step */
+      .action-btn {
+        transition: background-color 0.2s, transform 0.2s;
+      }
+      .action-btn:hover {
+        transform: scale(1.05);
+      }
+    </style>
+    
+    <script>
+      // Security Check: Redirect to the business login if not authenticated
+      if (sessionStorage.getItem("isBusinessLoggedIn") !== "true") {
+        window.location.href = "business-login.html";
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Admin-style Header -->
+    <header class="bg-white shadow-md sticky top-0 z-40">
+      <nav
+        class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3"
+      >
+        <a href="index.html" class="flex items-center gap-3">
+          <img
+            src="images/logo.webp"
+            alt="Bazaar Odisha Logo"
+            class="h-10"
+          />
+          <span
+            class="font-bold text-2xl text-gray-800 tracking-tight hidden sm:block"
+            >Bazaar Odisha</span
+          >
+        </a>
+        <div class="flex items-center space-x-4">
+          <span class="font-semibold text-gray-700 hidden sm:block"
+            >Business Panel</span
+          >
+          <button
+            id="logout-button"
+            class="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-full text-sm"
+          >
+            Logout
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Orders Section -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h1 class="text-3xl font-bold mb-8">Incoming Orders</h1>
+      <section class="bg-white p-6 rounded-lg shadow-sm">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3">Order ID</th>
+                <th scope="col" class="px-6 py-3">Customer</th>
+                <th scope="col" class="px-6 py-3">Items</th>
+                <th scope="col" class="px-6 py-3">Total</th>
+                <th scope="col" class="px-6 py-3">Status</th>
+                <th scope="col" class="px-6 py-3 text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="orders-list" class="divide-y divide-gray-200">
+              <!-- Orders are dynamically inserted here by orders.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300">
+        <div class="container mx-auto py-4 text-center text-sm"><p>&copy; 2025 Bazaar Odisha Business Panel</p></div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="orders.js"></script>
+    <script>
+      // Logout functionality
+      document
+        .getElementById("logout-button")
+        .addEventListener("click", () => {
+          sessionStorage.removeItem("isBusinessLoggedIn");
+          window.location.href = "business-login.html";
+        });
+    </script>
+  </body>
+</html>
