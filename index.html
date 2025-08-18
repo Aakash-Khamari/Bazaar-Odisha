@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bazaar Odisha - Empowering Local Economies</title>
     <link rel="icon" type="image/webp" href="images/favicon.webp" />
-
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;700&display=swap" rel="stylesheet" />
-
     <style>
       :root {
         --primary-color: #0f766e;
@@ -139,13 +137,12 @@
         line-height: 1;
         font-weight: bold;
       }
-      /* === Desktop Navigation Active State (Animated Underline) === */
+      /* = Desktop Navigation Active State (Animated Underline) = */
       #desktop-nav-links a {
         position: relative;
         padding-bottom: 8px;
         transition: color 0.3s ease;
       }
-
       #desktop-nav-links a::after {
         content: "";
         position: absolute;
@@ -158,23 +155,53 @@
         transform-origin: bottom right;
         transition: transform 0.35s ease-out;
       }
-
       #desktop-nav-links a.active {
         color: var(--primary-color);
         font-weight: 600; /* font-semibold */
       }
-
       #desktop-nav-links a.active::after {
         transform: scaleX(1);
         transform-origin: bottom left;
       }
-
-      /* === Mobile Navigation Active State === */
+      /* = Mobile Navigation Active State = */
       #mobile-menu a.active {
         color: var(--primary-color);
         font-weight: 600; /* font-semibold */
         background-color: #e5e7eb; /* A light gray background like 'hover:bg-gray-200' */
       }
+
+      /* <!-- NEW CSS START: Styles for the Promotional Carousel --> */
+      .promotions-carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1.5rem; /* space-x-6 */
+        padding-bottom: 1rem; /* for scrollbar visibility */
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: var(--primary-color) #e5e7eb; /* Firefox */
+      }
+      .promotions-carousel::-webkit-scrollbar {
+        height: 8px;
+      }
+      .promotions-carousel::-webkit-scrollbar-track {
+        background: #e5e7eb;
+        border-radius: 10px;
+      }
+      .promotions-carousel::-webkit-scrollbar-thumb {
+        background-color: var(--primary-color);
+        border-radius: 10px;
+      }
+      .promo-card {
+        flex: 0 0 280px; /* Adjust width as needed */
+        height: 350px; /* Added fixed height for uniform card size */
+        scroll-snap-align: start;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .promo-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      /* <!-- NEW CSS END --> */
     </style>
   </head>
   <body>
@@ -223,7 +250,7 @@
         <a href="shg-marketplace.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">SHG Marketplace</a>
         <a href="hire-local-help.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Hire Local Help</a>
         <a href="community-hub.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Community</a>
-        <a href="my-orders.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">My Orders</a> 
+        <a href="my-orders.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">My Orders</a>
         <a href="cart.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">My Cart</a>
         <a href="add-listing.html" class="block mt-2 text-center w-full btn-primary font-semibold px-5 py-2 rounded-full text-sm">Add Business</a>
       </div>
@@ -256,6 +283,18 @@
         </form>
       </div>
     </section>
+
+    <!-- NEW SECTION START: Sponsored Promotions Carousel -->
+    <section class="py-16">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center">Featured Promotions</h2>
+        <p class="text-center text-gray-600 mt-2 max-w-2xl mx-auto">Check out these sponsored products and services from our trusted partners.</p>
+        <div id="promotions-carousel-container" class="promotions-carousel mt-12">
+          <!-- Carousel items will be dynamically injected here by JavaScript -->
+        </div>
+      </div>
+    </section>
+    <!-- NEW SECTION END -->
 
     <!-- Popular Categories -->
     <section class="py-16 bg-white">
@@ -303,7 +342,7 @@
     </section>
 
     <!-- Featured SHG Products (Dynamically populated) -->
-    <section class="py-16">
+    <section class="py-16 bg-white">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center">From Our SHG Marketplace</h2>
         <p class="text-center text-gray-600 mt-2 max-w-2xl mx-auto font-odia">ଆମ ସ୍ୱୟଂ ସହାୟକ ଗୋଷ୍ଠୀ ଦ୍ୱାରା ପ୍ରସ୍ତୁତ ସାମଗ୍ରୀ</p>
@@ -313,7 +352,6 @@
         </div>
       </div>
     </section>
-
     <!-- Call to Action for Businesses -->
     <section class="py-16">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -421,6 +459,7 @@
         pointer-events: auto;
       }
     </style>
+
     <div id="chat-widget">
       <!-- Chat Window -->
       <div id="chat-window" class="fixed bottom-24 right-5 w-[350px] max-w-[90vw] h-[500px] max-h-[70vh] bg-white rounded-xl shadow-2xl flex flex-col">
@@ -472,22 +511,84 @@
         const mobileMenu = document.getElementById("mobile-menu");
         const searchForm = document.getElementById("search-form");
 
+        // Logic for Promotional Carousel
+        const promotionsCarouselContainer = document.getElementById("promotions-carousel-container");
+
+        const sponsoredItemsConfig = [
+          { type: "product", id: 106 }, // Berhampuri Silk Saree
+          { type: "business", id: 15 }, // Cool Breeze AC Service
+          { type: "product", id: 109 }, // Silver Filigree Earrings
+          { type: "business", id: 23 }, // Steel City Studio
+          { type: "product", id: 116 }, // Pattachitra Silk Scarf
+          { type: "business", id: 4 }, // Koshal Ladies Tailor
+        ];
+
+        const renderPromotionsCarousel = () => {
+          if (!promotionsCarouselContainer) return;
+          promotionsCarouselContainer.innerHTML = "";
+
+          sponsoredItemsConfig.forEach((config) => {
+            let item;
+            let url = "";
+            let subtext = "";
+
+            if (config.type === "product") {
+              item = allProducts.find((p) => p.id === config.id);
+              if (item) {
+                url = `product-details.html?id=${item.id}`;
+                subtext = `by ${item.shg}`;
+              }
+            } else if (config.type === "business") {
+              item = allBusinesses.find((b) => b.id === config.id);
+              if (item) {
+                url = `business-details.html?id=${item.id}`;
+                subtext = `in ${item.location}`;
+              }
+            }
+
+            if (!item) return;
+
+            // CORRECTED: Removed the incorrect backslashes from the template literal
+            const cardHTML = `
+                <a href="${url}" class="promo-card relative block rounded-lg overflow-hidden shadow-md bg-gray-200">
+                    <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    <div class="absolute top-2 left-2 bg-gray-200 bg-opacity-90 text-gray-800 text-xs font-bold px-2 py-1 rounded-full shadow-sm">
+                      Sponsored
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                      <h3 class="text-white text-lg font-bold leading-tight">${item.name}</h3>
+                      <p class="text-gray-200 text-sm mt-1">${subtext}</p>
+                    </div>
+                </a>`;
+            promotionsCarouselContainer.insertAdjacentHTML("beforeend", cardHTML);
+          });
+        };
+
         const renderFeaturedProducts = () => {
+          if (!featuredProductsGrid) return;
           featuredProductsGrid.innerHTML = "";
-          const featured = allProducts.slice(0, 6); // Display first 6 products
+          const featured = allProducts.slice(0, 6);
+
           featured.forEach((product) => {
-            const productCard = `<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col"><a href="product-details.html?id=${
-              product.id
-            }" class="block product-image-container"><img src="${product.image}" alt="${
-              product.name
-            }" class="product-image w-full h-56 object-cover"><div class="description-overlay"><p class="font-medium">${product.description.substring(
-              0,
-              100
-            )}...</p></div></a><div class="p-6 flex flex-col flex-grow"><h3 class="text-xl font-semibold">${product.name}</h3><p class="text-gray-500 mt-1">by ${
-              product.shg
-            }</p><div class="flex-grow"></div><div class="flex justify-between items-center mt-4"><span class="text-xl font-bold text-gray-800">₹${product.price.toLocaleString()}</span><button class="add-to-cart-btn btn-primary text-sm font-semibold px-4 py-2 rounded-full" data-product-id="${
-              product.id
-            }">Add to Cart</button></div></div></div>`;
+            // CORRECTED: Removed the incorrect backslashes and formatted the template literal correctly
+            const productCard = `
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+                    <a href="product-details.html?id=${product.id}" class="block product-image-container">
+                        <img src="${product.image}" alt="${product.name}" class="product-image w-full h-56 object-cover">
+                        <div class="description-overlay">
+                            <p class="font-medium">${product.description.substring(0, 100)}...</p>
+                        </div>
+                    </a>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold">${product.name}</h3>
+                        <p class="text-gray-500 mt-1">by ${product.shg}</p>
+                        <div class="flex-grow"></div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-xl font-bold text-gray-800">₹${product.price.toLocaleString()}</span>
+                            <button class="add-to-cart-btn btn-primary text-sm font-semibold px-4 py-2 rounded-full" data-product-id="${product.id}">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>`;
             featuredProductsGrid.insertAdjacentHTML("beforeend", productCard);
           });
         };
@@ -500,6 +601,7 @@
           badge.textContent = count;
           badge.classList.toggle("active", count > 0);
         };
+
         const addToCart = (productId) => {
           let cart = JSON.parse(sessionStorage.getItem("bazaarCart")) || [];
           const productData = allProducts.find((p) => p.id === productId);
@@ -514,19 +616,21 @@
           updateCartBadge();
         };
 
-        featuredProductsGrid.addEventListener("click", (e) => {
-          const button = e.target.closest(".add-to-cart-btn");
-          if (button) {
-            const productId = parseInt(button.dataset.productId);
-            addToCart(productId);
-            button.textContent = "Added!";
-            button.style.backgroundColor = "var(--success-color)";
-            setTimeout(() => {
-              button.textContent = "Add to Cart";
-              button.style.backgroundColor = "var(--primary-color)";
-            }, 2000);
-          }
-        });
+        if (featuredProductsGrid) {
+          featuredProductsGrid.addEventListener("click", (e) => {
+            const button = e.target.closest(".add-to-cart-btn");
+            if (button) {
+              const productId = parseInt(button.dataset.productId);
+              addToCart(productId);
+              button.textContent = "Added!";
+              button.style.backgroundColor = "var(--success-color)";
+              setTimeout(() => {
+                button.textContent = "Add to Cart";
+                button.style.backgroundColor = "var(--primary-color)";
+              }, 2000);
+            }
+          });
+        }
 
         if (searchForm) {
           searchForm.addEventListener("submit", (e) => {
@@ -537,33 +641,29 @@
           });
         }
 
-        if (mobileMenuButton) mobileMenuButton.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+        if (mobileMenuButton) {
+          mobileMenuButton.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+        }
+
         const setActiveNavLink = () => {
-          // Use "index.html" as a fallback for the root path
           const currentPage = window.location.pathname.split("/").pop() || "index.html";
-
-          // Select links from BOTH desktop and mobile menus using a single query
           const navLinks = document.querySelectorAll("#desktop-nav-links a, #mobile-menu a");
-
           navLinks.forEach((link) => {
-            // Get the destination page from the link's href attribute
             const linkPage = link.getAttribute("href").split("/").pop();
-
-            // Always remove the active class first to reset the state
             link.classList.remove("active");
-
-            // Add the active class if the link's page matches the current page
             if (linkPage === currentPage) {
               link.classList.add("active");
             }
           });
         };
+
+        // --- Call all rendering functions ---
+        renderPromotionsCarousel();
         renderFeaturedProducts();
         updateCartBadge();
         setActiveNavLink();
       });
     </script>
-
     <script src="chatbot.js" defer></script>
   </body>
 </html>
