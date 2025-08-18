@@ -1,178 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Community Hub - Bazaar Odisha</title>
+    <title>My Orders - Bazaar Odisha</title>
     <link rel="icon" type="image/webp" href="images/favicon.webp" />
-
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;700&display=swap" rel="stylesheet" />
-
+    
+    <!-- STYLES FOR CART BADGE AND PAGE LAYOUT -->
     <style>
-      :root {
-        --primary-color: #0f766e;
-        --primary-hover: #115e59;
-        --success-color: #16a34a;
-        --dark-text: #1f2937;
-        --light-text: #f9fafb;
-        --body-bg: #f9fafb;
-      }
-      body {
-        font-family: "Poppins", sans-serif;
-        background-color: var(--body-bg);
-        color: var(--dark-text);
-      }
-      .font-odia {
-        font-family: "Noto Sans Oriya", sans-serif;
-      }
-      .btn-primary {
-        background-color: var(--primary-color);
-        color: var(--light-text);
-        transition: background-color 0.3s;
-      }
-      .btn-primary:hover {
-        background-color: var(--primary-hover);
-      }
-      .cart-badge {
-        position: absolute;
-        top: -8px;
-        right: -12px;
-        height: 20px;
-        width: 20px;
-        background-color: var(--success-color);
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-        font-weight: 600;
-        transform: scale(0);
-        transition: transform 0.2s ease-in-out;
-      }
-      .cart-badge.active {
-        transform: scale(1);
-      }
-      .form-input,
-      .form-textarea {
-        width: 100%;
-        border: 1px solid #d1d5db;
-        border-radius: 0.5rem;
-        padding: 0.75rem 1rem;
-        transition: border-color 0.2s, box-shadow 0.2s;
-      }
-      .form-input:focus,
-      .form-textarea:focus {
-        outline: none;
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2);
-      }
-      .filter-btn {
-        color: #4b5563;
-        font-weight: 500;
-        padding: 0.5rem 1rem;
-        border-radius: 9999px;
-        transition: all 0.2s;
-      }
-      .filter-btn.active {
-        color: var(--primary-color);
-        background-color: #d1fae5;
-        font-weight: 600;
-      }
-      .like-btn.is-liked {
-        color: var(--primary-color);
-        font-weight: 600;
-      }
-      /* Chatbot Styles */
-      #chat-widget {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1000;
-      }
-      #chat-button {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s;
-        cursor: pointer;
-      }
-      #chat-button:hover {
-        transform: scale(1.1);
-      }
-      #chat-window {
-        position: fixed;
-        bottom: 90px;
-        right: 20px;
-        width: 350px;
-        max-width: 90vw;
-        height: 500px;
-        max-height: 70vh;
-        background-color: white;
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        display: flex;
-        flex-direction: column;
-        transform: translateY(20px) scale(0.95);
-        opacity: 0;
-        transition: transform 0.3s ease, opacity 0.3s ease;
-        pointer-events: none;
-      }
-      #chat-window.open {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-        pointer-events: auto;
-      }
-      #chat-close-button {
-        font-size: 24px;
-        line-height: 1;
-        font-weight: bold;
-      }
-      /* === Desktop Navigation Active State (Animated Underline) === */
-      #desktop-nav-links a {
-        position: relative;
-        padding-bottom: 8px;
-        transition: color 0.3s ease;
-      }
-
-      #desktop-nav-links a::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 2px;
-        background-color: var(--primary-color);
-        transform: scaleX(0);
-        transform-origin: bottom right;
-        transition: transform 0.35s ease-out;
-      }
-
-      #desktop-nav-links a.active {
-        color: var(--primary-color);
-        font-weight: 600; /* font-semibold */
-      }
-
-      #desktop-nav-links a.active::after {
-        transform: scaleX(1);
-        transform-origin: bottom left;
-      }
-
-      /* === Mobile Navigation Active State === */
-      #mobile-menu a.active {
-        color: var(--primary-color);
-        font-weight: 600; /* font-semibold */
-        background-color: #e5e7eb; /* A light gray background like 'hover:bg-gray-200' */
-      }
+        :root {
+            --primary-color: #0f766e;
+            --success-color: #16a34a;
+            --body-bg: #f9fafb;
+        }
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: var(--body-bg);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex-grow: 1;
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #115e59;
+        }
+        /* Styles for the cart badge animation */
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            height: 20px;
+            width: 20px;
+            background-color: var(--success-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            transform: scale(0);
+            transition: transform 0.2s ease-in-out;
+        }
+        .cart-badge.active {
+            transform: scale(1);
+        }
+        /* Active nav link styles */
+        #desktop-nav-links a { position: relative; padding-bottom: 8px; }
+        #desktop-nav-links a::after {
+            content: ""; position: absolute; left: 0; bottom: 0;
+            width: 100%; height: 2px; background-color: var(--primary-color);
+            transform: scaleX(0); transform-origin: bottom right;
+            transition: transform 0.35s ease-out;
+        }
+        #desktop-nav-links a.active { color: var(--primary-color); font-weight: 600; }
+        #desktop-nav-links a.active::after { transform: scaleX(1); transform-origin: bottom left; }
+        #mobile-menu a.active { color: var(--primary-color); font-weight: 600; background-color: #e5e7eb; }
     </style>
-  </head>
-  <body class="bg-gray-100">
-    <!-- Header Section -->
+</head>
+<body>
+     <!-- Header Section -->
     <header class="bg-white shadow-md sticky top-0 z-50">
       <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
         <!-- Logo and Brand Name -->
@@ -217,43 +113,21 @@
         <a href="shg-marketplace.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">SHG Marketplace</a>
         <a href="hire-local-help.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Hire Local Help</a>
         <a href="community-hub.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">Community</a>
-        <a href="my-orders.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">My Orders</a>
+        <a href="my-orders.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">My Orders</a> 
         <a href="cart.html" class="block py-2 px-2 rounded-md hover:bg-gray-100">My Cart</a>
         <a href="add-listing.html" class="block mt-2 text-center w-full btn-primary font-semibold px-5 py-2 rounded-full text-sm">Add Business</a>
       </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-      <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-10">
-          <h1 class="text-4xl md:text-5xl font-bold">Community Hub</h1>
-          <p class="mt-4 text-lg text-gray-600">Ask questions, find recommendations, and connect with your local community.</p>
+    <!-- Main Content for My Orders -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h1 class="text-3xl font-bold mb-8">My Orders</h1>
+        <div id="my-orders-list" class="space-y-6">
+            <!-- Orders are dynamically injected here by my-orders.js -->
         </div>
-
-        <!-- Create a Post -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 flex items-start gap-4">
-          <img id="current-user-avatar" src="" alt="Your avatar" class="w-12 h-12 rounded-full" />
-          <div class="flex-1">
-            <textarea id="new-post-textarea" class="form-textarea" rows="3" placeholder="What's on your mind? Ask for a recommendation or share something..."></textarea>
-            <div class="flex justify-end mt-4">
-              <button id="new-post-btn" class="btn-primary font-bold px-6 py-2 rounded-full">Post</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Filters -->
-        <div class="flex items-center justify-center gap-4 mb-8" id="feed-filters">
-          <button class="filter-btn active" data-sort="latest">Latest</button>
-          <button class="filter-btn" data-sort="top">Top Posts</button>
-        </div>
-
-        <!-- Community Feed (Dynamically populated by JS) -->
-        <div id="community-feed" class="space-y-6"></div>
-      </div>
     </main>
 
-    <!-- Footer -->
+       <!-- Footer -->
     <footer class="bg-gray-900 text-gray-300">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -385,43 +259,59 @@
       </button>
     </div>
 
+    <!-- External script to load orders -->
+    <script src="my-orders.js"></script>
+
+    <!-- === CORRECTED INLINE SCRIPT === -->
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const updateCartBadge = () => {
-          const badge = document.getElementById("cart-badge");
-          if (!badge) return;
-          const cart = JSON.parse(sessionStorage.getItem("bazaarCart")) || [];
-          const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-          badge.textContent = count;
-          badge.classList.toggle("active", count > 0);
-        };
-        updateCartBadge();
-        document.getElementById("mobile-menu-button").addEventListener("click", () => document.getElementById("mobile-menu").classList.toggle("hidden"));
-        const setActiveNavLink = () => {
-          // Use "index.html" as a fallback for the root path
-          const currentPage = window.location.pathname.split("/").pop() || "index.html";
-
-          // Select links from BOTH desktop and mobile menus using a single query
-          const navLinks = document.querySelectorAll("#desktop-nav-links a, #mobile-menu a");
-
-          navLinks.forEach((link) => {
-            // Get the destination page from the link's href attribute
-            const linkPage = link.getAttribute("href").split("/").pop();
-
-            // Always remove the active class first to reset the state
-            link.classList.remove("active");
-
-            // Add the active class if the link's page matches the current page
-            if (linkPage === currentPage) {
-              link.classList.add("active");
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // --- Function 1: Handle Mobile Menu ---
+            const mobileMenuButton = document.getElementById("mobile-menu-button");
+            const mobileMenu = document.getElementById("mobile-menu");
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener("click", () => {
+                    mobileMenu.classList.toggle("hidden");
+                });
             }
-          });
-        };
-        setActiveNavLink();
-      });
-    </script>
 
-    <script src="community.js" defer></script>
+            // --- Function 2: Highlight the Active Navigation Link ---
+            const setActiveNavLink = () => {
+                const currentPage = window.location.pathname.split("/").pop() || "index.html";
+                const navLinks = document.querySelectorAll("#desktop-nav-links a, #mobile-menu a");
+                navLinks.forEach((link) => {
+                    const linkPage = link.getAttribute("href").split("/").pop();
+                    link.classList.remove("active");
+                    if (linkPage === currentPage) {
+                        link.classList.add("active");
+                    }
+                });
+            };
+
+            // --- Function 3: Update Cart Badge (This was the missing piece) ---
+            const updateCartBadge = () => {
+                const badge = document.getElementById("cart-badge");
+                if (!badge) return; // Exit if the badge element isn't found
+                
+                // Read the cart data from sessionStorage
+                const cart = JSON.parse(sessionStorage.getItem("bazaarCart")) || [];
+                
+                // Calculate the total number of items
+                const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+                
+                // Update the badge text content
+                badge.textContent = count;
+                
+                // Add the 'active' class to trigger the animation if cart is not empty
+                badge.classList.toggle("active", count > 0);
+            };
+
+            // --- Run all necessary functions when the page loads ---
+            setActiveNavLink();
+            updateCartBadge();
+        });
+    </script>
+    
     <script src="chatbot.js" defer></script>
-  </body>
+</body>
 </html>
