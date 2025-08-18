@@ -425,6 +425,9 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
+        // --- THIS IS THE SECTION TO UPDATE ---
+
+        // This function updates the cart badge count. It's correct.
         const updateCartBadge = () => {
           const badge = document.getElementById("cart-badge");
           if (!badge) return;
@@ -433,14 +436,20 @@
           badge.textContent = count;
           badge.classList.toggle("active", count > 0);
         };
+
+        // This correctly handles the mobile menu button.
         const mobileMenuButton = document.getElementById("mobile-menu-button");
         const mobileMenu = document.getElementById("mobile-menu");
+        if (mobileMenuButton) {
+          mobileMenuButton.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+          });
+        }
 
-        const header = document.querySelector("header");
-        header.innerHTML = `<nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3"><a href="index.html" class="flex items-center"><img src="images/logo.webp" alt="Bazaar Odisha Logo" class="h-10"></a><div class="hidden lg:flex items-center space-x-8"><a href="index.html" class="text-gray-700 hover:text-[var(--primary-color)] font-medium">Home</a><a href="shg-marketplace.html" class="text-gray-700 hover:text-[var(--primary-color)] font-medium">SHG Marketplace</a><a href="hire-local-help.html" class="text-gray-700 hover:text-[var(--primary-color)] font-medium">Hire Local Help</a><a href="community-hub.html" class="text-gray-700 hover:text-[var(--primary-color)] font-medium">Community</a></div><div class="hidden lg:flex items-center space-x-4"><a href="cart.html" class="relative"><img src="images/cart-icon.webp" alt="Cart" class="h-6 w-6"><span id="cart-badge" class="cart-badge">0</span></a><a href="add-listing.html" class="btn-primary font-semibold px-5 py-2 rounded-full text-sm">Add Your Business</a></div><div class="lg:hidden"><button id="mobile-menu-button" class="text-gray-600 focus:outline-none"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button></div></nav><div id="mobile-menu" class="hidden lg:hidden px-4 pb-4"><a href="index.html" class="block py-2">Home</a><a href="shg-marketplace.html" class="block py-2">SHG Market</a><a href="hire-local-help.html" class="block py-2">Hire Help</a><a href="community-hub.html" class="block py-2">Community</a><a href="cart.html" class="block py-2">My Cart</a><a href="add-listing.html" class="block mt-2 text-center w-full btn-primary font-semibold px-5 py-2 rounded-full text-sm">Add Business</a></div>`;
-
-        if (mobileMenuButton) mobileMenuButton.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
         updateCartBadge();
+
+        // The line that was incorrectly overwriting the header has been removed.
+        // The rest of your script for the map, contact form, and active nav link remains the same.
 
         // Map Initialization
         const map = L.map("map").setView([20.3544, 85.8188], 15); // Patia, Bhubaneswar
@@ -455,29 +464,24 @@
           contactForm.classList.add("hidden");
           successMessage.classList.remove("hidden");
         });
+
+        // This function correctly highlights the active navigation link.
         const setActiveNavLink = () => {
-          // Use "index.html" as a fallback for the root path
           const currentPage = window.location.pathname.split("/").pop() || "index.html";
-
-          // Select links from BOTH desktop and mobile menus using a single query
           const navLinks = document.querySelectorAll("#desktop-nav-links a, #mobile-menu a");
-
           navLinks.forEach((link) => {
-            // Get the destination page from the link's href attribute
             const linkPage = link.getAttribute("href").split("/").pop();
-
-            // Always remove the active class first to reset the state
             link.classList.remove("active");
-
-            // Add the active class if the link's page matches the current page
             if (linkPage === currentPage) {
               link.classList.add("active");
             }
           });
         };
+
         setActiveNavLink();
       });
     </script>
+
     <script src="chatbot.js" defer></script>
   </body>
 </html>
